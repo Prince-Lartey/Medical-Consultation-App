@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React from "react";
 import SearchBar from "@/components/Frontend/SearchBar";
+import TransitionalText from "./TransitionalText";
+import { PillIcon } from "lucide-react";
 
     const Hero = () => {
         return (
@@ -11,12 +13,10 @@ import SearchBar from "@/components/Frontend/SearchBar";
                         <div className="w-full px-4 lg:w-5/12">
                         <div className="hero-content">
                             <h1 className="mb-5 text-4xl font-bold !leading-[1.208] text-gray-50 dark:text-white sm:text-[42px] lg:text-[40px] xl:text-5xl">
-                            Kickstart Startup Website with TailGrids
+                                Book a Session <br />with a Trusted <TransitionalText />    
                             </h1>
                             <p className="mb-8 max-w-[480px] text-base text-gray-200 dark:text-dark-6">
-                                With TailGrids, business and students thrive together.
-                                Business can perfectly match their staffing to changing demand
-                                throughout the dayed.
+                                Healthcare should be simple, not stressful. We cut through the hassle and hidden costs to bring you easy, affordable, and transparent access to doctors anytime, anywhere. No waiting rooms, no surprises, just quality care at your fingertips.
                             </p>
 
                             {/* Search bar here */}
@@ -24,42 +24,16 @@ import SearchBar from "@/components/Frontend/SearchBar";
                             {/* CTA here */}
                             <ul className="flex flex-wrap items-center mt-6">
                                 <li>
-                                    <Link href="/#" className="inline-flex items-center justify-center rounded-md bg-cyan-300 px-6 py-3 text-center text-base font-medium text-blue-950 hover:bg-cyan-500 lg:px-7" >
-                                        Get Started
+                                    <Link href="/#" className="inline-flex items-center justify-center rounded-md bg-cyan-300 px-4 py-3 text-center text-base font-medium text-blue-950 hover:bg-cyan-500 lg:px-4" >
+                                        Need a Doctor Urgently
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="/#" className="inline-flex items-center justify-center px-5 py-3 text-center text-base font-medium text-gray-50 hover:text-cyan-300 dark:text-white" >
                                         <span className="mr-2">
-                                            <svg
-                                            width="24"
-                                            height="25"
-                                            viewBox="0 0 24 25"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                            <circle cx="12" cy="12.6152" r="12" fill="#3758F9" />
-                                            <rect
-                                                x="7.99893"
-                                                y="14.979"
-                                                width="8.18182"
-                                                height="1.63636"
-                                                fill="white"
-                                            />
-                                            <rect
-                                                x="11.2717"
-                                                y="7.61523"
-                                                width="1.63636"
-                                                height="4.09091"
-                                                fill="white"
-                                            />
-                                            <path
-                                                d="M12.0898 14.1606L14.9241 11.0925H9.25557L12.0898 14.1606Z"
-                                                fill="white"
-                                            />
-                                            </svg>
+                                            <PillIcon className="flex-shrink-0 h-4 w-4"/>
                                         </span>
-                                        Download App
+                                        I need a Prescription refill
                                     </Link>
                                 </li>
                             </ul>
