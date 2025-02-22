@@ -22,6 +22,7 @@ import { PillIcon } from "lucide-react";
                             {/* Search bar here */}
                             <SearchBar />
                             {/* CTA here */}
+
                             <ul className="flex flex-wrap items-center mt-6">
                                 <li>
                                     <Link href="/#" className="inline-flex items-center justify-center rounded-md bg-cyan-300 px-4 py-3 text-center text-base font-medium text-blue-950 hover:bg-cyan-500 lg:px-4" >
@@ -37,6 +38,20 @@ import { PillIcon } from "lucide-react";
                                     </Link>
                                 </li>
                             </ul>
+
+                            <div className="py-4 flex gap-4 pt-8">
+                                <div className='flex flex-col items-center jstify-center'>
+                                    <span className="font-bold text-gray-50 text-2xl">600</span>
+                                    <span className="text-xs text-gray-400" >Active Specialists</span>
+                                </div>
+
+                                <div className="border-r border-gray-400"></div>
+
+                                <div className='flex flex-col items-center jstify-center'>
+                                    <span className="font-bold text-gray-50 text-2xl">1800</span>
+                                    <span className="text-xs text-gray-400" >Active Patients</span>
+                                </div>
+                            </div>
                         </div>
                         </div>
                         <div className="hidden px-4 lg:block lg:w-1/12"></div>
