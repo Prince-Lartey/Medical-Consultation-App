@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     return (
         <div className="bg-blue-950">
             <Navbar />
-            <div className="max-w-5xl mx-auto py-6">
+            <div className="mx-auto py-4 fixed top-20 w-full flex justify-center items-center bg-gray-200 z-50">
                 <MegaMenu />
             </div>
             {children}
