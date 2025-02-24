@@ -1,9 +1,9 @@
-import { Stethoscope } from 'lucide-react'
+import { Stethoscope, Video } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-export default function DoctorCard() {
+export default function DoctorCard({ isInPerson = false }: { isInPerson?: boolean }) {
     const timeStamps = [
         {
             time: "8:30",
@@ -32,12 +32,20 @@ export default function DoctorCard() {
     ]
 
     return (
-        <div className="border border-slate-900 py-8 px-6 inline-flex flex-col bg-white">
-            <Link href="#">
+        <div className="border border-gray-200 py-8 px-6 inline-flex flex-col bg-white hover:border-gray-400 duration-300 transition-all">
+            <Link href="/doctors/slug">
                 <h2 className='uppercase font-bold text-2xl track-widest'>Vijal Patel, PAC</h2>
-                <p className="py-3">3250 Lincoln Highway, Kendrall Park, NJ 08824</p>
+                { isInPerson && <p className="py-3">3250 Lincoln Highway, Kendrall Park, NJ 08824</p>}
                 <div className="flex items-center gap-4 py-4">
-                    <Image src="/doctor.jpg" width={512} height={512} alt="Doctor" className="w-24 h-24 rounded-full object-cover mr-2" />
+                    <div className="relative">
+                        <Image src="/doctor.jpg" width={512} height={512} alt="Doctor" className="w-24 h-24 rounded-full object-cover mr-2" />
+                        {
+                            !isInPerson && <p className="absolute bottom-0 right-1 bg-blue-200 w-10 h-10 flex items-center justify-center rounded-full text-blue-700">
+                            <Video className="w-6 h-6"/>
+                        </p>
+                        }
+                        
+                    </div>
                     <div className="flex flex-col gap-2">
                         <p className="flex items-center">
                             <Stethoscope className="w-4 h-4 mr-2 flex-shrink-0"/> 
@@ -55,10 +63,10 @@ export default function DoctorCard() {
                 <div className="py-3 grid grid-cols-3 gap-4">
                     {timeStamps.slice(0, 5).map((item, index) => {
                         return (
-                            <Link href="#" key={index} className="bg-blue-950 text-white py-2 px-4 rounded-lg">{item.time} {item.period}</Link>
+                            <Link href="#" key={index} className="bg-blue-950 text-white p-2 rounded-lg text-center text-sm">{item.time} {item.period}</Link>
                         )
                     })}
-                    <Link href="#" className="bg-gray-200 text-blue-950 py-2 px-4 rounded-lg">More times</Link>
+                    <Link href="/doctors/slug" className="bg-gray-200 text-blue-950 p-2 rounded-lg text-center text-sm truncate">More times</Link>
                 </div>
             </div>
         </div>
