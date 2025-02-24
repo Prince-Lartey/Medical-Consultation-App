@@ -18,9 +18,7 @@ const TabbedSection = () => {
                     </div>
                 </div>
                 
-                <div className="border">
-                    <TabbedItems />
-                </div>
+                <TabbedItems />
             </div>
         </section>
     );
