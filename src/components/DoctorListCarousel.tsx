@@ -1,7 +1,4 @@
 "use client";
-import { BaggageClaim } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";

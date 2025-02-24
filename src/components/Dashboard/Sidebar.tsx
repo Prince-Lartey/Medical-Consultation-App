@@ -1,4 +1,4 @@
-import { BarChart, Folder, Grid2X2, Home, Plus, Settings } from "lucide-react";
+import { Folder, Grid2X2, Home, Plus, Settings } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";

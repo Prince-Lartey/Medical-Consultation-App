@@ -2,7 +2,6 @@ import React from 'react'
 import SectionHeading from './SectionHeading'
 import ToggleButton from './ToggleButton'
 import Link from 'next/link'
-import DoctorCard from './DoctorCard'
 import { Map } from 'lucide-react'
 import DoctorListCarousel from './DoctorListCarousel'
 

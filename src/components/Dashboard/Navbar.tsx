@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { Avatar, Dropdown } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { AlignJustify, Bell, Mail, Search } from "lucide-react";
