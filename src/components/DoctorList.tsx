@@ -2,6 +2,7 @@ import React from 'react'
 import SectionHeading from './SectionHeading'
 import ToggleButton from './ToggleButton'
 import Link from 'next/link'
+import DoctorCard from './DoctorCard'
 
 export default function DoctorList() {
     return (
@@ -11,6 +12,9 @@ export default function DoctorList() {
                 <div className="py-4 flex items-center justify-between">
                     <ToggleButton />
                     <Link href="#" className="py-3 px-6 border border-blue-950 bg-gray-50 hover:bg-blue-950 hover:text-gray-50 hover:border-gray-50">See All</Link>
+                </div>
+                <div className="py-6">
+                    <DoctorCard />
                 </div>
             </div>
         </div>
