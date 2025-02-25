@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             {/* <div className="mx-auto py-4 fixed top-20 w-full flex justify-center items-center bg-gray-200 z-50">
                 <MegaMenu />
             </div> */}
-            <div className="mt-[145px]">
+            <div className="mt-[80px]">
                 {children}
             </div>
         </div>
