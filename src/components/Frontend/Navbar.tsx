@@ -10,6 +10,7 @@ import {
     Bars3Icon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -21,9 +22,9 @@ export default function Navbar() {
             <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
                 <img
-                alt=""
-                src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                className="h-8 w-auto"
+                    alt=""
+                    src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+                    className="h-8 w-auto"
                 />
             </a>
             </div>
@@ -49,7 +50,7 @@ export default function Navbar() {
                 </a>
             </PopoverGroup>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                <a href="#" className="text-sm/6 font-bold text-gray-900 bg-cyan-300 py-3 px-6 rounded-md">
+                <a href="/login" className="text-sm/6 font-bold text-gray-900 bg-cyan-300 py-3 px-6 rounded-md">
                     Log in <span aria-hidden="true">&rarr;</span>
                 </a>
             </div>
@@ -89,12 +90,12 @@ export default function Navbar() {
                         </a>
                     </div>
                 <div className="py-6">
-                    <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-50 hover:bg-gray-50"
+                    <Link
+                        href="/login"
+                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-50 hover:bg-gray-50"
                     >
-                    Log in
-                    </a>
+                        Log in
+                    </Link>
                 </div>
                 </div>
             </div>
