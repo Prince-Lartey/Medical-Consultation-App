@@ -6,7 +6,7 @@ import { Button } from './ui/button'
 
 export default function FixedBookButton() {
     return (
-        <div className="fixed bottom-0 w-full shadow-2xl py-8 px-6 rounded-md border border-gray-200 z-50">
+        <div className="fixed bottom-0 w-full shadow-2xl py-8 px-6 rounded-md border border-gray-200 z-50 bg-white">
             <div className="max-w-4xl mx-auto flex justify-between">
                 <div className="w-full">
                     <p className="text-xl font-bold">GHS 1000</p>
