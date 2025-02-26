@@ -15,7 +15,7 @@ export default function SubmitButton({ title, buttonType="submit", isLoading=fal
                 <button
                     type={buttonType}
                     disabled
-                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 items-center "
+                    className="flex w-full justify-center rounded-md bg-indigo-400 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 items-center "
                 >
                     <Loader className="w-4 h-4 mr-2 flex-shrink-0 animate-spin"/> {loadingTitle}
                 </button>
