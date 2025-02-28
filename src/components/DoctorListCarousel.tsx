@@ -4,7 +4,11 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import DoctorCard from "./DoctorCard";
 
-export default function DoctorListCarousel({ doctors, isInPerson }: { doctors: string; isInPerson?: boolean }) {
+interface Doctor {
+    name: string;
+}
+
+export default function DoctorListCarousel({ doctors, isInPerson }: { doctors: Doctor[]; isInPerson?: boolean }) {
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
@@ -42,7 +46,7 @@ export default function DoctorListCarousel({ doctors, isInPerson }: { doctors: s
             itemClass="px-4"
         >
             {
-                doctors.map((doctor: string, index: number) => {
+                doctors.map((doctor: Doctor, index: number) => {
                     return <DoctorCard key={index} isInPerson={isInPerson} />
                 })
             }
