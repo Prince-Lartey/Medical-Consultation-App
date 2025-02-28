@@ -70,7 +70,6 @@ export default function VerifyTokenForm({
             setShowNotification(true);
             setLoading(false);
         }
-        console.log(userInputToken);
     }
 
     return (

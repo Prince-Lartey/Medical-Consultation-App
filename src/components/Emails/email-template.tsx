@@ -39,7 +39,7 @@ export const EmailTemplate = ({
                 />
     
                 <Text style={title}>
-                    <strong>@{firstName}</strong>, thank you for Joining Us
+                    <strong>@{firstName}</strong>, thank you for joining Us
                 </Text>
     
                 <Section style={section}>

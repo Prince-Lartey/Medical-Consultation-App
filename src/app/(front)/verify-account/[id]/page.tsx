@@ -1,9 +1,13 @@
 import VerifyTokenForm from "@/components/Frontend/VerifyTokenForm";
 import { getUserById } from "../../../../../actions/users";
 
-export default async function VerifyAccount({ params }: { params: { id: string } }) {
-    //Get a User
-    const user = await getUserById(params.id);
+export default async function VerifyAccount({
+    params: { id },
+}: {
+    params: { id: string };
+}) {
+  //Get a User
+    const user = await getUserById(id);
     const userToken = user?.token;
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
@@ -13,7 +17,7 @@ export default async function VerifyAccount({ params }: { params: { id: string }
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
                             Verify Account
                         </h1>
-                        <VerifyTokenForm userToken={userToken} id={params.id} />
+                        <VerifyTokenForm userToken={userToken} id={id} />
                     </div>
                 </div>
             </div>
