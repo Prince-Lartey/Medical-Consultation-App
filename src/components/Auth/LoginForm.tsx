@@ -5,14 +5,44 @@ import SubmitButton from "../FormInputs/SubmitButton";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { LoginInputProps } from "../../../types/types";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { AlertCircle } from "lucide-react";
 
 export default function LoginForm() {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<LoginInputProps>()
     const [isLoading, setIsLoading] = useState(false)
+    const [showNotification, setShowNotification] = useState(false);
+    const router = useRouter();
 
-    const onSubmit = (data: LoginInputProps) => {
-        console.log(data)
-        reset()
+    async function onSubmit (data: LoginInputProps) {
+        try {
+            setIsLoading(true);
+            console.log("Attempting to sign in with credentials:", data);
+            const loginData = await signIn("credentials", {
+                ...data,
+                redirect: false,
+            });
+            console.log("SignIn response:", loginData);
+            if (loginData?.error) {
+                setIsLoading(false);
+                toast.error("Sign-in error: Check your credentials");
+                setShowNotification(true);
+            } else {
+                // Sign-in was successful
+                setShowNotification(false);
+                reset();
+                setIsLoading(false);
+                toast.success("Login Successful");
+                router.push("/dashboard");
+            }
+        } catch (error) {
+            setIsLoading(false);
+            console.error("Network Error:", error);
+            toast.error("Its seems something is wrong with your Network");
+        }
     }
         
     return (
@@ -30,6 +60,15 @@ export default function LoginForm() {
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                    {showNotification && (
+                        <Alert variant="destructive">
+                            <AlertCircle className="h-4 w-4" />
+                            <AlertTitle>Sign-in error!</AlertTitle>
+                            <AlertDescription>
+                                Please check your credentials
+                            </AlertDescription>
+                        </Alert>
+                    )}
                     <div>
                         <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                             Email address

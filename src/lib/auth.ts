@@ -33,6 +33,7 @@ export const authOptions: NextAuthOptions = {
                         throw { error: "No Inputs Found", status: 401 };
                     }
                     console.log("Pass 1 checked ");
+
                     //Check if user exists
                     const existingUser = await prismaClient.user.findUnique({
                         where: { email: credentials.email },
@@ -40,7 +41,7 @@ export const authOptions: NextAuthOptions = {
         
                     if (!existingUser) {
                         console.log("No user found");
-                        throw { error: "No user found", status: 401 };
+                        throw { error: "No user found", status: 404 };
                     }
     
                     console.log("Pass 2 Checked");
@@ -50,8 +51,8 @@ export const authOptions: NextAuthOptions = {
                     if (existingUser && existingUser.password) {
                         // if user exists and password exists
                         passwordMatch = await compare(
-                        credentials.password,
-                        existingUser.password
+                            credentials.password,
+                            existingUser.password
                         );
                     }
                     if (!passwordMatch) {
