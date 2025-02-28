@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { HiInformationCircle } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -112,7 +111,9 @@ export default function VerifyTokenForm({
                         </FormItem>
                     )}
                 />
-                <Button type="submit" className="flex item-center">Submit</Button>
+                <Button type="submit" disabled={loading} className="flex items-center">
+                    {loading ? <Loader className="w-6 h-6" /> : "Submit"}
+                </Button>
             </form>
         </Form>
     );
