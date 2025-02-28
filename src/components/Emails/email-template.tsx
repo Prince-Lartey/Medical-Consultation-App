@@ -32,14 +32,14 @@ export const EmailTemplate = ({
             <Body style={main}>
                 <Container style={container}>
                 <Img
-                    src={`${baseUrl}/static/logo.png`}
+                    src={`${baseUrl}/PriMed1.png`}
                     width="32"
                     height="32"
                     alt="Claridy"
                 />
     
                 <Text style={title}>
-                    <strong>@{firstName}</strong>, thank you for joining Us
+                    <strong>@{firstName}</strong>, Thank You for Joining Us
                 </Text>
     
                 <Section style={section}>
@@ -59,7 +59,7 @@ export const EmailTemplate = ({
                 </Text>
 
                 <Text style={footer}>
-                    GitHub, Inc. ・88 Colin P Kelly Jr Street ・San Francisco, CA 94107
+                PriMed, Inc. ・Kofi Atta Annan Street ・Accra, Ghana
                 </Text>
             </Container>
         </Body>

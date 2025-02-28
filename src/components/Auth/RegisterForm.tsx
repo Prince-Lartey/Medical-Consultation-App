@@ -21,7 +21,7 @@ export default function RegisterForm({role="USER"}: {role?: UserRole}) {
         try {
             const user = await createUser(data)
             if (user && user.status === 200) {
-                console.log(user.data)
+                // console.log(user.data)
                 reset()
                 toast.success("User Created Sucessfully!")
                 setIsLoading(false)
