@@ -3,7 +3,7 @@ import { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import type { Adapter } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from "bcrypt";
+import { compare } from "bcryptjs";
 import { prismaClient } from "./db";
 // more providers at https://next-auth.js.org/providers
 export const authOptions: NextAuthOptions = {
@@ -38,6 +38,7 @@ export const authOptions: NextAuthOptions = {
                     const existingUser = await prismaClient.user.findUnique({
                         where: { email: credentials.email },
                     });
+                    console.timeLog("Database query")
         
                     if (!existingUser) {
                         console.log("No user found");
