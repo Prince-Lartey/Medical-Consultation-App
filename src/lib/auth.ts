@@ -85,7 +85,7 @@ export const authOptions: NextAuthOptions = {
                 where: { email: token?.email ?? "" },
             });
             if (!dbUser) {
-                token.id = user!.id;
+                token.id = user?.id;
                 return token;
             }
             return {
