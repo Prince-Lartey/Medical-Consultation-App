@@ -26,13 +26,15 @@ export default function RegisterForm({role="USER"}: {role?: UserRole}) {
                 toast.success("User Created Sucessfully!")
                 setIsLoading(false)
             }else {
+                toast.error(user.error);
                 console.log(user.error)
             }
             
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsLoading(false);
         }
-        
     }
 
     return (
