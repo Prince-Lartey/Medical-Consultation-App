@@ -1,4 +1,4 @@
-import { HelpCircle } from 'lucide-react';
+import { Check, HelpCircle } from 'lucide-react';
 import React from 'react'
 import {
     Tooltip,
@@ -16,46 +16,35 @@ export default function Pricing() {
             fee: 5,
             isMostPop: false,
             features: [
-                "Curabitur faucibus",
-                "massa ut pretium maximus",
-                "Sed posuere nisi",
-                "Pellentesque eu nibh et neque",
-                "Suspendisse a leo",
-                "Praesent quis venenatis ipsum",
-                "Duis non diam vel tortor",
-
+                "Manage up to 50 appointments per month",
+                "Basic patient record management",
+                "Email notifications for appointments",
             ],
         },
         {
-            name: "Startup",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            price: 300,
+            name: "Professional",
+            desc: "Perfect for small to medium-sized clinics.",
+            price: 500,
             fee: 2,
             isMostPop: true,
             features: [
-                "Curabitur faucibus",
-                "massa ut pretium maximus",
-                "Sed posuere nisi",
-                "Pellentesque eu nibh et neque",
-                "Suspendisse a leo",
-                "Praesent quis venenatis ipsum",
-                "Duis non diam vel tortor",
+                "Unlimited appoints",
+                "Advanced patient record management",
+                "SMS reminders for appointment",
+                "Customizable clinic profile",
             ],
         },
         {
             name: "Enterprise",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            price: 500,
+            desc: "Tailored for large healthcare institutions.",
+            price: 1000,
             fee: 0,
             isMostPop: false,
             features: [
-                "Curabitur faucibus",
-                "massa ut pretium maximus",
-                "Sed posuere nisi",
-                "Pellentesque eu nibh et neque",
-                "Suspendisse a leo",
-                "Praesent quis venenatis ipsum",
-                "Duis non diam vel tortor",
+                "All features from the Standard Plan",
+                "Multi-provider support",
+                "Priority customer support",
+                "Integration with electronic health records (EHR) systems",
             ],
         },
     ];
@@ -83,7 +72,7 @@ export default function Pricing() {
                                     ) : ""
                                 }
                                 <div className="p-8 space-y-4 border-b">
-                                    <span className='text-indigo-600 font-medium'>
+                                    <span className='text-indigo-600 font-medium uppercase tracking-widest'>
                                         {item.name}
                                     </span>
                                     <div className='text-gray-800 text-3xl font-semibold'>
@@ -116,16 +105,7 @@ export default function Pricing() {
                                     {
                                         item.features.map((featureItem, idx) => (
                                             <li key={idx} className='flex items-center gap-5'>
-                                                <svg
-                                                    xmlns='http://www.w3.org/2000/svg'
-                                                    className='h-5 w-5 text-indigo-600'
-                                                    viewBox='0 0 20 20'
-                                                    fill='currentColor'>
-                                                    <path
-                                                        fill-rule='evenodd'
-                                                        d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
-                                                        clip-rule='evenodd'></path>
-                                                </svg>
+                                                <Check className='h-5 w-5 text-indigo-600 flex flex-shrink-0'/>
                                                 {featureItem}
                                             </li>
                                         ))

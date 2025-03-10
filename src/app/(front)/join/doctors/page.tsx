@@ -103,8 +103,8 @@ export default function page() {
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
                     <Image src="/bg1.jpg" alt="" width={1000} height={667} className="w-full hidden sm:block"/>
                     <div className="">
-                        <h2 className="sm:text-4xl text-2xl">Join PriMed to increase your{" "} <span className="text-blue-600 font-semibold">revenue</span>{" "} today.</h2>
-                        <div className="py-6">
+                        <h2 className="sm:text-3xl text-2xl">Join PriMed to increase your{" "} <span className="text-blue-600 font-semibold">revenue</span>{" "} today.</h2>
+                        {/* <div className="py-6">
                             {
                                 steps.map((step, index) => {
                                     return (
@@ -115,8 +115,8 @@ export default function page() {
                                     )
                                 })
                             }
-                        </div>
-                        <div className='grid grid-cols-2 gap-4'>
+                        </div> */}
+                        <div className='grid grid-cols-2 gap-4 py-6'>
                             {
                                 cards.map((card, index) => {
                                     return (
