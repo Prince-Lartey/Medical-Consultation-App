@@ -1,4 +1,5 @@
 import CustomButton from '@/components/CustomButton'
+import CustomAccordion, { FAQItems } from '@/components/Frontend/CustomAccordion'
 import { CheckCheck, CheckIcon } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
@@ -44,9 +45,37 @@ export default function page() {
         }
     ]
 
+    const faqs: FAQItems[] = [
+        {
+            qn: "How do I sign up on PriMed?",
+            ans: <div>You can sign up by visiting our website and clicking on the {" "} <CustomButton title="Signup" href="/register?role='DOCTOR" className="bg-blue-600 hover:bg-blue-800" />{" "}. Follow the instructions to create your account.</div>
+        },
+        {
+            qn: "Can I access PriMed on multiple devices?",
+            ans: "Yes, you can access the app from any device with internet access. Simply log in using your credentials"
+        },
+        {
+            qn: "Is my data secure on PriMed?",
+            ans: "Absolutely. We prioritize the security and privacy of your data. Our platform employs industry-standard encryption and security protocols to safeguard your information."
+        },
+        {
+            qn: "How can I reset my password?",
+            ans: "To reset your password, go to login page and clisk on the 'Forgot Password' link. Follow the prompts and reset your password."
+        },
+        {
+            qn: "Do you offer customer support?",
+            ans: "Yes, we have a dedicated customer support team available to assist you with any questions or issues you may encounter. You can reach out to us via email or through support portal."
+        },
+        {
+            qn: "Can I upgrade or downgrade my plan?",
+            ans: "Certainly. You can upgrade or dowgrade your plan at any time. Simply log in to your account and navigate to the subscription settings to make changes."
+        },
+        
+    ]
+
     return (
         <div className="min-h-screen">
-            <section className="py-16 px-4">
+            <section className="py-12 px-4">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="">
                         <h2 className="sm:text-[3rem] text-[1.5rem] leading-[3.5rem]">Build a thriving{" "} <span className="text-blue-600 font-semibold">direct-pay</span>{" "} practice with PriMed</h2>
@@ -69,7 +98,7 @@ export default function page() {
                 </div>
             </section>
 
-            <section className="py-16 px-4">
+            <section className="py-12 px-4">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
                     <Image src="/bg1.jpg" alt="" width={1000} height={667} className="w-full hidden sm:block"/>
                     <div className="">
@@ -102,6 +131,12 @@ export default function page() {
                         
                         
                     </div>
+                </div>
+            </section>
+
+            <section className="py-12 px-4">
+                <div className="max-w-6xl mx-auto gap-4">
+                    <CustomAccordion FAQS={faqs}/>
                 </div>
             </section>
         </div>
