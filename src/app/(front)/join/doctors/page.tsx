@@ -1,5 +1,6 @@
 import CustomButton from '@/components/CustomButton'
 import CustomAccordion, { FAQItems } from '@/components/Frontend/CustomAccordion'
+import Pricing from '@/components/Frontend/Pricing'
 import { CheckCheck, CheckIcon } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
@@ -131,6 +132,12 @@ export default function page() {
                         
                         
                     </div>
+                </div>
+            </section>
+
+            <section className="py-12 px-4">
+                <div className="max-w-6xl mx-auto gap-4">
+                    <Pricing />
                 </div>
             </section>
 
