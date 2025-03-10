@@ -1,7 +1,7 @@
 import CustomButton from '@/components/CustomButton'
 import CustomAccordion, { FAQItems } from '@/components/Frontend/CustomAccordion'
 import Pricing from '@/components/Frontend/Pricing'
-import { CheckCheck, CheckIcon } from 'lucide-react'
+import { CheckIcon } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 
@@ -11,12 +11,6 @@ export default function page() {
         "PriMed brings patients to you",
         "Seamless e-prescribing experience",
         "Integrated clinical note-taking"
-    ]
-
-    const steps = [
-        "List your Practice",
-        "Create competitive offerings",
-        "Start seeing patients"
     ]
 
     const cards = [
