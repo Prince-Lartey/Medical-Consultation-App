@@ -98,18 +98,6 @@ export default function page() {
                     <Image src="/bg1.jpg" alt="" width={1000} height={667} className="w-full hidden sm:block"/>
                     <div className="">
                         <h2 className="sm:text-3xl text-2xl">Join PriMed to increase your{" "} <span className="text-blue-600 font-semibold">revenue</span>{" "} today.</h2>
-                        {/* <div className="py-6">
-                            {
-                                steps.map((step, index) => {
-                                    return (
-                                        <p key={index} className="flex items-center py-2">
-                                            <CheckCheck className="h-4 w-4 text-blue-500 flex-shrink-0 mr-2" />
-                                            {step}
-                                        </p>
-                                    )
-                                })
-                            }
-                        </div> */}
                         <div className='grid grid-cols-2 gap-4 py-6'>
                             {
                                 cards.map((card, index) => {
