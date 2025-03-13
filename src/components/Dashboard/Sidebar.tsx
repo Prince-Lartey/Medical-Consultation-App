@@ -26,7 +26,7 @@ export default function Sidebar() {
         },
         {
             name: "Products",
-            path: "/dashboard/appointments",
+            path: "/dashboard/products",
             icon: Package,
         },
         {

@@ -22,6 +22,7 @@ import Link from "next/link";
 import { Badge } from "../ui/badge";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import ModeToggle from "../ModeToggle";
 
 
 export default function Navbar() {
@@ -117,6 +118,9 @@ export default function Navbar() {
                     </div>
                 </form>
             </div>
+
+            <ModeToggle />
+            
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="secondary" size="icon" className="rounded-full">
