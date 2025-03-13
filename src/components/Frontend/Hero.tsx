@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import SearchBar from "@/components/Frontend/SearchBar";
 import TransitionalText from "./TransitionalText";
 import { PillIcon } from "lucide-react";
+import { CommandMenu } from "../command-menu";
 
     const Hero = () => {
         return (
@@ -20,7 +20,10 @@ import { PillIcon } from "lucide-react";
                             </p>
 
                             {/* Search bar here */}
-                            <SearchBar />
+                            {/* <SearchBar /> */}
+                            <div className="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
+                                <CommandMenu />
+                            </div>
                             {/* CTA here */}
 
                             <ul className="flex flex-wrap items-center mt-6">
