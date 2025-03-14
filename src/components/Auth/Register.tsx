@@ -10,7 +10,6 @@ import { createUser } from "../../../actions/users";
 import toast from "react-hot-toast";
 import TextInput from "../FormInputs/TextInput";
 import { Button } from "../ui/button";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function Register({role="USER"}: {role?: UserRole}) {

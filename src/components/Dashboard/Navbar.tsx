@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CircleUser, Home, LineChart, Menu, Package, Package2, Search, ShoppingCart, Users } from "lucide-react";
+import { Home, LineChart, Menu, Package, Package2, Search, ShoppingCart, Users } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -23,10 +23,24 @@ import { Badge } from "../ui/badge";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import ModeToggle from "../ModeToggle";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/ui/avatar"
+import { Session } from "next-auth";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
+export default function Navbar({session}: {session: Session}) {
+    const user = session.user
+    const router = useRouter()
 
-export default function Navbar() {
-    
+    async function handleLogout() {
+        await signOut()
+        router.push("/login")
+    }
+
     return (
         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
             <Sheet>
@@ -47,7 +61,7 @@ export default function Navbar() {
                             className="flex items-center gap-2 text-lg font-semibold"
                         >
                             <Package2 className="h-6 w-6" />
-                            <span className="sr-only">Acme Inc</span>
+                            <span className="sr-only">PriMed Inc</span>
                         </Link>
                         <Link
                             href="#"
@@ -121,20 +135,24 @@ export default function Navbar() {
 
             <ModeToggle />
             
-            <DropdownMenu>
+            <DropdownMenu >
                 <DropdownMenuTrigger asChild>
-                    <Button variant="secondary" size="icon" className="rounded-full">
-                        <CircleUser className="h-5 w-5" />
-                        <span className="sr-only">Toggle user menu</span>
-                    </Button>
+                    <Avatar className="cursor-pointer">
+                        {user.image ? (
+                            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                        ) : (
+                            <AvatarFallback>CN</AvatarFallback>
+                        )}
+                    </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+                    <DropdownMenuLabel className="text-sm text-gray-500">{user.email}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>Settings</DropdownMenuItem>
                     <DropdownMenuItem>Support</DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Logout</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleLogout()}>Logout</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         </header>
