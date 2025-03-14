@@ -7,7 +7,6 @@ import ModeToggle from "./ModeToggle"
 
 import { MainNav } from "./main-nav"
 import { CommandMenu } from "./command-menu"
-import { LogIn } from "lucide-react"
 
 export function SiteHeader() {
     return (
@@ -22,7 +21,7 @@ export function SiteHeader() {
                 <nav className="flex items-center gap-4">
                     <Button>
                         <Link href="/login">
-                            <LogIn className="mr-2 h-4 w-4" /> Login
+                            Login
                         </Link>
                     </Button>
                     <ModeToggle />

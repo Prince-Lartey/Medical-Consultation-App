@@ -11,22 +11,23 @@ import toast from "react-hot-toast";
 import TextInput from "../FormInputs/TextInput";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Register({role="USER"}: {role?: UserRole}) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<RegisterInputProps>()
     const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
 
     async function onSubmit(data: RegisterInputProps) {
         setIsLoading(true)
-
         data.role = role
         
         try {
             const user = await createUser(data)
             if (user && user.status === 200) {
-                // console.log(user.data)
                 reset()
-                toast.success("User Created Sucessfully!")
+                toast.success("A verification code has been sent to your email!")
+                router.push(`/verify-account/${user.data?.id}`)
                 setIsLoading(false)
             }else {
                 toast.error(user.error);
@@ -54,7 +55,7 @@ export default function Register({role="USER"}: {role?: UserRole}) {
                 <TextInput 
                     label="Full Name"
                     register={register}
-                    name="fullname"
+                    name="fullName"
                     type="text"
                     errors={errors}
                     placeholder="eg: Prince Lartey"
@@ -84,7 +85,7 @@ export default function Register({role="USER"}: {role?: UserRole}) {
                     placeholder="******"
                 />
                 
-                <SubmitButton title="Login" buttonType="submit" loadingTitle="Logging In..." isLoading={isLoading}/>
+                <SubmitButton title="Create Account" buttonType="submit" loadingTitle="Please wait..." isLoading={isLoading}/>
                 <Button variant="outline" className="w-full">
                     Sign up with Google
                 </Button>

@@ -84,6 +84,7 @@ export default function Login() {
                     type="password"
                     errors={errors}
                     placeholder="******"
+                    page="login"
                 />
                 
                 <SubmitButton title="Login" buttonType="submit" loadingTitle="Logging In..." isLoading={isLoading}/>

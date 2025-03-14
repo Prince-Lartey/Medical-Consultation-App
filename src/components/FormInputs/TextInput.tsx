@@ -9,14 +9,15 @@ type TextInputProps = {
     name: string;
     errors: any;
     type?: string
-    placeholder: string
+    placeholder?: string
+    page?: string
 }
 
-export default function TextInput({ label, register, name, errors, type="text", placeholder }: TextInputProps) {
+export default function TextInput({ label, register, name, errors, type="text", placeholder, page }: TextInputProps) {
     return (
         <div>
             <div className="grid gap-2">
-                {type === "password" ? (
+                {type === "password" && page === "login" ? (
                     <div className="flex items-center">
                         <Label htmlFor={`${name}`}>{label}</Label>
                         <Link

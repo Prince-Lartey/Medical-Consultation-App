@@ -77,9 +77,9 @@ export default function VerifyTokenForm({
                 {showNotification && (
                     <Alert variant="destructive">
                         <AlertCircle className="h-4 w-4" />
-                        <AlertTitle>Wrong Token!</AlertTitle>
+                        <AlertTitle>Wrong Code!</AlertTitle>
                         <AlertDescription>
-                            Please Check the token and Enter again
+                            Please Check the code and Enter again
                         </AlertDescription>
                     </Alert>
                 )}
@@ -88,15 +88,15 @@ export default function VerifyTokenForm({
                     name="token"
                     render={({ field }) => (
                         <FormItem className="">
-                            <FormLabel>Enter Token Here</FormLabel>
-                            <FormControl>
-                                <InputOTP maxLength={6} {...field}>
+                            <FormLabel>Enter Code Here</FormLabel>
+                            <FormControl >
+                                <InputOTP maxLength={6} {...field} >
                                     <InputOTPGroup>
                                         <InputOTPSlot index={0} />
                                         <InputOTPSlot index={1} />
                                         <InputOTPSlot index={2} />
                                     </InputOTPGroup>
-                                <InputOTPSeparator />
+                                    <InputOTPSeparator />
                                     <InputOTPGroup>
                                         <InputOTPSlot index={3} />
                                         <InputOTPSlot index={4} />
@@ -104,15 +104,12 @@ export default function VerifyTokenForm({
                                     </InputOTPGroup>
                                 </InputOTP>
                             </FormControl>
-                            <FormDescription>
-                                Please enter the 6-figure token sent to your email.
-                            </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
                 <Button type="submit" disabled={loading} className="flex items-center">
-                    {loading ? <Loader className="w-6 h-6" /> : "Submit"}
+                    {loading ? <span><Loader className="w-6 h-6" /> Verifying...</span> : "Submit"}
                 </Button>
             </form>
         </Form>
