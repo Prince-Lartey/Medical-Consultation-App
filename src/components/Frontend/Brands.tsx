@@ -42,8 +42,8 @@ const brandsData: Brand[] = [
 
 const Brands: React.FC = () => {
     return (
-        <section className="bg-slate-200 py-10 lg:py-[50px] dark:bg-dark">
-            <h2 className="text-center pb-2">Trusted By:</h2>
+        <section className="bg-slate-200 text-slate-800 dark:text-slate-200 py-10 lg:py-[50px] dark:bg-dark ">
+            <h2 className="text-center pb-2 scroll-m-20 text-xl font-semibold tracking-tight">Trusted By:</h2>
             <div className="container mx-auto">
                 <div className="-mx-4 flex flex-wrap">
                     <div className="w-full px-4">
