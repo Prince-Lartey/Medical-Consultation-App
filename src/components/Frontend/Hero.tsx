@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import TransitionalText from "./TransitionalText";
 import { PillIcon } from "lucide-react";
-import { CommandMenu } from "../command-menu";
+// import { CommandMenu } from "../command-menu";
 
     const Hero = () => {
         return (
@@ -22,7 +22,7 @@ import { CommandMenu } from "../command-menu";
                             {/* Search bar here */}
                             {/* <SearchBar /> */}
                             <div className="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
-                                <CommandMenu />
+                                {/* <CommandMenu /> */}
                             </div>
                             {/* CTA here */}
 

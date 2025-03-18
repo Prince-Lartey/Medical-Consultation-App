@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 // import { siteConfig } from "../../config/site"
 import ModeToggle from "./ModeToggle"
 import { MainNav } from "./main-nav"
-import { CommandMenu } from "./command-menu"
+// import { CommandMenu } from "./command-menu"
 import { Session } from "next-auth"
 import { useRouter } from "next/navigation"
 import { signOut } from "next-auth/react"
@@ -40,7 +40,7 @@ export function SiteHeader({session}: {session: Session | null}) {
                 <MobileNav />
                 <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
                 <div className="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
-                    <CommandMenu />
+                    {/* <CommandMenu /> */}
                 </div>
                 <nav className="flex items-center gap-4">
                     {session && session.user && user?.email ? (
