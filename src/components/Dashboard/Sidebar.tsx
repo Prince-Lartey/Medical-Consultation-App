@@ -1,6 +1,6 @@
 "use client"
 
-import { Bell, Home, LineChart, Package, Package2, Settings, ShoppingCart, Users } from "lucide-react";
+import { Bell, Globe, HeartPulse, Home, LineChart, Package, Settings, ShoppingCart, Users } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
@@ -50,6 +50,11 @@ export default function Sidebar() {
             path: "/dashboard/settings",
             icon: Settings,
         },
+        {
+            name: "Online",
+            path: "/",
+            icon: Globe,
+        },
     ]
 
     return (
@@ -57,8 +62,8 @@ export default function Sidebar() {
                 <div className="flex h-full max-h-screen flex-col gap-2">
                     <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                         <Link href="/" className="flex items-center gap-2 font-semibold">
-                            <Package2 className="h-6 w-6" />
-                            <span className="">Acme Inc</span>
+                            <HeartPulse className="h-6 w-6" />
+                            <span className="">PriMed Inc</span>
                         </Link>
                         <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
                             <Bell className="h-4 w-4" />

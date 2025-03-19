@@ -43,7 +43,7 @@ export default function page() {
     const faqs: FAQItems[] = [
         {
             qn: "How do I sign up on PriMed?",
-            ans: <div>You can sign up by visiting our website and clicking on the {" "} <CustomButton title="Signup" href="/register?role='DOCTOR" className="bg-blue-600 hover:bg-blue-800" />{" "}. Follow the instructions to create your account.</div>
+            ans: <div>You can sign up by visiting our website and clicking on the {" "} <CustomButton title="Signup" href="/register?role='DOCTOR" className="bg-blue-600 hover:bg-blue-800 dark:text-gray-200" />{" "}. Follow the instructions to create your account</div>
         },
         {
             qn: "Can I access PriMed on multiple devices?",
@@ -51,19 +51,19 @@ export default function page() {
         },
         {
             qn: "Is my data secure on PriMed?",
-            ans: "Absolutely. We prioritize the security and privacy of your data. Our platform employs industry-standard encryption and security protocols to safeguard your information."
+            ans: "Absolutely. We prioritize the security and privacy of your data. Our platform employs industry-standard encryption and security protocols to safeguard your information"
         },
         {
             qn: "How can I reset my password?",
-            ans: "To reset your password, go to login page and clisk on the 'Forgot Password' link. Follow the prompts and reset your password."
+            ans: "To reset your password, go to login page and clisk on the 'Forgot Password' link. Follow the prompts and reset your password"
         },
         {
             qn: "Do you offer customer support?",
-            ans: "Yes, we have a dedicated customer support team available to assist you with any questions or issues you may encounter. You can reach out to us via email or through support portal."
+            ans: "Yes, we have a dedicated customer support team available to assist you with any questions or issues you may encounter. You can reach out to us via email or through support portal"
         },
         {
             qn: "Can I upgrade or downgrade my plan?",
-            ans: "Certainly. You can upgrade or dowgrade your plan at any time. Simply log in to your account and navigate to the subscription settings to make changes."
+            ans: "Certainly. You can upgrade or dowgrade your plan at any time. Simply log in to your account and navigate to the subscription settings to make changes"
         },
         
     ]
@@ -75,7 +75,7 @@ export default function page() {
                     <div className="">
                         <h2 className="sm:text-[3rem] text-[1.5rem] leading-[3.5rem]">Build a thriving{" "} <span className="text-blue-600 font-semibold">direct-pay</span>{" "} practice with PriMed</h2>
                         <p className="py-4">Welcome to PriMed, where connecting with patients is made easier than ever before. Our platform streamlines the process of managing appointments, providing care remotely, and keeping track of patient records. Join us in revolutionalizing the way you interact with your patients and providing top-notch healthcare services.</p>
-                        <CustomButton title="List your Service" href="#" className="bg-blue-950" />
+                        <CustomButton title="List your Service" href="#" className="bg-blue-950 dark:text-black dark:bg-gray-300 dark:hover:bg-gray-400" />
                         <div className="py-6">
                             {
                                 features.map((feature, index) => {
@@ -95,7 +95,7 @@ export default function page() {
 
             <section className="py-12 px-4">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <Image src="/bg1.jpg" alt="" width={1000} height={667} className="w-full hidden sm:block"/>
+                    <Image src="/bg2.jpg" alt="" width={1000} height={667} className="w-full hidden sm:block"/>
                     <div className="">
                         <h2 className="sm:text-3xl text-2xl">Join PriMed to increase your{" "} <span className="text-blue-600 font-semibold">revenue</span>{" "} today.</h2>
                         <div className='grid grid-cols-2 gap-4 py-6'>
@@ -110,9 +110,7 @@ export default function page() {
                                     )
                                 })
                             }
-                        </div>
-                        
-                        
+                        </div>                        
                     </div>
                 </div>
             </section>

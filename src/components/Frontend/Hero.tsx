@@ -29,7 +29,7 @@ import { PillIcon } from "lucide-react";
                             <ul className="flex flex-wrap items-center mt-6">
                                 <li>
                                     <Link href="/#" className="inline-flex items-center justify-center rounded-md bg-cyan-300 px-4 py-3 text-center text-base font-medium text-blue-950 hover:bg-cyan-500 lg:px-4" >
-                                        Need a Doctor Urgently
+                                        Need a Specialist
                                     </Link>
                                 </li>
                                 <li>
@@ -37,7 +37,7 @@ import { PillIcon } from "lucide-react";
                                         <span className="mr-2">
                                             <PillIcon className="flex-shrink-0 h-4 w-4"/>
                                         </span>
-                                        I need a Prescription refill
+                                        Need a Refill
                                     </Link>
                                 </li>
                             </ul>

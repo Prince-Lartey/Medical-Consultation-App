@@ -6,20 +6,22 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import Link from 'next/link';
 
 export default function Pricing() {
     const plans = [
         {
-            name: "Free Forever",
+            name: "Free",
             desc: "Ideal for individual practitioners starting out.",
             price: 0,
             fee: 5,
             isMostPop: false,
             features: [
-                "Manage up to 50 appointments per month",
+                "Manage up to 10 appointments per month",
                 "Basic patient record management",
                 "Email notifications for appointments",
             ],
+            getStarted: "/register?role=DOCTOR&plan=free"
         },
         {
             name: "Professional",
@@ -33,6 +35,7 @@ export default function Pricing() {
                 "SMS reminders for appointments",
                 "Customizable clinic profile",
             ],
+            getStarted: "/register?role=DOCTOR&plan=professional"
         },
         {
             name: "Enterprise",
@@ -46,18 +49,19 @@ export default function Pricing() {
                 "Priority customer support",
                 "Integration with electronic health records (EHR) systems",
             ],
+            getStarted: "/register?role=DOCTOR&plan=enterprise"
         },
     ];
 
     return (
         <section className='py-14'>
-            <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
+            <div className="max-w-screen-xl mx-auto px-4 text-gray-600  md:px-8">
                 <div className='relative max-w-xl mx-auto sm:text-center'>
-                    <h3 className='text-gray-800 text-3xl font-semibold sm:text-4xl'>
+                    <h3 className='scroll-m-20 text-gray-800 dark:text-slate-300 text-4xl lg:text-5xl font-extrabold sm:text-4xl'>
                         Pricing for all sizes
                     </h3>
                     <div className='mt-3 max-w-xl'>
-                        <p>
+                        <p className="dark:text-slate-400">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam efficitur consequat nunc.
                         </p>
                     </div>
@@ -72,10 +76,10 @@ export default function Pricing() {
                                     ) : ""
                                 }
                                 <div className="p-8 space-y-4 border-b">
-                                    <span className='text-indigo-600 font-medium uppercase tracking-widest'>
+                                    <span className='text-indigo-600 font-bold uppercase tracking-widest'>
                                         {item.name}
                                     </span>
-                                    <div className='text-gray-800 text-3xl font-semibold'>
+                                    <div className='text-gray-800 text-3xl font-semibold dark:text-gray-400'>
                                         GHS {item.price} <span className="text-xl text-gray-600 font-normal">/mo</span>
                                     </div>
                                     <p className="text-xs">
@@ -94,12 +98,12 @@ export default function Pricing() {
                                             </Tooltip>
                                         </TooltipProvider>
                                     </div>
-                                    <button className='px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
+                                    <Link href={item.getStarted} className='px-3 py-3 block text-center rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
                                         Get Started
-                                    </button>
+                                    </Link>
                                 </div>
                                 <ul className='p-8 space-y-3'>
-                                    <li className="pb-2 text-gray-800 font-medium">
+                                    <li className="pb-2 text-gray-800 dark:text-gray-400 font-medium">
                                         <p>Features</p>
                                     </li>
                                     {

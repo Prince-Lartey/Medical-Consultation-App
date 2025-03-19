@@ -3,7 +3,7 @@
 import React from 'react'
 import TextTransition, { presets } from 'react-text-transition';
 
-const TEXTS = ['Doctor', 'Therapist', 'Specialist ', 'Physician', 'Pediatrician', 'Dentist', 'Gynecologist', 'Surgeon', 'Cardiologist', 'Dermatologist', 'Psychiatrist', 'Neurologist', 'Orthopedic Surgeon', 'Radiologist', 'Oncologist', 'Anesthesiologist', 'Urologist', 'Urologist', 'Ophthalmologist'];
+const TEXTS = ['Doctor', 'Therapist', 'Specialist ', 'Physician', 'Pediatrician', 'Dentist', 'Gynecologist', 'Surgeon', 'Cardiologist', 'Dermatologist', 'Psychiatrist', 'Neurologist', 'Radiologist', 'Oncologist', 'Anesthesiologist', 'Urologist', 'Urologist', 'Ophthalmologist'];
 
 export default function TransitionalText() {
     const [index, setIndex] = React.useState(0);
