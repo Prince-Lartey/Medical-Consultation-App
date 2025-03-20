@@ -7,17 +7,14 @@ import EmailTemplate from "@/components/Emails/email-template";
 import {Resend} from "resend"
 
 export async function createUser(formData: RegisterInputProps) {
-    console.log("Starting createUser", Date.now());
-    const { fullName, email, phone, role, password } = formData;
+    const { fullName, email, phone, role, password, plan } = formData;
     try {
-        console.log("Checking for existing user", Date.now());
         const existingUser = await prismaClient.user.findUnique({
             where: {
                 email,
             },
         });
         if (existingUser) {
-            console.log("User already exists", Date.now());
             return {
                 data: null,
                 error: `User with this email ( ${email})  already exists in the Database`,
@@ -25,7 +22,6 @@ export async function createUser(formData: RegisterInputProps) {
             };
         }
 
-        console.log("Hashing password", Date.now());
         const hashedPassword = await bcrypt.hash(password, 10);
         //Generate Token
         const generateToken = () => {
@@ -35,13 +31,13 @@ export async function createUser(formData: RegisterInputProps) {
         };
         const userToken = generateToken();
 
-        console.log("Creating new user", Date.now());
         const newUser = await prismaClient.user.create({
             data: {
                 name: fullName,
                 email,
                 phone,
                 role,
+                plan,
                 password: hashedPassword,
                 token: userToken,
             },
@@ -54,7 +50,6 @@ export async function createUser(formData: RegisterInputProps) {
         const linkText = "Verify your Account ";
         const message = "Thank you for registering with PriMed. To complete your registration and verify your email address, please enter the following 6-digit verification code on our website :";
 
-        console.log("Sending verification email", Date.now());
         const resend = new Resend(process.env.RESEND_API_KEY)
         await resend.emails.send({
             from: "PriMed <info@pricorp.info>",
@@ -63,7 +58,6 @@ export async function createUser(formData: RegisterInputProps) {
             react: EmailTemplate({ firstName, token, linkText, message }),
         });
 
-        console.log("User created successfully", Date.now());
         console.log(userId)
         return {
             data: newUser,

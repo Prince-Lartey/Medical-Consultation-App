@@ -12,7 +12,14 @@ import TextInput from "../FormInputs/TextInput";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 
-export default function Register({role="USER"}: {role?: UserRole}) {
+export default function Register({
+    role="USER", 
+    plan="",
+}: {
+    role?: string | string[] | undefined; 
+    plan?: string | string[] | undefined; 
+}) {
+    
     const {register, handleSubmit, reset, formState: { errors }} = useForm<RegisterInputProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
@@ -20,6 +27,7 @@ export default function Register({role="USER"}: {role?: UserRole}) {
     async function onSubmit(data: RegisterInputProps) {
         setIsLoading(true)
         data.role = role
+        data.plan = plan
         
         try {
             const user = await createUser(data)

@@ -18,6 +18,7 @@ export default async function VerifyAccount({
     //Get a User
     const user = await getUserById(id);
     const userToken = user?.token;
+    const role = user?.role;
 
     return (
         <div className=" h-screen flex items-center justify-center">
@@ -31,7 +32,7 @@ export default async function VerifyAccount({
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <VerifyTokenForm userToken={userToken} id={id} />
+                    <VerifyTokenForm role={role} userToken={userToken} id={id} />
                 </CardContent>
             </Card>
         </div>

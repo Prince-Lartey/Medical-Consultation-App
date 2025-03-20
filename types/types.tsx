@@ -7,11 +7,12 @@ export type ServiceProps = {
 }
 
 export type RegisterInputProps = {
-    fullName: string,
-    email: string,
-    password: string,
-    phone: string,
-    role: UserRole
+    fullName: string;
+    email: string;
+    password: string;
+    phone: string;
+    role: any;
+    plan: any;
 }
 
 export type LoginInputProps = {

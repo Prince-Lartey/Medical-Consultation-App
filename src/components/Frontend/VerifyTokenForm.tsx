@@ -24,6 +24,7 @@ import {
     InputOTPSeparator,
     InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { UserRole } from "@prisma/client";
 
 const FormSchema = z.object({
     token: z.string().min(6, {
@@ -34,9 +35,11 @@ const FormSchema = z.object({
 export default function VerifyTokenForm({
     userToken,
     id,
+    role
 }: {
     userToken: number | undefined;
     id: string;
+    role: UserRole | undefined;
 }) {
     const [loading, setLoading] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
@@ -59,7 +62,11 @@ export default function VerifyTokenForm({
                 setLoading(false);
                 // reset();
                 toast.success("Account Verified");
-                router.push("/login");
+                if (role === "DOCTOR") {
+                    router.push(`/onboarding/${id}`);
+                } else {
+                    router.push(`/login`);
+                }
             } catch (error) {
                 setLoading(false);
                 console.log(error);
