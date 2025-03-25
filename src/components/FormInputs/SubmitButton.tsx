@@ -18,7 +18,7 @@ export default function SubmitButton({ title, buttonType="submit", isLoading=fal
                     {loadingTitle}
                 </Button>
             ): (
-                <Button type={buttonType} className="w-full">
+                <Button type={buttonType} className="">
                     {title}
                 </Button>
             )}
