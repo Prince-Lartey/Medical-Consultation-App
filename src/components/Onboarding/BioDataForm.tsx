@@ -10,7 +10,8 @@ export default function BioDataForm() {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<RegisterInputProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-    const [date, setDate] = useState<Date>()
+    const [dob, setDOB] = useState<Date>()
+    const [expiry, setExpiry] = useState<Date>()
 
     async function onSubmit(data: RegisterInputProps) {
         setIsLoading(true)   
@@ -51,27 +52,20 @@ export default function BioDataForm() {
                         errors={errors}
                         placeholder="eg: Kofi"
                     />
-                    <div className="">
-                        <DatePickerInput date={date} setDate={setDate}/>
-                    </div>
+                    
+                    <DatePickerInput date={dob} setDate={setDOB} title="Date of Birth" className="col-span-full sm:col-span-1"/>
+                    
                     <TextInput 
-                        label="Phone Number"
+                        label="Medical License"
                         register={register}
-                        name="phone"
-                        type="phone"
+                        name="medicalLicense"
                         errors={errors}
-                        placeholder="eg: +233 54 123 4567"
+                        placeholder="Enter Medical License"
                         className="col-span-full sm:col-span-1"
                     />
-                    <TextInput 
-                        label="Phone Number"
-                        register={register}
-                        name="phone"
-                        type="phone"
-                        errors={errors}
-                        placeholder="eg: +233 54 123 4567"
-                        className="col-span-full sm:col-span-1"
-                    />
+                    
+                    <DatePickerInput date={expiry} setDate={setExpiry} title="Medical License Expiry" className="col-span-full sm:col-span-1"/>
+
                     <TextInput 
                         label="Phone Number"
                         register={register}
