@@ -10,13 +10,13 @@ import ProfessionInfo from './ProfessionInfo'
 
 export default function OnboardingSteps({id}: {id: string}) {
     const params = useSearchParams()
-    const page = params.get('page')
+    const page = params.get('page') ?? "bio-data"
 
     const steps = [
         {
             title: 'Bio Data',
             page: 'bio-data',
-            component: <BioDataForm />,
+            component: <BioDataForm page={page} />,
         },
         {
             title: 'Contact Information',

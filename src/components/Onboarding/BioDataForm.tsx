@@ -1,21 +1,50 @@
+"use client"
+
 import React, { useState } from 'react'
 import TextInput from '../FormInputs/TextInput'
-import { RegisterInputProps } from '../../../types/types'
+import { BioDataFormProps } from '../../../types/types'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import SubmitButton from '../FormInputs/SubmitButton'
 import DatePickerInput from '../FormInputs/DatePickerInput'
+import TextAreaInput from '../FormInputs/TextAreaInput'
+import RadioInput from '../FormInputs/RadioInput'
+import toast from 'react-hot-toast'
+import ImageInput from '../FormInputs/ImageInput'
 
-export default function BioDataForm() {
-    const {register, handleSubmit, reset, formState: { errors }} = useForm<RegisterInputProps>()
+export default function BioDataForm({page}: {page: string}) {
+    const {register, handleSubmit, reset, formState: { errors }} = useForm<BioDataFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     const [dob, setDOB] = useState<Date>()
     const [expiry, setExpiry] = useState<Date>()
+    const [profileImage, setProfileImage] = useState("")
 
-    async function onSubmit(data: RegisterInputProps) {
-        setIsLoading(true)   
-        
+    const genderOptions = [
+        {
+            label: "Male",
+            value: "male",
+        },
+        {
+            label: "Female",
+            value: "female",
+        }
+    ]
+
+    async function onSubmit(data: BioDataFormProps) {
+        if (!dob) {
+            toast.error("Please select your date of birth")
+            return
+        }
+        if (!expiry) {
+            toast.error("Please select your license expiry date")
+            return
+        }
+
+        data.dob = dob
+        data.medicalLicenseExpiry = expiry
+        data.page = page
+        console.log(data)
     }
 
     return (
@@ -31,7 +60,7 @@ export default function BioDataForm() {
                     <TextInput 
                         label="First Name"
                         register={register}
-                        name="fullName"
+                        name="firstName"
                         type="text"
                         errors={errors}
                         placeholder="eg: Prince "
@@ -39,7 +68,7 @@ export default function BioDataForm() {
                     <TextInput 
                         label="Last Name"
                         register={register}
-                        name="fullName"
+                        name="lastName"
                         type="text"
                         errors={errors}
                         placeholder="eg: Lartey"
@@ -47,7 +76,7 @@ export default function BioDataForm() {
                     <TextInput 
                         label="Middle Name (Optional)"
                         register={register}
-                        name="fullName"
+                        name="middleName"
                         type="text"
                         errors={errors}
                         placeholder="eg: Kofi"
@@ -65,15 +94,21 @@ export default function BioDataForm() {
                     />
                     
                     <DatePickerInput date={expiry} setDate={setExpiry} title="Medical License Expiry" className="col-span-full sm:col-span-1"/>
+                    <RadioInput label="Gender" name="gender" register={register} errors={errors} radioOptions={genderOptions} />
 
-                    <TextInput 
-                        label="Phone Number"
+                    <TextAreaInput 
+                        label="Biography"
                         register={register}
-                        name="phone"
-                        type="phone"
+                        name="bio"
                         errors={errors}
-                        placeholder="eg: +233 54 123 4567"
-                        className="col-span-full sm:col-span-1"
+                        placeholder=""
+                    />
+
+                    <ImageInput 
+                        label = "Professional Profile Image"
+                        imageUrl = {profileImage}
+                        setImageUrl = {setProfileImage}
+                        endpoint = "doctorProfileImage"
                     />
                 </div>
                 

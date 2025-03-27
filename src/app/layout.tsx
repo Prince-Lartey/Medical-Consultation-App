@@ -4,6 +4,9 @@ import "./globals.css";
 import Providers from "@/components/Providers/Providers";
 import { ThemeProvider } from "@/components/theme-provider"
 import { siteConfig } from "../../config/site";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
 
 const inter = Inter({ subsets: ["latin"], });
 
@@ -67,6 +70,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
+        <NextSSRPlugin
+          routerConfig={extractRouterConfig(ourFileRouter)}
+        />
         <Providers>
           <ThemeProvider
             attribute="class"
