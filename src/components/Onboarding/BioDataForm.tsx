@@ -10,7 +10,13 @@ import DatePickerInput from '../FormInputs/DatePickerInput'
 import RadioInput from '../FormInputs/RadioInput'
 import toast from 'react-hot-toast'
 
-export default function BioDataForm({page}: {page: string}) {
+export type StepFormProps = {
+    page: string;
+    title: string;
+    description: string;
+}
+
+export default function BioDataForm({ page, title, description }: StepFormProps) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<BioDataFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
@@ -34,7 +40,6 @@ export default function BioDataForm({page}: {page: string}) {
         }
 
         data.dob = dob
-        data.medicalLicenseExpiry = expiry
         data.page = page
         console.log(data)
     }
@@ -42,9 +47,9 @@ export default function BioDataForm({page}: {page: string}) {
     return (
         <div className="w-full">
             <div className="text-center border-b border-gray-200 pb-4">
-                <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Bio Data</h1>
+                <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{title}</h1>
                 <p className="text-balance text-muted-foreground">
-                    Enter your details below to create a new account
+                    {description}
                 </p>
             </div>
             <form className="py-4 px-4 mx-auto " onSubmit={handleSubmit(onSubmit)}>

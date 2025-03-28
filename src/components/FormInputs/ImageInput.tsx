@@ -19,7 +19,7 @@ export default function ImageInput ({
     return (
         <div className={className}>
             <div className="flex justify-between items-center mb-4">
-                <label htmlFor="course-image" className="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-50 mb-2">{label}</label>
+                <label htmlFor="course-image" className="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-50 ">{label}</label>
                 {
                     imageUrl && (
                         <button 

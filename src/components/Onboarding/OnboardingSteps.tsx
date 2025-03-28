@@ -7,7 +7,7 @@ import React from 'react'
 import BioDataForm from './BioDataForm'
 import ContactInfo from './ContactInfo'
 import ProfessionInfo from './ProfessionInfo'
-import ProfileInfoForm from '../FormInputs/ProfileInfoForm'
+import ProfileInfoForm from './ProfileInfoForm'
 
 export default function OnboardingSteps({id}: {id: string}) {
     const params = useSearchParams()
@@ -17,22 +17,22 @@ export default function OnboardingSteps({id}: {id: string}) {
         {
             title: 'Bio Data',
             page: 'bio-data',
-            component: <BioDataForm page={page} />,
+            component: <BioDataForm title="Bio Data" description="Please fill in your Bio details" page={page} />,
         },
         {
             title: 'Profile Information',
             page: 'profile',
-            component: <ProfileInfoForm page={page} />,
+            component: <ProfileInfoForm title="Profile Information" description="Please fill in your profile details" page={page} />,
         },
         {
             title: 'Contact Information',
             page: 'contact',
-            component: <ContactInfo />,
+            component: <ContactInfo title="Contact Information" description="Please fill in your contact details" page={page} />,
         },
         {
-            title: 'Profession Information',
+            title: 'Professional Information',
             page: 'profession',
-            component: <ProfessionInfo />
+            component: <ProfessionInfo title="Professional Information" description="Please fill in your profession details" page={page}/>
         },
         {
             title: 'Education Information',
