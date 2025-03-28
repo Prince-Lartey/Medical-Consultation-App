@@ -1,5 +1,5 @@
 import { UploadDropzone } from "@/utils/uploadthing"
-import { FileIcon, XCircle } from "lucide-react"
+import { FileIcon, PencilIcon, XCircle } from "lucide-react"
 import toast from "react-hot-toast"
 
 type MultipleImageInputProps = {
@@ -33,6 +33,18 @@ export default function MultipleFileUpload ({
         <div className={className}>
             <div className="flex justify-between items-center mb-4">
                 <label htmlFor="course-image" className="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-50">{label}</label>
+                {
+                    files.length > 0 && (
+                        <button 
+                            className="flex space-x-2 bg-slate-900 rounded-md shadow text-slate-50 py-2 px-2"
+                            type="button"
+                            onClick={() => setFiles([])}
+                        >
+                            <PencilIcon className="h-5 w-5"/>
+                            <span>Change Files</span>
+                        </button>
+                    )
+                }
             </div>
             {
                 files.length > 0 ? (
@@ -42,7 +54,7 @@ export default function MultipleFileUpload ({
                                 return (
                                     <div key={index} className="relative mb-6">
                                         <button 
-                                            className="absolute -top-4 -right-2 bg-slate-100 rounded-full text-slate-900"
+                                            className="absolute -top-4 -right-2 bg-slate-100 rounded-full text-red-600"
                                             onClick={() => handleImageRemove(index)}
                                         >
                                             <XCircle className=""/>

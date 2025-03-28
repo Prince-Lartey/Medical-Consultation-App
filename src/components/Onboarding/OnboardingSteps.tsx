@@ -8,6 +8,7 @@ import BioDataForm from './BioDataForm'
 import ContactInfo from './ContactInfo'
 import ProfessionInfo from './ProfessionInfo'
 import ProfileInfoForm from './ProfileInfoForm'
+import EducationInfo from './EducationInfo'
 
 export default function OnboardingSteps({id}: {id: string}) {
     const params = useSearchParams()
@@ -37,7 +38,7 @@ export default function OnboardingSteps({id}: {id: string}) {
         {
             title: 'Education Information',
             page: 'education',
-            component: <></>
+            component: <EducationInfo title="Academic Information" description="Please fill in your academic details" page={page}/>
         },
         {
             title: 'Practice Information',
@@ -58,7 +59,7 @@ export default function OnboardingSteps({id}: {id: string}) {
     const currentStep = steps.find((step) => step.page === page)
 
     return (
-        <div className="grid grid-cols-12 mx-auto rounded-sm shadow-inner overflow-hidden border border-slate-200 min-h-screen bg-gray-100">
+        <div className="grid grid-cols-12 mx-auto rounded-sm shadow-inner overflow-hidden border border-slate-200 min-h-screen bg-gray-100 h-full">
             <div className='col-span-full sm:col-span-3 divide-y-2 divide-gray-200'>
                 {
                     steps.map((step, index) => {

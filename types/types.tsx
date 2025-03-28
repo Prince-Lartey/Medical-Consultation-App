@@ -32,3 +32,20 @@ export type BioDataFormProps = {
     medicalLicense: string;
     medicalLicenseExpiry?: Date;
 }
+
+export type ContactFormProps = {
+    region: string;
+    city: string;
+    phone: string;
+    email: string;
+    page: string;
+}
+
+export type EducationInfoProps = {
+    medicalSchool: string;
+    graduationYear: number;
+    primarySpecialization: string;
+    otherSpecialties?: string[];
+    boardCertificates: string[];
+    page: string;
+}
