@@ -1,5 +1,6 @@
 import React from 'react'
 import { Label } from '../ui/label';
+import { cn } from '@/lib/utils';
 
 type SelectInputProps = {
     name: string;
@@ -15,28 +16,25 @@ export type SelectOption = {
     value: string;
 }
 
-export default function SelectInput({ multiple = false, label, name, register, className = "sm:col-span-2", options = [] }: SelectInputProps) {
+export default function SelectInput({ multiple = false, label, name, register, className = "col-span-full", options = [] }: SelectInputProps) {
     return (
-        <div className={className}>
+        <div className={cn("grid gap-2", className)}>
             <Label htmlFor={name} >{label}</Label>
-            <div className="mt-2">
-                <select
-                    id={name}
-                    name={name}
-                    {...register(`${name}`)}
-                    className="block w-full border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm rounded-md sm:leading-6"
-                    multiple={multiple}
-                >
-                    {
-                        options.map((option, index: number) => {
-                            return (
-                                <option key={index} value={option.value}>{option.label}</option>
-                            )
-                        })
-                    }
-                </select>
-            </div>
-            
+            <select
+                id={name}
+                name={name}
+                {...register(`${name}`)}
+                className="w-full border-0 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-slate-700 sm:text-sm rounded-md sm:leading-6"
+                multiple={multiple}
+            >
+                {
+                    options.map((option, index: number) => {
+                        return (
+                            <option key={index} value={option.value}>{option.label}</option>
+                        )
+                    })
+                }
+            </select>            
         </div>
     )
 }

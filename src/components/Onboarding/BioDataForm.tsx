@@ -60,7 +60,8 @@ export default function BioDataForm({ page, title, description }: StepFormProps)
                         name="firstName"
                         type="text"
                         errors={errors}
-                        placeholder="eg: Prince "
+                        placeholder="eg: Prince"
+                        className="col-span-full sm:col-span-1"
                     />
                     <TextInput 
                         label="Last Name"
@@ -69,6 +70,7 @@ export default function BioDataForm({ page, title, description }: StepFormProps)
                         type="text"
                         errors={errors}
                         placeholder="eg: Lartey"
+                        className="col-span-full sm:col-span-1"
                     />
                     <TextInput 
                         label="Middle Name (Optional)"
@@ -77,6 +79,7 @@ export default function BioDataForm({ page, title, description }: StepFormProps)
                         type="text"
                         errors={errors}
                         placeholder="eg: Kofi"
+                        className="col-span-full sm:col-span-1"
                     />
                     
                     <DatePickerInput date={dob} setDate={setDOB} title="Date of Birth" className="col-span-full sm:col-span-1"/>

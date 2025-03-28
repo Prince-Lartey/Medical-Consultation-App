@@ -8,11 +8,15 @@ import { useForm } from 'react-hook-form'
 import SubmitButton from '../FormInputs/SubmitButton'
 import { StepFormProps } from './BioDataForm'
 import SelectInput from '../FormInputs/SelectInput'
+import ArrayInput from '../FormInputs/ArrayInput'
+import MultipleImageInput from '../FormInputs/MultipleImageInput'
 
 export default function ProfessionInfo({ page, title, description }: StepFormProps) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<BioDataFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
+    const [otherSpecialties, setOtherSpecialties] = useState([])
+    const [docs, setDocs] = useState([])
 
     async function onSubmit(data: BioDataFormProps) {
         data.page = page
@@ -41,15 +45,16 @@ export default function ProfessionInfo({ page, title, description }: StepFormPro
                         label="Graduation Year"
                         register={register}
                         name="graduationYear"
-                        type="year"
+                        type="number"
                         errors={errors}
                         placeholder="Enter your Grad Year"
                         className="col-span-full sm:col-span-1"
                     />
                     <SelectInput
                         label="Select your Primary Specializations"
-                        name="specialization"
+                        name="primarySpecialization"
                         register={register}
+                        className="col-span-full sm:col-span-1"
                         options={[
                             {label: "Cardiology", value: "cardiology"},
                             {label: "Dermatology", value: "dermatology"},
@@ -63,6 +68,19 @@ export default function ProfessionInfo({ page, title, description }: StepFormPro
                             {label: "Rheumatology", value: "rheumatology"},
                             {label: "Urology", value: "urology"},
                         ]}
+                    />
+
+                    <ArrayInput 
+                        setItems={setOtherSpecialties}
+                        items={otherSpecialties}
+                        itemTitle="Add Other Specialties" 
+                    />
+
+                    <MultipleImageInput 
+                        label="Upload your Certifications (max of 4 docs)"
+                        imageUrls = {docs}
+                        setImageUrls = {setDocs}
+                        endpoint = "doctorProfessionDocs"
                     />
                 </div>
                 
