@@ -9,7 +9,7 @@ import SubmitButton from '../FormInputs/SubmitButton'
 import { StepFormProps } from './BioDataForm'
 import SelectInput from '../FormInputs/SelectInput'
 import ArrayInput from '../FormInputs/ArrayInput'
-import MultipleImageInput from '../FormInputs/MultipleImageInput'
+import MultipleFileUpload from '../FormInputs/MultipleFileUpload'
 
 export default function ProfessionInfo({ page, title, description }: StepFormProps) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<BioDataFormProps>()
@@ -76,10 +76,10 @@ export default function ProfessionInfo({ page, title, description }: StepFormPro
                         itemTitle="Add Other Specialties" 
                     />
 
-                    <MultipleImageInput 
+                    <MultipleFileUpload 
                         label="Upload your Certifications (max of 4 docs)"
-                        imageUrls = {docs}
-                        setImageUrls = {setDocs}
+                        files = {docs}
+                        setFiles = {setDocs}
                         endpoint = "doctorProfessionDocs"
                     />
                 </div>
