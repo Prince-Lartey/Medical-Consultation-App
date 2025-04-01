@@ -49,3 +49,16 @@ export type EducationInfoProps = {
     boardCertificates: string[];
     page: string;
 }
+
+export type PracticeFormProps = {
+    hospitalName: string;
+    hospitalAddress: string;
+    hospitalContactNumber: string;
+    hospitalEmailAddress: string;
+    hospitalWebsite: string;
+    hospitalHoursOfOperation: number;
+    servicesOffered: string[];
+    insuranceAccepted: boolean;
+    languageSpoken: string[];
+    page: string;
+}

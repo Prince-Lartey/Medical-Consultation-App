@@ -9,6 +9,7 @@ import ContactInfo from './ContactInfo'
 import ProfessionInfo from './ProfessionInfo'
 import ProfileInfoForm from './ProfileInfoForm'
 import EducationInfo from './EducationInfo'
+import PracticeInfo from './PracticeInfo'
 
 export default function OnboardingSteps({id}: {id: string}) {
     const params = useSearchParams()
@@ -43,7 +44,7 @@ export default function OnboardingSteps({id}: {id: string}) {
         {
             title: 'Practice Information',
             page: 'practice',
-            component: <></>
+            component: <PracticeInfo title="Practice Information" description="Please fill in your practice details" page={page}/>
         },
         {
             title: 'Additional Information',
