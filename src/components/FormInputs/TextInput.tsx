@@ -13,9 +13,10 @@ type TextInputProps = {
     placeholder?: string
     page?: string
     className?: string
+    isRequired?: boolean
 }
 
-export default function TextInput({ label, register, name, errors, type="text", placeholder, page, className="col-span-full" }: TextInputProps) {
+export default function TextInput({ label, register, name, errors, type="text", placeholder, page, className="col-span-full", isRequired=true }: TextInputProps) {
     return (
         <div className={cn("grid gap-2", className)}>
             {type === "password" && page === "login" ? (
@@ -33,13 +34,13 @@ export default function TextInput({ label, register, name, errors, type="text", 
             )}
 
             <Input
-                {...register(`${name}`, {required: true})}
+                {...register(`${name}`, {required: `${isRequired}`})}
                 id={`${name}`}
                 name={`${name}`}
                 type={type}
                 placeholder={placeholder}
             />
-            {errors[`${name}`] && <span className="text-red-500 text-sm">{label} is required</span>}
+            {errors[`${name}`] && isRequired && <span className="text-red-500 text-sm">{label} is required</span>}
         </div>
     )
 }

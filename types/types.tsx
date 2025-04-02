@@ -55,10 +55,18 @@ export type PracticeFormProps = {
     hospitalAddress: string;
     hospitalContactNumber: string;
     hospitalEmailAddress: string;
-    hospitalWebsite: string;
+    hospitalWebsite?: string;
     hospitalHoursOfOperation: number;
     servicesOffered: string[];
-    insuranceAccepted: boolean;
+    insuranceAccepted: string;
     languageSpoken: string[];
+    page: string;
+}
+
+export type AdditionalFormProps = {
+    educationHistory: string;
+    research: string;
+    accomplishments: string;
+    additionalDocs: string[];
     page: string;
 }

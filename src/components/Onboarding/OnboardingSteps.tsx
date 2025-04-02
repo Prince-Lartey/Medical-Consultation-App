@@ -10,6 +10,8 @@ import ProfessionInfo from './ProfessionInfo'
 import ProfileInfoForm from './ProfileInfoForm'
 import EducationInfo from './EducationInfo'
 import PracticeInfo from './PracticeInfo'
+import AdditionalInfo from './AdditionalInfo'
+import Availability from './Availability'
 
 export default function OnboardingSteps({id}: {id: string}) {
     const params = useSearchParams()
@@ -49,18 +51,18 @@ export default function OnboardingSteps({id}: {id: string}) {
         {
             title: 'Additional Information',
             page: 'additional',
-            component: <></>
+            component: <AdditionalInfo title="Additional Information" description="Please fill in your additional details" page={page}/>
         },
         {
             title: 'Availability',
             page: 'availability',
-            component: <></>
+            component: <Availability title="Availability Information" description="Please provide your availability details" page={page}/>
         },
     ]
     const currentStep = steps.find((step) => step.page === page)
 
     return (
-        <div className="grid grid-cols-12 mx-auto rounded-sm shadow-inner overflow-hidden border border-slate-200 min-h-screen bg-gray-100 h-full">
+        <div className="grid grid-cols-12 mx-auto rounded-sm shadow-inner overflow-hidden border border-slate-200 min-h-screen bg-gray-300 h-full">
             <div className='col-span-full sm:col-span-3 divide-y-2 divide-gray-200'>
                 {
                     steps.map((step, index) => {

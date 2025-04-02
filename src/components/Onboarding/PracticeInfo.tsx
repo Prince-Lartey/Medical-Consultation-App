@@ -2,13 +2,13 @@
 
 import React, { useState } from 'react'
 import TextInput from '../FormInputs/TextInput'
-import { BioDataFormProps, PracticeFormProps } from '../../../types/types'
+import { PracticeFormProps } from '../../../types/types'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import SubmitButton from '../FormInputs/SubmitButton'
-import DatePickerInput from '../FormInputs/DatePickerInput'
-import RadioInput from '../FormInputs/RadioInput'
 import toast from 'react-hot-toast'
+import ArrayInput from '../FormInputs/ArrayInput'
+import ShadSelectInput from '../FormInputs/ShadSelectInput'
 
 export type StepFormProps = {
     page: string;
@@ -19,23 +19,27 @@ export type StepFormProps = {
 export default function PracticeInfo({ page, title, description }: StepFormProps) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<PracticeFormProps>()
     const [isLoading, setIsLoading] = useState(false)
+    const [services, setServices] = useState([])
+    const [languages, setLanguages] = useState([])
+    const [insuranceAccepted, setInsuranceAccepted] = useState("")
     const router = useRouter()
+
+    const insuranceOptions = [
+        {
+            label: "Yes",
+            value: "yes",
+        },
+        {
+            label: "No",
+            value: "no",
+        }
+    ]
 
     async function onSubmit(data: PracticeFormProps) {
         
         data.page = page
         console.log(data)
     }
-
-    hospitalName: string;
-    hospitalAddress: string;
-    hospitalContactNumber: string;
-    hospitalEmailAddress: string;
-    hospitalWebsite: string;
-    hospitalHoursOfOperation: number;
-    servicesOffered: string[];
-    insuranceAccepted: boolean;
-    languageSpoken: string[];
 
     return (
         <div className="w-full">
@@ -84,15 +88,41 @@ export default function PracticeInfo({ page, title, description }: StepFormProps
                         className="col-span-full sm:col-span-1"
                     />
                     <TextInput 
-                        label="Hospital Website"
+                        label="Hospital Website (Optional)"
                         register={register}
                         name="hospitalWebsite"
                         type="text"
                         errors={errors}
                         placeholder="www.hospital.com"
                         className="col-span-full sm:col-span-1"
+                        isRequired={false}
                     />
-                                        
+                    <TextInput 
+                        label="Hospital Hours of Operation"
+                        register={register}
+                        name="hospitalHoursOfOperation"
+                        type="number"
+                        errors={errors}
+                        placeholder="Enter Hospitals Hours of Opeartion"
+                        className="col-span-full sm:col-span-1"
+                    />
+                    <ShadSelectInput
+                        label="Do you accept Insurance"
+                        optionTitle="Insurance Acceptable"
+                        options={insuranceOptions}
+                        selectedOptions={insuranceAccepted}
+                        setSelectedOptions={setInsuranceAccepted}
+                    />
+                    <ArrayInput 
+                        setItems={setServices}
+                        items={services}
+                        itemTitle="Add Hospital Services"
+                    />
+                    <ArrayInput 
+                        setItems={setLanguages}
+                        items={languages}
+                        itemTitle="Add Languages Spoken at the Hospital"
+                    />           
                 </div>
                 
                 <div className="flex justify-center items-center mt-8">

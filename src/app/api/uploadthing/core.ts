@@ -17,6 +17,13 @@ export const ourFileRouter = {
             return { uploadedBy: "PriMed" };
         }
     ),
+    additionalDocs: f({ pdf: { maxFileSize: "4MB", maxFileCount: 4 } }).onUploadComplete(
+        async ({ file }) => {
+            console.log("file url", file.url);
+
+            return { uploadedBy: "PriMed" };
+        }
+    ),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
