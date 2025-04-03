@@ -34,11 +34,6 @@ export default function OnboardingSteps({id}: {id: string}) {
             component: <ContactInfo title="Contact Information" description="Please fill in your contact details" page={page} />,
         },
         {
-            title: 'Professional Information',
-            page: 'profession',
-            component: <ProfessionInfo title="Professional Information" description="Please fill in your profession details" page={page}/>
-        },
-        {
             title: 'Education Information',
             page: 'education',
             component: <EducationInfo title="Academic Information" description="Please fill in your academic details" page={page}/>

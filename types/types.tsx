@@ -5,7 +5,6 @@ export type ServiceProps = {
     image: string;
     slug: string;
 }
-
 export type RegisterInputProps = {
     fullName: string;
     email: string;
@@ -14,25 +13,26 @@ export type RegisterInputProps = {
     role: any;
     plan: any;
 }
-
 export type LoginInputProps = {
     email: string;
     password: string;
 }
-
 export type BioDataFormProps = {
     firstName: string;
     lastName: string;
     middleName?: string;
     dob?: Date;
     gender: string;
+    page: string;
+}
+export type ProfileFormProps = {
     profilePicture?: string;
     bio: string;
-    page: string;
     medicalLicense: string;
     medicalLicenseExpiry?: Date;
+    page: string;
+    yearsOfExperience: number;
 }
-
 export type ContactFormProps = {
     region: string;
     city: string;
@@ -40,7 +40,6 @@ export type ContactFormProps = {
     email: string;
     page: string;
 }
-
 export type EducationInfoProps = {
     medicalSchool: string;
     graduationYear: number;
@@ -49,7 +48,6 @@ export type EducationInfoProps = {
     boardCertificates: string[];
     page: string;
 }
-
 export type PracticeFormProps = {
     hospitalName: string;
     hospitalAddress: string;
@@ -62,7 +60,6 @@ export type PracticeFormProps = {
     languageSpoken: string[];
     page: string;
 }
-
 export type AdditionalFormProps = {
     educationHistory: string;
     research: string;

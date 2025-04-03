@@ -45,8 +45,9 @@ export default function ShadSelectInput({
                 </SelectTrigger>
                 <SelectContent>
                     <SelectGroup>
-                        {options.map((option, index) => (
-                            <SelectItem key={index} value={option.value}>
+                        <SelectLabel>{optionTitle}</SelectLabel>
+                        {options.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
                                 {option.label}
                             </SelectItem>
                         ))}
