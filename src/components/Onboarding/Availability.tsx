@@ -14,12 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Plus } from 'lucide-react'
-
-export type StepFormProps = {
-    page: string;
-    title: string;
-    description: string;
-}
+import { StepFormProps } from './BioDataForm'
 
 export default function Availability({ page, title, description }: StepFormProps) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<BioDataFormProps>()

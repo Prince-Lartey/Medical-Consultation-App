@@ -9,12 +9,7 @@ import SubmitButton from '../FormInputs/SubmitButton'
 import toast from 'react-hot-toast'
 import ArrayInput from '../FormInputs/ArrayInput'
 import ShadSelectInput from '../FormInputs/ShadSelectInput'
-
-export type StepFormProps = {
-    page: string;
-    title: string;
-    description: string;
-}
+import { StepFormProps } from './BioDataForm'
 
 export default function PracticeInfo({ page, title, description }: StepFormProps) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<PracticeFormProps>()

@@ -20,32 +20,32 @@ export default function OnboardingSteps({id}: {id: string}) {
         {
             title: 'Bio Data',
             page: 'bio-data',
-            component: <BioDataForm title="Bio Data" description="Please fill in your Bio details" page={page} userId={id} />,
+            component: <BioDataForm title="Bio Data" description="Please fill in your Bio details" page={page} userId={id} nextPage="profile"/>,
         },
         {
             title: 'Profile Information',
             page: 'profile',
-            component: <ProfileInfoForm title="Profile Information" description="Please fill in your profile details" page={page} />,
+            component: <ProfileInfoForm title="Profile Information" description="Please fill in your profile details" page={page} nextPage="contact" />,
         },
         {
             title: 'Contact Information',
             page: 'contact',
-            component: <ContactInfo title="Contact Information" description="Please fill in your contact details" page={page} />,
+            component: <ContactInfo title="Contact Information" description="Please fill in your contact details" page={page} nextPage="education" />,
         },
         {
             title: 'Education Information',
             page: 'education',
-            component: <EducationInfo title="Academic Information" description="Please fill in your academic details" page={page}/>
+            component: <EducationInfo title="Academic Information" description="Please fill in your academic details" page={page} nextPage="practice"/>
         },
         {
             title: 'Practice Information',
             page: 'practice',
-            component: <PracticeInfo title="Practice Information" description="Please fill in your practice details" page={page}/>
+            component: <PracticeInfo title="Practice Information" description="Please fill in your practice details" page={page} nextPage="additional"/>
         },
         {
             title: 'Additional Information',
             page: 'additional',
-            component: <AdditionalInfo title="Additional Information" description="Please fill in your additional details" page={page}/>
+            component: <AdditionalInfo title="Additional Information" description="Please fill in your additional details" page={page} nextPage="availability"/>
         },
         {
             title: 'Availability',

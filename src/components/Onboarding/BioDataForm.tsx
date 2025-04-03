@@ -10,16 +10,18 @@ import DatePickerInput from '../FormInputs/DatePickerInput'
 import RadioInput from '../FormInputs/RadioInput'
 import toast from 'react-hot-toast'
 import { generateTracking } from '@/lib/generateTracking'
+import { createDoctorProfile } from '../../../actions/onboarding'
 
 export type StepFormProps = {
     page: string;
     title: string;
     description: string;
     userId?: string;
+    nextPage?: string;
 }
 
-export default function BioDataForm({ page, title, description, userId }: StepFormProps) {
-    const {register, handleSubmit, reset, formState: { errors }} = useForm<BioDataFormProps>()
+export default function BioDataForm({ page, title, description, userId, nextPage }: StepFormProps) {
+    const {register, handleSubmit, formState: { errors }} = useForm<BioDataFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     const [dob, setDOB] = useState<Date>()
@@ -36,6 +38,7 @@ export default function BioDataForm({ page, title, description, userId }: StepFo
     ]
 
     async function onSubmit(data: BioDataFormProps) {
+        setIsLoading(true)
         if (!dob) {
             toast.error("Please select your date of birth")
             return
@@ -45,7 +48,18 @@ export default function BioDataForm({ page, title, description, userId }: StepFo
         data.trackingNumber = generateTracking()
         data.dob = dob
         data.page = page
-        console.log(data)
+
+        try {
+            const newProfile = await createDoctorProfile(data)
+            if (newProfile) {
+                setIsLoading(false)
+                router.push(`/onboarding/${userId}?page=${nextPage}&&tracking=${data.trackingNumber}`)
+            }
+            console.log(newProfile)
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+        }
     }
 
     return (
