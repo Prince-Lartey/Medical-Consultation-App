@@ -23,11 +23,17 @@ export async function createDoctorProfile(formData: any) {
         });
         
         console.log(newProfile)
-        return newProfile
+        return {
+            data: newProfile,
+            error: null,
+            status: 201,
+        };
 
     } catch (error) {
         console.log("Error in createUser:", error);        
         return {
+            data: null,
+            status: 500,
             error: "Something went wrong"
         }
         

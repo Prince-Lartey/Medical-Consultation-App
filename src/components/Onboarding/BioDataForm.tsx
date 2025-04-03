@@ -11,6 +11,7 @@ import RadioInput from '../FormInputs/RadioInput'
 import toast from 'react-hot-toast'
 import { generateTracking } from '@/lib/generateTracking'
 import { createDoctorProfile } from '../../../actions/onboarding'
+import { useOnboardingContext } from '@/context/context'
 
 export type StepFormProps = {
     page: string;
@@ -25,6 +26,9 @@ export default function BioDataForm({ page, title, description, userId, nextPage
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     const [dob, setDOB] = useState<Date>()
+    const { trackingNumber, setTrackingNumber, doctorProfileId, setDoctorProfileId } = useOnboardingContext()
+
+    console.log("Tracking Number: ", trackingNumber, "Doctor Profile ID: ", doctorProfileId)
 
     const genderOptions = [
         {
@@ -50,12 +54,14 @@ export default function BioDataForm({ page, title, description, userId, nextPage
         data.page = page
 
         try {
-            const newProfile = await createDoctorProfile(data)
-            if (newProfile) {
+            const res = await createDoctorProfile(data)
+            if (res.status === 201) {
+                setTrackingNumber(res.data.trackingNumber)
+                setDoctorProfileId(res.data.id)
                 setIsLoading(false)
-                router.push(`/onboarding/${userId}?page=${nextPage}&&tracking=${data.trackingNumber}`)
+                router.push(`/onboarding/${userId}?page=${nextPage}`)
             }
-            console.log(newProfile)
+            console.log(res.data)
         } catch (error) {
             setIsLoading(false)
             console.log(error)

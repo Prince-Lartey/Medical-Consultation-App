@@ -11,10 +11,12 @@ import EducationInfo from './EducationInfo'
 import PracticeInfo from './PracticeInfo'
 import AdditionalInfo from './AdditionalInfo'
 import Availability from './Availability'
+import { useOnboardingContext } from '@/context/context'
 
 export default function OnboardingSteps({id}: {id: string}) {
     const params = useSearchParams()
     const page = params.get('page') ?? "bio-data"
+    const { trackingNumber, doctorProfileId } = useOnboardingContext()
 
     const steps = [
         {
@@ -73,6 +75,7 @@ export default function OnboardingSteps({id}: {id: string}) {
                 }
             </div>
             <div className='col-span-full sm:col-span-9 bg-gray-100 p-4'>
+                <p>Tracking number: {trackingNumber}</p>
                 {currentStep?.component}
             </div>
         </div>
