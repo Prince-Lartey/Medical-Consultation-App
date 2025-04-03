@@ -9,14 +9,16 @@ import SubmitButton from '../FormInputs/SubmitButton'
 import DatePickerInput from '../FormInputs/DatePickerInput'
 import RadioInput from '../FormInputs/RadioInput'
 import toast from 'react-hot-toast'
+import { generateTracking } from '@/lib/generateTracking'
 
 export type StepFormProps = {
     page: string;
     title: string;
     description: string;
+    userId?: string;
 }
 
-export default function BioDataForm({ page, title, description }: StepFormProps) {
+export default function BioDataForm({ page, title, description, userId }: StepFormProps) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<BioDataFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
@@ -39,6 +41,8 @@ export default function BioDataForm({ page, title, description }: StepFormProps)
             return
         }
 
+        data.userId = userId
+        data.trackingNumber = generateTracking()
         data.dob = dob
         data.page = page
         console.log(data)
@@ -80,6 +84,7 @@ export default function BioDataForm({ page, title, description }: StepFormProps)
                         errors={errors}
                         placeholder="eg: Kofi"
                         className="col-span-full sm:col-span-1"
+                        isRequired={false}
                     />
                     
                     <DatePickerInput date={dob} setDate={setDOB} title="Date of Birth" className="col-span-full sm:col-span-1"/>

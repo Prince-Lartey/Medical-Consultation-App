@@ -6,7 +6,6 @@ import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import BioDataForm from './BioDataForm'
 import ContactInfo from './ContactInfo'
-import ProfessionInfo from './ProfessionInfo'
 import ProfileInfoForm from './ProfileInfoForm'
 import EducationInfo from './EducationInfo'
 import PracticeInfo from './PracticeInfo'
@@ -21,7 +20,7 @@ export default function OnboardingSteps({id}: {id: string}) {
         {
             title: 'Bio Data',
             page: 'bio-data',
-            component: <BioDataForm title="Bio Data" description="Please fill in your Bio details" page={page} />,
+            component: <BioDataForm title="Bio Data" description="Please fill in your Bio details" page={page} userId={id} />,
         },
         {
             title: 'Profile Information',
