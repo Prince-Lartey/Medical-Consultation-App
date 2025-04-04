@@ -19,8 +19,8 @@ const initialValues = {
 const OnBoardingContext = createContext<IOnBoardingContextData>(initialValues)
 
 export function OnBoardingContextProvider({ children }: { children: React.ReactNode }) {
-    const [trackingNumber, setTrackingNumber] = useState("")
-    const [doctorProfileId, setDoctorProfileId] = useState("")
+    const [trackingNumber, setTrackingNumber] = useState("BDTLDQX68R")
+    const [doctorProfileId, setDoctorProfileId] = useState("67ef23b156c7b8d2a55bce3e")
 
     const contextValues = {
         trackingNumber,

@@ -2,20 +2,39 @@
 
 import React, { useState } from 'react'
 import TextInput from '../FormInputs/TextInput'
-import { BioDataFormProps } from '../../../types/types'
+import { ContactFormProps } from '../../../types/types'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import SubmitButton from '../FormInputs/SubmitButton'
 import { StepFormProps } from './BioDataForm'
+import { updateDoctorProfile } from '../../../actions/onboarding'
+import toast from 'react-hot-toast'
 
-export default function ContactInfo({ page, title, description }: StepFormProps) {
-    const {register, handleSubmit, reset, formState: { errors }} = useForm<BioDataFormProps>()
+export default function ContactInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
+    const {register, handleSubmit, reset, formState: { errors }} = useForm<ContactFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
 
-    async function onSubmit(data: BioDataFormProps) {
+    async function onSubmit(data: ContactFormProps) {
+        setIsLoading(true)
         data.page = page
-        console.log(data)
+
+        try {
+            const res = await updateDoctorProfile(formId, data)
+            if (res?.status === 201) {
+                toast.success("Contact Information Submitted")
+                setIsLoading(false)
+                router.push(`/onboarding/${userId}?page=${nextPage}`)
+                console.log(res?.data)
+            }else {
+                setIsLoading(false)
+                toast.error("Something went wrong")
+            }
+
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+        }
     }
 
     return (
@@ -58,7 +77,7 @@ export default function ContactInfo({ page, title, description }: StepFormProps)
                     <TextInput 
                         label="City"
                         register={register}
-                        name="region"
+                        name="city"
                         type="text"
                         errors={errors}
                         placeholder=""

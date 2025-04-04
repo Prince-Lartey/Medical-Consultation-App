@@ -19,16 +19,15 @@ export type StepFormProps = {
     description: string;
     userId?: string;
     nextPage?: string;
+    formId?: string
 }
 
-export default function BioDataForm({ page, title, description, userId, nextPage }: StepFormProps) {
+export default function BioDataForm({ page, title, description, userId, nextPage, formId="" }: StepFormProps) {
     const {register, handleSubmit, formState: { errors }} = useForm<BioDataFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     const [dob, setDOB] = useState<Date>()
     const { trackingNumber, setTrackingNumber, doctorProfileId, setDoctorProfileId } = useOnboardingContext()
-
-    console.log("Tracking Number: ", trackingNumber, "Doctor Profile ID: ", doctorProfileId)
 
     const genderOptions = [
         {
@@ -56,12 +55,17 @@ export default function BioDataForm({ page, title, description, userId, nextPage
         try {
             const res = await createDoctorProfile(data)
             if (res.status === 201) {
+                toast.success("Doctor Profile Created")
                 setTrackingNumber(res.data.trackingNumber)
                 setDoctorProfileId(res.data.id)
                 setIsLoading(false)
                 router.push(`/onboarding/${userId}?page=${nextPage}`)
+                console.log(res.data)
+
+            }else {
+                setIsLoading(false)
+                toast.error("Something went wrong")
             }
-            console.log(res.data)
         } catch (error) {
             setIsLoading(false)
             console.log(error)

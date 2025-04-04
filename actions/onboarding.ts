@@ -39,3 +39,28 @@ export async function createDoctorProfile(formData: any) {
         
     }
 }
+
+export async function updateDoctorProfile(id: string | undefined, data: any) {
+    if (id) {
+        try {
+            const updatedProfile = await prismaClient.doctorProfile.update({
+                where: {
+                    id,
+                },
+                data
+            });
+            return {
+                data: updatedProfile,
+                error: null,
+                status: 201,
+            };
+        } catch (error) {
+            console.log(error);
+            return {
+                data: null,
+                status: 500,
+                error: "Profile was not updated"
+            }
+        }
+    }
+}

@@ -22,37 +22,37 @@ export default function OnboardingSteps({id}: {id: string}) {
         {
             title: 'Bio Data',
             page: 'bio-data',
-            component: <BioDataForm title="Bio Data" description="Please fill in your Bio details" page={page} userId={id} nextPage="profile"/>,
+            component: <BioDataForm title="Bio Data" description="Please fill in your Bio details" page={page} userId={id} nextPage="profile" formId={doctorProfileId}/>,
         },
         {
             title: 'Profile Information',
             page: 'profile',
-            component: <ProfileInfoForm title="Profile Information" description="Please fill in your profile details" page={page} nextPage="contact" />,
+            component: <ProfileInfoForm title="Profile Information" description="Please fill in your profile details" page={page} userId={id} nextPage="contact" formId={doctorProfileId}/>,
         },
         {
             title: 'Contact Information',
             page: 'contact',
-            component: <ContactInfo title="Contact Information" description="Please fill in your contact details" page={page} nextPage="education" />,
+            component: <ContactInfo title="Contact Information" description="Please fill in your contact details" page={page} userId={id} nextPage="education" formId={doctorProfileId}/>,
         },
         {
             title: 'Education Information',
             page: 'education',
-            component: <EducationInfo title="Academic Information" description="Please fill in your academic details" page={page} nextPage="practice"/>
+            component: <EducationInfo title="Academic Information" description="Please fill in your academic details" page={page} userId={id} nextPage="practice" formId={doctorProfileId}/>
         },
         {
             title: 'Practice Information',
             page: 'practice',
-            component: <PracticeInfo title="Practice Information" description="Please fill in your practice details" page={page} nextPage="additional"/>
+            component: <PracticeInfo title="Practice Information" description="Please fill in your practice details" page={page} userId={id} nextPage="additional" formId={doctorProfileId}/>
         },
         {
             title: 'Additional Information',
             page: 'additional',
-            component: <AdditionalInfo title="Additional Information" description="Please fill in your additional details" page={page} nextPage="availability"/>
+            component: <AdditionalInfo title="Additional Information" description="Please fill in your additional details" page={page} userId={id} nextPage="availability" formId={doctorProfileId}/>
         },
         {
             title: 'Availability',
             page: 'availability',
-            component: <Availability title="Availability Information" description="Please provide your availability details" page={page}/>
+            component: <Availability title="Availability Information" description="Please provide your availability details" page={page} userId={id} formId={doctorProfileId}/>
         },
     ]
     const currentStep = steps.find((step) => step.page === page)
@@ -75,7 +75,10 @@ export default function OnboardingSteps({id}: {id: string}) {
                 }
             </div>
             <div className='col-span-full sm:col-span-9 bg-gray-100 p-4'>
-                <p>Tracking number: {trackingNumber}</p>
+                {
+                    trackingNumber && 
+                    <p className="border-b border-gray-200 text-cyan-700 pb-2">Your Tracking Number is <span className="font-bold">{trackingNumber}</span>{" "}<span className="text-xs">(Use this to check the status or resume application)</span></p>
+                }
                 {currentStep?.component}
             </div>
         </div>

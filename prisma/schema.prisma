@@ -78,7 +78,7 @@ model DoctorProfile {
   gender        String
   page          String
 
-  profileProfile String?
+  profilePicture String?
   bio           String?
   medicalLicense String?
   medicalLicenseExpiry DateTime?

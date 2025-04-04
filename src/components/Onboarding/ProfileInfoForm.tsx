@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import TextInput from '../FormInputs/TextInput'
-import { BioDataFormProps } from '../../../types/types'
+import { ProfileFormProps } from '../../../types/types'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import SubmitButton from '../FormInputs/SubmitButton'
@@ -11,23 +11,44 @@ import TextAreaInput from '../FormInputs/TextAreaInput'
 import toast from 'react-hot-toast'
 import ImageInput from '../FormInputs/ImageInput'
 import { StepFormProps } from './BioDataForm'
+import { updateDoctorProfile } from '../../../actions/onboarding'
 
-export default function ProfileInfoForm({ page, title, description }: StepFormProps) {
-    const {register, handleSubmit, reset, formState: { errors }} = useForm<BioDataFormProps>()
+export default function ProfileInfoForm({ page, title, description, formId, nextPage, userId }: StepFormProps) {
+    const {register, handleSubmit, reset, formState: { errors }} = useForm<ProfileFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     const [expiry, setExpiry] = useState<Date>()
     const [profileImage, setProfileImage] = useState("")
 
-    async function onSubmit(data: BioDataFormProps) {
+    async function onSubmit(data: ProfileFormProps) {
+        setIsLoading(true)
         if (!expiry) {
             toast.error("Please select your license expiry date")
             return
         }
 
+        data.yearsOfExperience = Number(data.yearsOfExperience)
         data.medicalLicenseExpiry = expiry
         data.page = page
+        data.profilePicture = profileImage
         console.log(data)
+
+        try {
+            const res = await updateDoctorProfile(formId, data)
+            if (res?.status === 201) {
+                toast.success("Profile information Completed")
+                setIsLoading(false)
+                router.push(`/onboarding/${userId}?page=${nextPage}`)
+                console.log(res?.data)
+            }else {
+                setIsLoading(false)
+                toast.error("Something went wrong")
+            }
+
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+        }
     }
 
     return (
@@ -51,7 +72,7 @@ export default function ProfileInfoForm({ page, title, description }: StepFormPr
                     <TextInput 
                         label="Years of Experience"
                         register={register}
-                        name="experience"
+                        name="yearsOfExperience"
                         errors={errors}
                         type="number"
                         placeholder="Enter Years of Experience"

@@ -10,8 +10,10 @@ import { StepFormProps } from './BioDataForm'
 import SelectInput from '../FormInputs/SelectInput'
 import ArrayInput from '../FormInputs/ArrayInput'
 import MultipleFileUpload from '../FormInputs/MultipleFileUpload'
+import toast from 'react-hot-toast'
+import { updateDoctorProfile } from '../../../actions/onboarding'
 
-export default function EducationInfo({ page, title, description }: StepFormProps) {
+export default function EducationInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<EducationInfoProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
@@ -19,8 +21,27 @@ export default function EducationInfo({ page, title, description }: StepFormProp
     const [docs, setDocs] = useState([])
 
     async function onSubmit(data: EducationInfoProps) {
+        setIsLoading(true)
+        data.otherSpecialties = otherSpecialties
+        data.boardCertificates = docs.map((doc) => doc.url)
         data.page = page
-        console.log(data)
+
+        try {
+            const res = await updateDoctorProfile(formId, data)
+            if (res?.status === 201) {
+                toast.success("Education information Completed")
+                setIsLoading(false)
+                router.push(`/onboarding/${userId}?page=${nextPage}`)
+                console.log(res?.data)
+            }else {
+                setIsLoading(false)
+                toast.error("Something went wrong")
+            }
+
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+        }
     }
 
     return (
