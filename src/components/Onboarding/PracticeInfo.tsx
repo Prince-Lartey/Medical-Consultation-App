@@ -10,8 +10,9 @@ import toast from 'react-hot-toast'
 import ArrayInput from '../FormInputs/ArrayInput'
 import ShadSelectInput from '../FormInputs/ShadSelectInput'
 import { StepFormProps } from './BioDataForm'
+import { updateDoctorProfile } from '../../../actions/onboarding'
 
-export default function PracticeInfo({ page, title, description }: StepFormProps) {
+export default function PracticeInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<PracticeFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const [services, setServices] = useState([])
@@ -31,9 +32,28 @@ export default function PracticeInfo({ page, title, description }: StepFormProps
     ]
 
     async function onSubmit(data: PracticeFormProps) {
-        
+        setIsLoading(true)
         data.page = page
-        console.log(data)
+        data.servicesOffered = services
+        data.languageSpoken = languages
+        data.insuranceAccepted = insuranceAccepted
+        data.hospitalHoursOfOperation = Number(data.hospitalHoursOfOperation)
+
+        try {
+            const res = await updateDoctorProfile(formId, data)
+            if (res?.status === 201) {
+                toast.success("Practice information Completed")
+                setIsLoading(false)
+                router.push(`/onboarding/${userId}?page=${nextPage}`)
+                console.log(res?.data)
+            }else {
+                setIsLoading(false)
+                toast.error("Something went wrong")
+            }
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+        }
     }
 
     return (

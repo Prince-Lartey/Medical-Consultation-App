@@ -17,13 +17,13 @@ export default function page() {
         {
             title: "Begin Your Journey",
             description: "Start a new application to join our network of healthcare providers.",
-            link: "/",
+            link: "/register?role=DOCTOR&plan=free",
             linkTitle: "Start a New Application"
         },
         {
             title: "Resume Application",
             description: "Pick up from where you left off and complete your onboarding process.",
-            link: "/",
+            link: "/onboarding/resume",
             linkTitle: "Continue your Application"
         },
         {

@@ -9,17 +9,35 @@ import TextAreaInput from '../FormInputs/TextAreaInput'
 import toast from 'react-hot-toast'
 import { StepFormProps } from './BioDataForm'
 import MultipleFileUpload from '../FormInputs/MultipleFileUpload'
+import { updateDoctorProfile } from '../../../actions/onboarding'
 
-export default function AdditionalInfo({ page, title, description }: StepFormProps) {
+export default function AdditionalInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm<AdditionalFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     const [additionalDocs, setAdditionalDocs] = useState([])
 
     async function onSubmit(data: AdditionalFormProps) {
-
+        setIsLoading(true)
         data.page = page
-        console.log(data)
+        data.additionalDocs = additionalDocs.map((doc) => doc.url)
+
+        try {
+            const res = await updateDoctorProfile(formId, data)
+            if (res?.status === 201) {
+                toast.success("Additional information Completed")
+                setIsLoading(false)
+                router.push(`/onboarding/${userId}?page=${nextPage}`)
+                console.log(res?.data)
+            }else {
+                setIsLoading(false)
+                toast.error("Something went wrong")
+            }
+
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+        }
     }
 
     return (
