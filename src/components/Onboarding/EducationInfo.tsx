@@ -9,7 +9,7 @@ import SubmitButton from '../FormInputs/SubmitButton'
 import { StepFormProps } from './BioDataForm'
 import SelectInput from '../FormInputs/SelectInput'
 import ArrayInput from '../FormInputs/ArrayInput'
-import MultipleFileUpload from '../FormInputs/MultipleFileUpload'
+import MultipleFileUpload, { File } from '../FormInputs/MultipleFileUpload'
 import toast from 'react-hot-toast'
 import { updateDoctorProfile } from '../../../actions/onboarding'
 
@@ -18,7 +18,7 @@ export default function EducationInfo({ page, title, description, formId, nextPa
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     const [otherSpecialties, setOtherSpecialties] = useState([])
-    const [docs, setDocs] = useState([])
+    const [docs, setDocs] = useState<File>([])
 
     async function onSubmit(data: EducationInfoProps) {
         setIsLoading(true)

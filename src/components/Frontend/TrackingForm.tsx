@@ -7,28 +7,18 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AlertCircle, Loader } from "lucide-react";
-import { updateUserbyId } from "../../../actions/users";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import { UserRole } from "@prisma/client";
 import { Input } from "../ui/input";
-import Link from "next/link";
 import { getApplicationByTrack } from "../../../actions/onboarding";
-
-const FormSchema = z.object({
-    token: z.string().min(6, {
-        message: "Your token must be 6 characters.",
-    }),
-});
 
 export default function TrackingForm() {
     const [loading, setLoading] = useState(false);

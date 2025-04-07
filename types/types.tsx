@@ -20,18 +20,18 @@ export type LoginInputProps = {
 export type BioDataFormProps = {
     firstName: string;
     lastName: string;
-    middleName?: string;
-    dob?: Date;
+    middleName: any;
+    dob: any;
     gender: string;
-    userId?: string | undefined;
+    userId: string;
     page: string;
     trackingNumber: string
 }
 export type ProfileFormProps = {
-    profilePicture?: string;
+    profilePicture: string;
     bio: string;
     medicalLicense: string;
-    medicalLicenseExpiry?: Date;
+    medicalLicenseExpiry: any;
     page: string;
     yearsOfExperience: number;
 }

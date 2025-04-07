@@ -13,7 +13,7 @@ import { StepFormProps } from './BioDataForm'
 import { updateDoctorProfile } from '../../../actions/onboarding'
 
 export default function PracticeInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
-    const {register, handleSubmit, reset, formState: { errors }} = useForm<PracticeFormProps>()
+    const {register, handleSubmit, formState: { errors }} = useForm<PracticeFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const [services, setServices] = useState([])
     const [languages, setLanguages] = useState([])

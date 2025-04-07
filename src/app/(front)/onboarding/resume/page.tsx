@@ -1,4 +1,3 @@
-import { getUserById } from "../../../../../actions/users";
 import {
     Card,
     CardContent,
@@ -12,8 +11,6 @@ export default async function VerifyTracking({
 }: {
     params: Promise<{ id: string }>;
 }) {
-
-    const { id } = await params    
 
     return (
         <div className=" h-screen flex items-center justify-center">

@@ -10,7 +10,6 @@ import ProfileInfoForm from './ProfileInfoForm'
 import EducationInfo from './EducationInfo'
 import PracticeInfo from './PracticeInfo'
 import AdditionalInfo from './AdditionalInfo'
-import Availability from './Availability'
 import { useOnboardingContext } from '@/context/context'
 
 export default function OnboardingSteps({id}: {id: string}) {
@@ -47,13 +46,13 @@ export default function OnboardingSteps({id}: {id: string}) {
         {
             title: 'Additional Information',
             page: 'additional',
-            component: <AdditionalInfo title="Additional Information" description="Please fill in your additional details" page={page} userId={id} nextPage="availability" formId={doctorProfileId}/>
+            component: <AdditionalInfo title="Additional Information" description="Please fill in your additional details" page={page} userId={id} nextPage="final" formId={doctorProfileId}/>
         },
-        {
-            title: 'Availability',
-            page: 'availability',
-            component: <Availability title="Availability Information" description="Please provide your availability details" page={page} userId={id} formId={doctorProfileId}/>
-        },
+        // {
+        //     title: 'Availability',
+        //     page: 'availability',
+        //     component: <Availability title="Availability Information" description="Please provide your availability details" page={page} userId={id} formId={doctorProfileId}/>
+        // },
     ]
     const currentStep = steps.find((step) => step.page === page)
 
