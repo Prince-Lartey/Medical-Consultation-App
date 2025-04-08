@@ -12,18 +12,25 @@ import toast from 'react-hot-toast'
 import ImageInput from '../FormInputs/ImageInput'
 import { StepFormProps } from './BioDataForm'
 import { updateDoctorProfile } from '../../../actions/onboarding'
+import { useOnboardingContext } from '@/context/context'
 
 export default function ProfileInfoForm({ page, title, description, formId, nextPage, userId }: StepFormProps) {
-    const {register, handleSubmit, reset, formState: { errors }} = useForm<ProfileFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-    const [expiry, setExpiry] = useState<Date>()
-    const [profileImage, setProfileImage] = useState("")
+    const {profileData, setProfileData} = useOnboardingContext()
+
+    const initialExpiryDate = profileData.medicalLicenseExpiry
+    const initialProfileImage = profileData.profilePicture
+    const [expiry, setExpiry] = useState<Date>(initialExpiryDate)
+    const [profileImage, setProfileImage] = useState(initialProfileImage)
+
+    const {register, handleSubmit, formState: { errors }} = useForm<ProfileFormProps>({defaultValues: profileData})
 
     async function onSubmit(data: ProfileFormProps) {
         setIsLoading(true)
         if (!expiry) {
             toast.error("Please select your license expiry date")
+            setIsLoading(false)
             return
         }
 
@@ -35,11 +42,13 @@ export default function ProfileInfoForm({ page, title, description, formId, next
 
         try {
             const res = await updateDoctorProfile(formId, data)
+
             if (res?.status === 201) {
                 toast.success("Profile information Completed")
                 setIsLoading(false)
                 router.push(`/onboarding/${userId}?page=${nextPage}`)
                 console.log(res?.data)
+                setProfileData(data)
             }else {
                 setIsLoading(false)
                 toast.error("Something went wrong")
