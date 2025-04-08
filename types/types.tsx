@@ -1,3 +1,4 @@
+import { File } from "@/components/FormInputs/MultipleFileUpload";
 
 export type ServiceProps = {
     title: string;
@@ -45,8 +46,8 @@ export type EducationInfoProps = {
     medicalSchool: string;
     graduationYear: number;
     primarySpecialization: string;
-    otherSpecialties?: string[];
-    boardCertificates: string[];
+    otherSpecialties: string[];
+    boardCertificates: any;
     page: string;
 }
 export type PracticeFormProps = {
@@ -58,13 +59,12 @@ export type PracticeFormProps = {
     hospitalHoursOfOperation: number;
     servicesOffered: string[];
     insuranceAccepted: string;
-    languageSpoken: string[];
     page: string;
 }
 export type AdditionalFormProps = {
     educationHistory: string;
     research: string;
     accomplishments: string;
-    additionalDocs: string[];
+    additionalDocs: any;
     page: string;
 }

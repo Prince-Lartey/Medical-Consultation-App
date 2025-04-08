@@ -11,14 +11,19 @@ import ArrayInput from '../FormInputs/ArrayInput'
 import ShadSelectInput from '../FormInputs/ShadSelectInput'
 import { StepFormProps } from './BioDataForm'
 import { updateDoctorProfile } from '../../../actions/onboarding'
+import { useOnboardingContext } from '@/context/context'
 
 export default function PracticeInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
-    const {register, handleSubmit, formState: { errors }} = useForm<PracticeFormProps>()
     const [isLoading, setIsLoading] = useState(false)
-    const [services, setServices] = useState([])
-    const [languages, setLanguages] = useState([])
-    const [insuranceAccepted, setInsuranceAccepted] = useState("")
     const router = useRouter()
+    const { practiceData, setPracticeData } = useOnboardingContext()
+
+    const initialServices = practiceData.servicesOffered
+    const initialInsurance = practiceData.insuranceAccepted
+    const [services, setServices] = useState(initialServices)
+    const [insuranceAccepted, setInsuranceAccepted] = useState(initialInsurance)
+
+    const {register, handleSubmit, formState: { errors }} = useForm<PracticeFormProps>()
 
     const insuranceOptions = [
         {
@@ -35,7 +40,6 @@ export default function PracticeInfo({ page, title, description, formId, nextPag
         setIsLoading(true)
         data.page = page
         data.servicesOffered = services
-        data.languageSpoken = languages
         data.insuranceAccepted = insuranceAccepted
         data.hospitalHoursOfOperation = Number(data.hospitalHoursOfOperation)
 
@@ -46,6 +50,7 @@ export default function PracticeInfo({ page, title, description, formId, nextPag
                 setIsLoading(false)
                 router.push(`/onboarding/${userId}?page=${nextPage}`)
                 console.log(res?.data)
+                setPracticeData(data)
             }else {
                 setIsLoading(false)
                 toast.error("Something went wrong")
@@ -132,12 +137,7 @@ export default function PracticeInfo({ page, title, description, formId, nextPag
                         setItems={setServices}
                         items={services}
                         itemTitle="Add Hospital Services"
-                    />
-                    <ArrayInput 
-                        setItems={setLanguages}
-                        items={languages}
-                        itemTitle="Add Languages Spoken at the Hospital"
-                    />           
+                    />         
                 </div>
                 
                 <div className="flex justify-center items-center mt-8">

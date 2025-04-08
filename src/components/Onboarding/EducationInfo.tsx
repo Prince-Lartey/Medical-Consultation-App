@@ -12,13 +12,19 @@ import ArrayInput from '../FormInputs/ArrayInput'
 import MultipleFileUpload, { File } from '../FormInputs/MultipleFileUpload'
 import toast from 'react-hot-toast'
 import { updateDoctorProfile } from '../../../actions/onboarding'
+import { useOnboardingContext } from '@/context/context'
 
 export default function EducationInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
-    const {register, handleSubmit, reset, formState: { errors }} = useForm<EducationInfoProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-    const [otherSpecialties, setOtherSpecialties] = useState([])
-    const [docs, setDocs] = useState<File>([])
+    const { educationData, setEducationData } = useOnboardingContext()
+
+    const initialOtherSpecialities = educationData.otherSpecialties
+    const initialDocs = educationData.boardCertificates
+    const [otherSpecialties, setOtherSpecialties] = useState(initialOtherSpecialities)
+    const [docs, setDocs] = useState<File[]>(initialDocs)
+
+    const {register, handleSubmit, formState: { errors }} = useForm<EducationInfoProps>({defaultValues: educationData})
 
     async function onSubmit(data: EducationInfoProps) {
         setIsLoading(true)
@@ -33,6 +39,7 @@ export default function EducationInfo({ page, title, description, formId, nextPa
                 setIsLoading(false)
                 router.push(`/onboarding/${userId}?page=${nextPage}`)
                 console.log(res?.data)
+                setEducationData(data)
             }else {
                 setIsLoading(false)
                 toast.error("Something went wrong")

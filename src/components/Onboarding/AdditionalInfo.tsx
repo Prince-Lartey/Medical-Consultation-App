@@ -8,14 +8,19 @@ import SubmitButton from '../FormInputs/SubmitButton'
 import TextAreaInput from '../FormInputs/TextAreaInput'
 import toast from 'react-hot-toast'
 import { StepFormProps } from './BioDataForm'
-import MultipleFileUpload from '../FormInputs/MultipleFileUpload'
+import MultipleFileUpload, { File } from '../FormInputs/MultipleFileUpload'
 import { updateDoctorProfile } from '../../../actions/onboarding'
+import { useOnboardingContext } from '@/context/context'
 
 export default function AdditionalInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
-    const {register, handleSubmit, reset, formState: { errors }} = useForm<AdditionalFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-    const [additionalDocs, setAdditionalDocs] = useState([])
+    const {additionalData, setAdditionalData} = useOnboardingContext()
+
+    const initialDocs = additionalData.additionalDocs
+    const [additionalDocs, setAdditionalDocs] = useState<File[]>(initialDocs)
+
+    const {register, handleSubmit, formState: { errors }} = useForm<AdditionalFormProps>()
 
     async function onSubmit(data: AdditionalFormProps) {
         setIsLoading(true)
@@ -29,6 +34,7 @@ export default function AdditionalInfo({ page, title, description, formId, nextP
                 setIsLoading(false)
                 router.push(`/onboarding/${userId}?page=${nextPage}`)
                 console.log(res?.data)
+                setAdditionalData(data)
             }else {
                 setIsLoading(false)
                 toast.error("Something went wrong")

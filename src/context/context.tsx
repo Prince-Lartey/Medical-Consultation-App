@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState } from "react"
-import { BioDataFormProps, ContactFormProps, ProfileFormProps } from "../../types/types";
+import { AdditionalFormProps, BioDataFormProps, ContactFormProps, EducationInfoProps, PracticeFormProps, ProfileFormProps } from "../../types/types";
 
 interface IOnBoardingContextData {
     trackingNumber: string;
@@ -17,6 +17,15 @@ interface IOnBoardingContextData {
 
     contactData: ContactFormProps
     setContactData: (value: ContactFormProps) => void;
+
+    educationData: EducationInfoProps
+    setEducationData: (value: EducationInfoProps) => void;
+
+    practiceData: PracticeFormProps
+    setPracticeData: (value: PracticeFormProps) => void;
+
+    additionalData: AdditionalFormProps
+    setAdditionalData: (value: AdditionalFormProps) => void;
 }
 
 const initialBioData = {
@@ -47,6 +56,35 @@ const initialContactData = {
     city: ""
 }
 
+const initialEducationData = {
+    medicalSchool: "",
+    graduationYear: 0,
+    primarySpecialization: "",
+    otherSpecialties: [],
+    boardCertificates: [],
+    page: "",
+}
+
+const initialPracticeData = {
+    hospitalName: "",
+    hospitalAddress: "",
+    hospitalContactNumber: "",
+    hospitalEmailAddress: "",
+    hospitalWebsite: "",
+    hospitalHoursOfOperation: 0,
+    servicesOffered: [],
+    insuranceAccepted: "",
+    page: "",
+}
+
+const initialAdditionalData = {
+    educationHistory: "",
+    research: "",
+    accomplishments: "",
+    additionalDocs: [],
+    page: "",
+}
+
 const initialContextData = {
     trackingNumber: "",
     setTrackingNumber: () => {},
@@ -58,16 +96,25 @@ const initialContextData = {
     setProfileData: () => {},
     contactData: initialContactData,
     setContactData: () => {},
+    educationData: initialEducationData,
+    setEducationData: () => {},
+    practiceData: initialPracticeData,
+    setPracticeData: () => {},
+    additionalData: initialAdditionalData,
+    setAdditionalData: () => {},
 }
 
 const OnBoardingContext = createContext<IOnBoardingContextData>(initialContextData)
 
 export function OnBoardingContextProvider({ children }: { children: React.ReactNode }) {
-    const [trackingNumber, setTrackingNumber] = useState("")
-    const [doctorProfileId, setDoctorProfileId] = useState("")
-    const [bioData, setBioData] = useState(initialBioData)
-    const [profileData, setProfileData] = useState(initialProfileData)
-    const [contactData, setContactData] = useState(initialContactData)
+    const [trackingNumber, setTrackingNumber] = useState<string>("")
+    const [doctorProfileId, setDoctorProfileId] = useState<string>("")
+    const [bioData, setBioData] = useState<BioDataFormProps>(initialBioData)
+    const [profileData, setProfileData] = useState<ProfileFormProps>(initialProfileData)
+    const [contactData, setContactData] = useState<ContactFormProps>(initialContactData)
+    const [educationData, setEducationData] = useState<EducationInfoProps>(initialEducationData)
+    const [practiceData, setPracticeData] = useState<PracticeFormProps>(initialPracticeData)
+    const [additionalData, setAdditionalData] = useState<AdditionalFormProps>(initialAdditionalData)
 
     const contextValues = {
         trackingNumber,
@@ -80,6 +127,12 @@ export function OnBoardingContextProvider({ children }: { children: React.ReactN
         setProfileData,
         contactData,
         setContactData,
+        educationData,
+        setEducationData,
+        practiceData,
+        setPracticeData,
+        additionalData,
+        setAdditionalData,
     }
 
     return (
