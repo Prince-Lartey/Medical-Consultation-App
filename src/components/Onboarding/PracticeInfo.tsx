@@ -23,7 +23,7 @@ export default function PracticeInfo({ page, title, description, formId, nextPag
     const [services, setServices] = useState(initialServices)
     const [insuranceAccepted, setInsuranceAccepted] = useState(initialInsurance)
 
-    const {register, handleSubmit, formState: { errors }} = useForm<PracticeFormProps>()
+    const {register, handleSubmit, formState: { errors }} = useForm<PracticeFormProps>({defaultValues: practiceData})
 
     const insuranceOptions = [
         {

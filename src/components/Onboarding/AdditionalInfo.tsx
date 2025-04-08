@@ -20,7 +20,7 @@ export default function AdditionalInfo({ page, title, description, formId, nextP
     const initialDocs = additionalData.additionalDocs
     const [additionalDocs, setAdditionalDocs] = useState<File[]>(initialDocs)
 
-    const {register, handleSubmit, formState: { errors }} = useForm<AdditionalFormProps>()
+    const {register, handleSubmit, formState: { errors }} = useForm<AdditionalFormProps>({defaultValues: additionalData})
 
     async function onSubmit(data: AdditionalFormProps) {
         setIsLoading(true)
