@@ -9,11 +9,14 @@ import SubmitButton from '../FormInputs/SubmitButton'
 import { StepFormProps } from './BioDataForm'
 import { updateDoctorProfile } from '../../../actions/onboarding'
 import toast from 'react-hot-toast'
+import { useOnboardingContext } from '@/context/context'
 
 export default function ContactInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
-    const {register, handleSubmit, reset, formState: { errors }} = useForm<ContactFormProps>()
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
+    const { contactData, setContactData } = useOnboardingContext()
+
+    const {register, handleSubmit, formState: { errors }} = useForm<ContactFormProps>({defaultValues: contactData})
 
     async function onSubmit(data: ContactFormProps) {
         setIsLoading(true)
@@ -26,6 +29,7 @@ export default function ContactInfo({ page, title, description, formId, nextPage
                 setIsLoading(false)
                 router.push(`/onboarding/${userId}?page=${nextPage}`)
                 console.log(res?.data)
+                setContactData(data)
             }else {
                 setIsLoading(false)
                 toast.error("Something went wrong")
@@ -66,7 +70,7 @@ export default function ContactInfo({ page, title, description, formId, nextPage
                         className="col-span-full sm:col-span-1"
                     />
                     <TextInput 
-                        label="Region"
+                        label="Region/State"
                         register={register}
                         name="region"
                         type="text"
