@@ -17,14 +17,23 @@ import { useOnboardingContext } from '@/context/context'
 export default function ProfileInfoForm({ page, title, description, formId, nextPage, userId }: StepFormProps) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-    const {profileData, setProfileData} = useOnboardingContext()
+    const {profileData, setProfileData, savedDBData} = useOnboardingContext()
 
-    const initialExpiryDate = profileData.medicalLicenseExpiry
-    const initialProfileImage = profileData.profilePicture
+    const initialExpiryDate = profileData.medicalLicenseExpiry || savedDBData.medicalLicenseExpiry
+    const initialProfileImage = profileData.profilePicture || savedDBData.profilePicture
     const [expiry, setExpiry] = useState<Date>(initialExpiryDate)
     const [profileImage, setProfileImage] = useState(initialProfileImage)
 
-    const {register, handleSubmit, formState: { errors }} = useForm<ProfileFormProps>({defaultValues: profileData})
+    const {register, handleSubmit, formState: { errors }} = useForm<ProfileFormProps>({
+        defaultValues: {
+            medicalLicense: profileData.medicalLicense || savedDBData.medicalLicense,
+            medicalLicenseExpiry: profileData.medicalLicenseExpiry || savedDBData.medicalLicenseExpiry,
+            yearsOfExperience: profileData.yearsOfExperience || savedDBData.yearsOfExperience,
+            bio: profileData.bio || savedDBData.bio,
+            page: profileData.page || savedDBData.page,
+            profilePicture: profileData.profilePicture || savedDBData.profilePicture,
+        }
+    })
 
     async function onSubmit(data: ProfileFormProps) {
         setIsLoading(true)
@@ -44,7 +53,7 @@ export default function ProfileInfoForm({ page, title, description, formId, next
             const res = await updateDoctorProfile(formId, data)
 
             if (res?.status === 201) {
-                toast.success("Profile information Completed")
+                toast.success("Profile Information Completed")
                 setIsLoading(false)
                 router.push(`/onboarding/${userId}?page=${nextPage}`)
                 console.log(res?.data)
