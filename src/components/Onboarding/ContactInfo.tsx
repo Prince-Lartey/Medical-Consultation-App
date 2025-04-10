@@ -14,9 +14,17 @@ import { useOnboardingContext } from '@/context/context'
 export default function ContactInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-    const { contactData, setContactData } = useOnboardingContext()
+    const { contactData, setContactData, savedDBData } = useOnboardingContext()
 
-    const {register, handleSubmit, formState: { errors }} = useForm<ContactFormProps>({defaultValues: contactData})
+    const {register, handleSubmit, formState: { errors }} = useForm<ContactFormProps>({
+        defaultValues: {
+            email: contactData.email || savedDBData.email,
+            phone: contactData.phone || savedDBData.phone,
+            region: contactData.region || savedDBData.region,
+            city: contactData.city || savedDBData.city,
+            page: contactData.page || savedDBData.page,
+        }
+    })
 
     async function onSubmit(data: ContactFormProps) {
         setIsLoading(true)

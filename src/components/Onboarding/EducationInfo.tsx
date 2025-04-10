@@ -17,14 +17,23 @@ import { useOnboardingContext } from '@/context/context'
 export default function EducationInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-    const { educationData, setEducationData } = useOnboardingContext()
+    const { educationData, setEducationData, savedDBData } = useOnboardingContext()
 
-    const initialOtherSpecialities = educationData.otherSpecialties
-    const initialDocs = educationData.boardCertificates
+    const initialOtherSpecialities = educationData.otherSpecialties || savedDBData.otherSpecialties
+    const initialDocs = educationData.boardCertificates || savedDBData.boardCertificates
     const [otherSpecialties, setOtherSpecialties] = useState(initialOtherSpecialities)
     const [docs, setDocs] = useState<File[]>(initialDocs)
 
-    const {register, handleSubmit, formState: { errors }} = useForm<EducationInfoProps>({defaultValues: educationData})
+    const {register, handleSubmit, formState: { errors }} = useForm<EducationInfoProps>({
+        defaultValues: {
+            medicalSchool: educationData.medicalSchool || savedDBData.medicalSchool,
+            graduationYear: educationData.graduationYear || savedDBData.graduationYear,
+            primarySpecialization: educationData.primarySpecialization || savedDBData.primarySpecialization,
+            otherSpecialties: initialOtherSpecialities,
+            boardCertificates: initialDocs,
+            page: educationData.page || savedDBData.page,
+        }
+    })
 
     async function onSubmit(data: EducationInfoProps) {
         setIsLoading(true)
