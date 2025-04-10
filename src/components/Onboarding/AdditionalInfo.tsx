@@ -15,12 +15,19 @@ import { useOnboardingContext } from '@/context/context'
 export default function AdditionalInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-    const {additionalData, setAdditionalData} = useOnboardingContext()
+    const {additionalData, setAdditionalData, savedDBData} = useOnboardingContext()
 
-    const initialDocs = additionalData.additionalDocs
+    const initialDocs = additionalData.additionalDocs.length > 0 ? additionalData.additionalDocs : savedDBData.additionalDocs
     const [additionalDocs, setAdditionalDocs] = useState<File[]>(initialDocs)
 
-    const {register, handleSubmit, formState: { errors }} = useForm<AdditionalFormProps>({defaultValues: additionalData})
+    const {register, handleSubmit, formState: { errors }} = useForm<AdditionalFormProps>({
+        defaultValues: {
+            educationHistory: additionalData.educationHistory || savedDBData.educationHistory,
+            research: additionalData.research || savedDBData.research,
+            accomplishments: additionalData.accomplishments || savedDBData.accomplishments,
+            page: additionalData.page || savedDBData.page,
+        }
+    })
 
     async function onSubmit(data: AdditionalFormProps) {
         setIsLoading(true)

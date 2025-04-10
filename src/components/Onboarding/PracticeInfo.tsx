@@ -16,14 +16,25 @@ import { useOnboardingContext } from '@/context/context'
 export default function PracticeInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-    const { practiceData, setPracticeData } = useOnboardingContext()
+    const { practiceData, setPracticeData, savedDBData } = useOnboardingContext()
 
-    const initialServices = practiceData.servicesOffered
-    const initialInsurance = practiceData.insuranceAccepted
+    const initialServices = practiceData.servicesOffered.length > 0 ? practiceData.servicesOffered : savedDBData.servicesOffered
+    const initialInsurance = practiceData.insuranceAccepted || savedDBData.insuranceAccepted
     const [services, setServices] = useState(initialServices)
     const [insuranceAccepted, setInsuranceAccepted] = useState(initialInsurance)
 
-    const {register, handleSubmit, formState: { errors }} = useForm<PracticeFormProps>({defaultValues: practiceData})
+    const {register, handleSubmit, formState: { errors }} = useForm<PracticeFormProps>({
+        defaultValues: {
+            hospitalName: practiceData.hospitalName || savedDBData.hospitalName,
+            hospitalAddress: practiceData.hospitalAddress || savedDBData.hospitalAddress,
+            hospitalContactNumber: practiceData.hospitalContactNumber || savedDBData.hospitalContactNumber,
+            hospitalEmailAddress: practiceData.hospitalEmailAddress || savedDBData.hospitalEmailAddress,
+            hospitalWebsite: practiceData.hospitalWebsite || savedDBData.hospitalWebsite,
+            hospitalHoursOfOperation: practiceData.hospitalHoursOfOperation || savedDBData.hospitalHoursOfOperation,
+            insuranceAccepted: practiceData.insuranceAccepted || savedDBData.insuranceAccepted,
+            page: practiceData.page || savedDBData.page,
+        }
+    })
 
     const insuranceOptions = [
         {

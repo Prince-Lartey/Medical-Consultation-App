@@ -19,8 +19,8 @@ export default function EducationInfo({ page, title, description, formId, nextPa
     const router = useRouter()
     const { educationData, setEducationData, savedDBData } = useOnboardingContext()
 
-    const initialOtherSpecialities = educationData.otherSpecialties || savedDBData.otherSpecialties
-    const initialDocs = educationData.boardCertificates || savedDBData.boardCertificates
+    const initialOtherSpecialities = educationData.otherSpecialties.length > 0 ? educationData.otherSpecialties : savedDBData.otherSpecialties
+    const initialDocs = educationData.boardCertificates.length > 0 ? educationData.boardCertificates : savedDBData.boardCertificates
     const [otherSpecialties, setOtherSpecialties] = useState(initialOtherSpecialities)
     const [docs, setDocs] = useState<File[]>(initialDocs)
 
@@ -29,8 +29,6 @@ export default function EducationInfo({ page, title, description, formId, nextPa
             medicalSchool: educationData.medicalSchool || savedDBData.medicalSchool,
             graduationYear: educationData.graduationYear || savedDBData.graduationYear,
             primarySpecialization: educationData.primarySpecialization || savedDBData.primarySpecialization,
-            otherSpecialties: initialOtherSpecialities,
-            boardCertificates: initialDocs,
             page: educationData.page || savedDBData.page,
         }
     })
