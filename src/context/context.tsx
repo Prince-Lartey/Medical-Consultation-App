@@ -26,6 +26,9 @@ interface IOnBoardingContextData {
 
     additionalData: AdditionalFormProps
     setAdditionalData: (value: AdditionalFormProps) => void;
+
+    savedDBData: any
+    setSavedDBData: (value: any) => void;
 }
 
 const initialBioData = {
@@ -102,6 +105,8 @@ const initialContextData = {
     setPracticeData: () => {},
     additionalData: initialAdditionalData,
     setAdditionalData: () => {},
+    savedDBData: {},
+    setSavedDBData: () => {},
 }
 
 const OnBoardingContext = createContext<IOnBoardingContextData>(initialContextData)
@@ -115,6 +120,7 @@ export function OnBoardingContextProvider({ children }: { children: React.ReactN
     const [educationData, setEducationData] = useState<EducationInfoProps>(initialEducationData)
     const [practiceData, setPracticeData] = useState<PracticeFormProps>(initialPracticeData)
     const [additionalData, setAdditionalData] = useState<AdditionalFormProps>(initialAdditionalData)
+    const [savedDBData, setSavedDBData] = useState<any>({})
 
     const contextValues = {
         trackingNumber,
@@ -133,6 +139,8 @@ export function OnBoardingContextProvider({ children }: { children: React.ReactN
         setPracticeData,
         additionalData,
         setAdditionalData,
+        savedDBData,
+        setSavedDBData,
     }
 
     return (

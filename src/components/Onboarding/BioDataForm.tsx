@@ -10,7 +10,7 @@ import DatePickerInput from '../FormInputs/DatePickerInput'
 import RadioInput from '../FormInputs/RadioInput'
 import toast from 'react-hot-toast'
 import { generateTracking } from '@/lib/generateTracking'
-import { createDoctorProfile } from '../../../actions/onboarding'
+import { createDoctorProfile, updateDoctorProfile } from '../../../actions/onboarding'
 import { useOnboardingContext } from '@/context/context'
 
 export type StepFormProps = {
@@ -25,12 +25,22 @@ export type StepFormProps = {
 export default function BioDataForm({ page, title, description, userId, nextPage, formId="" }: StepFormProps) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-    const { trackingNumber, setTrackingNumber, doctorProfileId, setDoctorProfileId, bioData, setBioData} = useOnboardingContext()
+    const { trackingNumber, setTrackingNumber, doctorProfileId, setDoctorProfileId, bioData, setBioData, savedDBData} = useOnboardingContext()
 
-    const initialDOB = bioData.dob
+    const initialDOB = bioData.dob || savedDBData.dob
     const [dob, setDOB] = useState<Date>(initialDOB)
 
-    const {register, handleSubmit, formState: { errors }} = useForm<BioDataFormProps>({ defaultValues: bioData })
+    const {register, handleSubmit, formState: { errors }} = useForm<BioDataFormProps>({ 
+        defaultValues: {
+            firstName: bioData.firstName || savedDBData.firstName,
+            lastName: bioData.lastName || savedDBData.lastName,
+            middleName: bioData.middleName || savedDBData.middleName,
+            dob: bioData.dob || savedDBData.dob,
+            gender: bioData.gender || savedDBData.gender,
+            page: bioData.page || savedDBData.page,
+            trackingNumber: bioData.trackingNumber || savedDBData.trackingNumber,
+        } 
+    })
 
     console.log(trackingNumber, doctorProfileId)
 
@@ -59,21 +69,41 @@ export default function BioDataForm({ page, title, description, userId, nextPage
         data.page = page
 
         try {
-            const res = await createDoctorProfile(data)
-            if (res.status === 201) {
+            if (formId) {
+                const res = await updateDoctorProfile(formId, data)
+
+                if (res && res.status === 201) {
                 
-                toast.success("Doctor Profile Created")
-                setTrackingNumber(res.data.trackingNumber)
-                setDoctorProfileId(res.data.id)
-                setIsLoading(false)
+                    toast.success("Bio Data Updated")
+                    setTrackingNumber(res.data.trackingNumber)
+                    setDoctorProfileId(res.data.id)
+                    setIsLoading(false)
+    
+                    router.push(`/onboarding/${userId}?page=${nextPage}`)
+                    console.log(res.data)
+                    setBioData(data)
+    
+                }else {
+                    setIsLoading(false)
+                    toast.error("Something went wrong")
+                }
+            } else {
+                const res = await createDoctorProfile(data)
+                if (res.status === 201) {
+                    
+                    toast.success("Doctor Profile Created")
+                    setTrackingNumber(res.data.trackingNumber)
+                    setDoctorProfileId(res.data.id)
+                    setIsLoading(false)
 
-                router.push(`/onboarding/${userId}?page=${nextPage}`)
-                console.log(res.data)
-                setBioData(data)
+                    router.push(`/onboarding/${userId}?page=${nextPage}`)
+                    console.log(res.data)
+                    setBioData(data)
 
-            }else {
-                setIsLoading(false)
-                toast.error("Something went wrong")
+                }else {
+                    setIsLoading(false)
+                    toast.error("Something went wrong")
+                }
             }
         } catch (error) {
             setIsLoading(false)

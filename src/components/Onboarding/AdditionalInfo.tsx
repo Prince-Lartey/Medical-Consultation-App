@@ -32,7 +32,6 @@ export default function AdditionalInfo({ page, title, description, formId, nextP
             if (res?.status === 201) {
                 toast.success("Additional information Completed")
                 setIsLoading(false)
-                router.push(`/onboarding/${userId}?page=${nextPage}`)
                 console.log(res?.data)
                 setAdditionalData(data)
             }else {

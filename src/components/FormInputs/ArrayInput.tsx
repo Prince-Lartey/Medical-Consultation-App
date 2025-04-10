@@ -34,13 +34,14 @@ export default function ArrayInput({setItems, items = [], itemTitle,} : {setItem
                                 onChange={(e) => setItem(e.target.value)}
                             />
                         </div>
-                        <Button
-                            className="ml-2"
+                        <button
+                            className="ml-2 flex bg-blue-600 text-white rounded-md px-2 py-1 items-center justify-center"
                             onClick={addItem}
+                            type="button"
                         >
                             <Plus className="w-4 h-4 me-2" />
                             Add
-                        </Button>
+                        </button>
                         <button
                             className="ml-3 shrink-0 w-8 h-8 bg-red-400 rounded-full flex items-center justify-center"
                             onClick={() => setShowTagForm(false)}

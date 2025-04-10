@@ -19,8 +19,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "../ui/input";
 import { getApplicationByTrack } from "../../../actions/onboarding";
+import { useOnboardingContext } from "@/context/context";
 
 export default function TrackingForm() {
+    const {setSavedDBData} = useOnboardingContext();
     const [loading, setLoading] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
 
@@ -46,6 +48,7 @@ export default function TrackingForm() {
                 setLoading(false);
                 toast.success("Redirecting")
                 router.push(`/onboarding/${res.data?.userId}?page=${res.data?.page}`)
+                setSavedDBData(res?.data)
             } else {
                 setLoading(false);
                 setShowNotification(true);

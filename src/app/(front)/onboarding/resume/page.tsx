@@ -6,11 +6,7 @@ import {
 } from "@/components/ui/card"
 import TrackingForm from "@/components/Frontend/TrackingForm";
 
-export default async function VerifyTracking({
-    params,
-}: {
-    params: Promise<{ id: string }>;
-}) {
+export default async function VerifyTracking() {
 
     return (
         <div className=" h-screen flex items-center justify-center">
