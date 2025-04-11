@@ -13,27 +13,25 @@ import {
 } from "@react-email/components";
 interface EmailTemplateProps {
     firstName?: string;
-    token: number;
-    linkText: string;
     message: string;
+    previewText: string
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const EmailTemplate = ({
+export const WelcomeEmail = ({
     firstName = "",
-    token,
-    linkText,
     message,
+    previewText
 }: EmailTemplateProps) => (
     <Html>
         <Head />
-            <Preview>{linkText}</Preview>
+            <Preview>{previewText }</Preview>
             <Body style={main}>
                 <Container style={container}>
                 <Img
                     src="https://e1buy3qdez.ufs.sh/f/J6dncW3AVEReHxGLHn4476xTYy2EX5CqNsiMeW1vtRfkoGPp"
-                    width="32"
+                    width="64"
                     height="32"
                     alt="Claridy"
                 />
@@ -48,7 +46,6 @@ export const EmailTemplate = ({
                     </Text>
                     <Text style={text}>{message}</Text>
             
-                    <Button style={button}>{token}</Button>
                     <Text style={text}>
                         If you have any questions, feel free to reach out.
                     </Text>
@@ -66,7 +63,7 @@ export const EmailTemplate = ({
     </Html>   
 );
 
-export default EmailTemplate;
+export default WelcomeEmail;
 
 const main = {
     backgroundColor: "#ffffff",

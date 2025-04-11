@@ -15,38 +15,38 @@ import { useOnboardingContext } from '@/context/context'
 export default function OnboardingSteps({id}: {id: string}) {
     const params = useSearchParams()
     const page = params.get('page') ?? "bio-data"
-    const { trackingNumber, doctorProfileId } = useOnboardingContext()
+    const { trackingNumber, doctorProfileId, savedDBData } = useOnboardingContext()
 
     const steps = [
         {
             title: 'Bio Data',
             page: 'bio-data',
-            component: <BioDataForm title="Bio Data" description="Please fill in your Bio details" page={page} userId={id} nextPage="profile" formId={doctorProfileId}/>,
+            component: <BioDataForm title="Bio Data" description="Please fill in your Bio details" page={page} userId={id} nextPage="profile" formId={doctorProfileId?doctorProfileId:savedDBData.id}/>,
         },
         {
             title: 'Profile Information',
             page: 'profile',
-            component: <ProfileInfoForm title="Profile Information" description="Please fill in your profile details" page={page} userId={id} nextPage="contact" formId={doctorProfileId}/>,
+            component: <ProfileInfoForm title="Profile Information" description="Please fill in your profile details" page={page} userId={id} nextPage="contact" formId={doctorProfileId?doctorProfileId:savedDBData.id}/>,
         },
         {
             title: 'Contact Information',
             page: 'contact',
-            component: <ContactInfo title="Contact Information" description="Please fill in your contact details" page={page} userId={id} nextPage="education" formId={doctorProfileId}/>,
+            component: <ContactInfo title="Contact Information" description="Please fill in your contact details" page={page} userId={id} nextPage="education" formId={doctorProfileId?doctorProfileId:savedDBData.id}/>,
         },
         {
             title: 'Education Information',
             page: 'education',
-            component: <EducationInfo title="Academic Information" description="Please fill in your academic details" page={page} userId={id} nextPage="practice" formId={doctorProfileId}/>
+            component: <EducationInfo title="Academic Information" description="Please fill in your academic details" page={page} userId={id} nextPage="practice" formId={doctorProfileId?doctorProfileId:savedDBData.id}/>
         },
         {
             title: 'Practice Information',
             page: 'practice',
-            component: <PracticeInfo title="Practice Information" description="Please fill in your practice details" page={page} userId={id} nextPage="additional" formId={doctorProfileId}/>
+            component: <PracticeInfo title="Practice Information" description="Please fill in your practice details" page={page} userId={id} nextPage="additional" formId={doctorProfileId?doctorProfileId:savedDBData.id}/>
         },
         {
             title: 'Additional Information',
             page: 'additional',
-            component: <AdditionalInfo title="Additional Information" description="Please fill in your additional details" page={page} userId={id} nextPage="final" formId={doctorProfileId}/>
+            component: <AdditionalInfo title="Additional Information" description="Please fill in your additional details" page={page} userId={id} nextPage="final" formId={doctorProfileId?doctorProfileId:savedDBData.id}/>
         },
         // {
         //     title: 'Availability',
@@ -57,8 +57,8 @@ export default function OnboardingSteps({id}: {id: string}) {
     const currentStep = steps.find((step) => step.page === page)
 
     return (
-        <div className="grid grid-cols-12 mx-auto rounded-sm shadow-inner overflow-hidden border border-slate-200 min-h-screen bg-gray-300 h-full">
-            <div className='col-span-full sm:col-span-3 divide-y-2 divide-gray-200'>
+        <div className="grid grid-cols-12 mx-auto rounded-sm shadow-inner overflow-hidden border border-slate-200 dark:border-slate-500 min-h-screen bg-gray-300 dark:bg-slate-950">
+            <div className='col-span-full sm:col-span-3 divide-y-2 divide-gray-200 h-full bg-gray-300 dark:bg-slate-900'>
                 {
                     steps.map((step, index) => {
                         return (
@@ -73,11 +73,11 @@ export default function OnboardingSteps({id}: {id: string}) {
                     })
                 }
             </div>
-            <div className='col-span-full sm:col-span-9 bg-gray-100 p-4'>
+            <div className='col-span-full sm:col-span-9 bg-gray-100 p-4 dark:bg-slate-950'>
                 {
-                    trackingNumber && 
-                    <p className="border-b border-gray-200 text-cyan-700 pb-2">Your Tracking Number is <span className="font-bold">{trackingNumber}</span>{" "}<span className="text-xs">(Use this to check the status or resume application)</span></p>
-                }
+                    trackingNumber || (savedDBData.trackingNumber && 
+                    <p className="border-b border-gray-200 dark:border-slate-600 text-cyan-700 dark:text-cyan-400 pb-2">Your Tracking Number is <span className="font-bold">{trackingNumber ? trackingNumber : savedDBData.trackingNumber}</span>{" "}<span className="text-xs">(Use this to check the status or resume application)</span></p>
+                )}
                 {currentStep?.component}
             </div>
         </div>

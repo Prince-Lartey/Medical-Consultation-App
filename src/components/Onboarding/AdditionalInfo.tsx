@@ -9,7 +9,7 @@ import TextAreaInput from '../FormInputs/TextAreaInput'
 import toast from 'react-hot-toast'
 import { StepFormProps } from './BioDataForm'
 import MultipleFileUpload, { File } from '../FormInputs/MultipleFileUpload'
-import { updateDoctorProfile } from '../../../actions/onboarding'
+import { completeProfile, updateDoctorProfile } from '../../../actions/onboarding'
 import { useOnboardingContext } from '@/context/context'
 
 export default function AdditionalInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
@@ -35,12 +35,12 @@ export default function AdditionalInfo({ page, title, description, formId, nextP
         data.additionalDocs = additionalDocs.map((doc) => doc.url)
 
         try {
-            const res = await updateDoctorProfile(formId, data)
+            const res = await completeProfile(formId, data)
             if (res?.status === 201) {
-                toast.success("Additional information Completed")
-                setIsLoading(false)
-                console.log(res?.data)
                 setAdditionalData(data)
+                toast.success("Doctor Profile Completed Successfully")
+                setIsLoading(false)
+                router.push("/login")
             }else {
                 setIsLoading(false)
                 toast.error("Something went wrong")
@@ -94,7 +94,7 @@ export default function AdditionalInfo({ page, title, description, formId, nextP
                 </div>
                 
                 <div className="flex justify-center items-center mt-8">
-                    <SubmitButton title="Save and Continue" buttonType="submit" loadingTitle="Please wait..." isLoading={isLoading}/>
+                    <SubmitButton title="Complete" buttonType="submit" loadingTitle="Please wait..." isLoading={isLoading}/>
                 </div>
             </form>
         </div>

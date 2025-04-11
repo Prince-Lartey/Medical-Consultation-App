@@ -34,7 +34,7 @@ export default function MultipleFileUpload ({
             <div className="flex justify-between items-center mb-4">
                 <label htmlFor="course-image" className="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-50">{label}</label>
                 {
-                    files.length > 0 && (
+                    files && files.length > 0 && (
                         <button 
                             className="flex space-x-2 bg-slate-900 rounded-md shadow text-slate-50 py-2 px-2"
                             type="button"
@@ -47,7 +47,7 @@ export default function MultipleFileUpload ({
                 }
             </div>
             {
-                files.length > 0 ? (
+                files && files.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {
                             files.map((file, index) => {
@@ -56,6 +56,7 @@ export default function MultipleFileUpload ({
                                         <button 
                                             className="absolute -top-4 -right-2 bg-slate-100 rounded-full text-red-600"
                                             onClick={() => handleImageRemove(index)}
+                                            type="button"
                                         >
                                             <XCircle className=""/>
                                         </button>

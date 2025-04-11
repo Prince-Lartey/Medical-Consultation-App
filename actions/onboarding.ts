@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import EmailTemplate from "@/components/Emails/email-template";
 import {Resend} from "resend"
 import { DoctorProfile } from "@prisma/client";
+import WelcomeEmail from "@/components/Emails/welcome-email";
 
 export async function createDoctorProfile(formData: any) {
     const { firstName, lastName, middleName, page, dob, trackingNumber, userId, gender } = formData;
@@ -96,32 +97,51 @@ export async function getApplicationByTrack(trackingNumber: string) {
     }
 }
 
-export async function getDoctorById(trackingNumber: string) {
-    if (trackingNumber) {
+export async function completeProfile(id: string | undefined, data: any) {
+    if (id) {
         try {
             const existingProfile = await prismaClient.doctorProfile.findUnique({
                 where: {
-                    trackingNumber,
+                    id,
                 },
             });
             if (!existingProfile) {
                 return {
                     data: null,
-                    error: "Wrong Tracking Number",
-                    status: 404,
-                };
+                    status: 500,
+                    error: "Profile Not Found"
+                }
             }
+
+            const firstName = existingProfile.firstName;
+            const email = existingProfile.email as string
+            const previewText = "Welcome to PriMed";
+            const message = "Thank you for joining PriMed. We are so grateful to have you onboard.";
+
+            const resend = new Resend(process.env.RESEND_API_KEY)
+            await resend.emails.send({
+                from: "PriMed <info@pricorp.info>",
+                to: email,
+                subject: "Welcome to PriMed",
+                react: WelcomeEmail({ firstName, previewText, message }),
+            });
+            const updatedProfile = await prismaClient.doctorProfile.update({
+                where: {
+                    id,
+                },
+                data
+            });
             return {
-                data: existingProfile,
+                data: updatedProfile,
                 error: null,
-                status: 200,
+                status: 201,
             };
         } catch (error) {
             console.log(error);
             return {
                 data: null,
                 status: 500,
-                error: "Something went wrong"
+                error: "Profile was not updated"
             }
         }
     }
