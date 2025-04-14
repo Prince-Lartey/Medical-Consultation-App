@@ -1,7 +1,6 @@
 import PanelHeader from '@/components/Dashboard/Doctor/PanelHeader'
 import ListPanel from '@/components/Dashboard/Doctor/ListPanel'
 import React from 'react'
-import HomeDisplayCard from '@/components/Dashboard/Doctor/HomeDisplayCard'
 import NewButton from '@/components/Dashboard/Doctor/NewButton'
 
 export default function page() {
@@ -21,7 +20,9 @@ export default function page() {
                             <NewButton title="New Appointment" href="#" />
                         </div>
                     </div>
-                    <HomeDisplayCard />
+                    <div>
+                        <h2>Details Page</h2>
+                    </div>
                 </div>
             </div>
         </div>

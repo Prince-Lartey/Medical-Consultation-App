@@ -9,11 +9,11 @@ const tags = Array.from({ length: 50 }).map(
 
 export default function ListPanel() {
     return (
-        <ScrollArea className="h-96 w-full">
+        <ScrollArea className="h-[32rem] w-full">
             <div className="p-4">
                 {tags.map((tag) => (
                     <>
-                        <Link href="#" className="border mb-2 border-gray-100 shadow-sm text-xs py-3 px-2 inline-block w-full bg-white">
+                        <Link href="/dashboard/doctor/appointments/view/1" className="border mb-2 border-gray-100 shadow-sm text-xs py-3 px-2 inline-block w-full bg-white">
                             <div className="flex justify-between items-center">
                                 <h2>Prince Lartey</h2>
                                 <span>4:00pm</span>
