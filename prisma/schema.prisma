@@ -110,7 +110,24 @@ model DoctorProfile {
   accomplishments String?
   additionalDocs String[]
 
+  availability Availability?
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
   
+}
+
+model Availability {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  doctorProfileId String    @db.ObjectId @unique
+  doctorProfile   DoctorProfile @relation(fields: [doctorProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  monday          String[]
+  tuesday         String[]
+  wednesday       String[]
+  thursday        String[]
+  friday          String[]
+  saturday        String[]
+  sunday          String[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
 }

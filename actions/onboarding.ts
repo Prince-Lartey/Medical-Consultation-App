@@ -1,8 +1,6 @@
 "use server"
 
 import { prismaClient } from "@/lib/db";
-import bcrypt from "bcrypt";
-import EmailTemplate from "@/components/Emails/email-template";
 import {Resend} from "resend"
 import { DoctorProfile } from "@prisma/client";
 import WelcomeEmail from "@/components/Emails/welcome-email";
@@ -144,5 +142,50 @@ export async function completeProfile(id: string | undefined, data: any) {
                 error: "Profile was not updated"
             }
         }
+    }
+}
+
+export async function getDoctorProfileById(userId: string | undefined) {
+    if (userId) {
+        try {
+            const profile = await prismaClient.doctorProfile.findUnique({
+                where: {
+                    userId,
+                },
+                include: {
+                    availability: true,
+                }
+            });
+            return {
+                data: profile,
+                error: null,
+                status: 200,
+            };
+        } catch (error) {
+            console.log(error);
+            return {
+                data: null,
+                status: 500,
+                error: "Profile was not found"
+            }
+        }
+    }
+}
+
+export async function createAvailability(formData: any) {
+    try {
+        const newAvailability = await prismaClient.availability.create({data});
+        
+        console.log(newAvailability)
+        return newAvailability
+
+    } catch (error) {
+        console.log("Error in createUser:", error);        
+        return {
+            data: null,
+            status: 500,
+            error: "Something went wrong"
+        }
+        
     }
 }
