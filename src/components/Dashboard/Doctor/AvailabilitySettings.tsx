@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Monday from './AvailabilityDays/Monday'
 
 export default function AvailabilitySettings() {
     const tabs = [
@@ -53,7 +54,7 @@ export default function AvailabilitySettings() {
     return (
         <div className="">
             <p className="py-3">Please add your availability for the whole week.</p>
-            <Tabs defaultValue="monday" className="w-[800px]">
+            <Tabs defaultValue="monday" >
                 <TabsList>
                     <TabsTrigger value="monday">Monday</TabsTrigger>
                     <TabsTrigger value="tuesday">Tuesday</TabsTrigger>
@@ -64,9 +65,7 @@ export default function AvailabilitySettings() {
                     <TabsTrigger value="sunday">Sunday</TabsTrigger>
                 </TabsList>
                 <TabsContent value="monday">
-                    This is <span className="font-medium text-gray-800 dark:text-white">Profile tab&apos;s associated content</span>.
-                    Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-                    control the content visibility and styling.
+                    <Monday />
                 </TabsContent>
                 <TabsContent value="tuesday">
                     This is <span className="font-medium text-gray-800 dark:text-white">Profile tab&apos;s associated content</span>.
