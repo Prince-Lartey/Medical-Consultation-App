@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { createAvailability } from '../../../../../actions/onboarding'
 
-export default function Monday({profile}: {profile: DoctorProfile | undefined | null}) {
+export default function Tuesday({profile}: {profile: DoctorProfile | undefined | null}) {
     const timesArray = [
         "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM",
     ]
@@ -34,18 +34,18 @@ export default function Monday({profile}: {profile: DoctorProfile | undefined | 
         try {
             if (profile?.id) {
                 const data = {
-                    monday: selectedTimes,
+                    tuesday: selectedTimes,
                     doctorProfileId: profile.id
                 }
                 await createAvailability(data)
-                toast.success("Monday Availability Saved")
+                toast.success("Tuesday Availability Saved")
                 setLoading(false)
                 console.log(data)
             }else {
                 console.log("id not found")
             }
         }catch {
-            toast.error("Error Saving Monday Availability")
+            toast.error("Error Saving Tuesday Availability")
             setLoading(false)
         }
     }

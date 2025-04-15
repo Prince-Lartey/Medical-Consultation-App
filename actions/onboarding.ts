@@ -172,7 +172,7 @@ export async function getDoctorProfileById(userId: string | undefined) {
     }
 }
 
-export async function createAvailability(formData: any) {
+export async function createAvailability(data: any) {
     try {
         const newAvailability = await prismaClient.availability.create({data});
         
