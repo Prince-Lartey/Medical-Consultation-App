@@ -189,3 +189,28 @@ export async function createAvailability(data: any) {
         
     }
 }
+
+export async function updateAvailabilityById(id: string | undefined, data: any) {
+    if (id) {
+        try {
+            const updatedAvailability = await prismaClient.availability.update({
+                where: {
+                    id,
+                },
+                data
+            });
+            return {
+                data: updatedAvailability,
+                error: null,
+                status: 201,
+            };
+        } catch (error) {
+            console.log(error);
+            return {
+                data: null,
+                status: 500,
+                error: "Availability was not updated"
+            }
+        }
+    }
+}
