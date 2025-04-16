@@ -72,25 +72,25 @@ export default function AvailabilitySettings({profile}: {profile: DoctorProfile 
                     <TabsTrigger value="sunday">Sunday</TabsTrigger>
                 </TabsList>
                 <TabsContent value="monday">
-                    <Monday profile={profile}/>
+                    <Monday profile={profile} day="monday"/>
                 </TabsContent>
                 <TabsContent value="tuesday">
-                    <Tuesday profile={profile}/>
+                    <Tuesday profile={profile} day="tuesday"/>
                 </TabsContent>
                 <TabsContent value="wednesday">
-                    <Wednesday profile={profile}/>
+                    <Wednesday profile={profile} day="wednesday"/>
                 </TabsContent>
                 <TabsContent value="thursday">
-                    <Thursday profile={profile}/>
+                    <Thursday profile={profile} day="thursday"/>
                 </TabsContent>
                 <TabsContent value="friday">
-                    <Friday profile={profile}/>
+                    <Friday profile={profile} day="friday"/>
                 </TabsContent>
                 <TabsContent value="saturday">
-                    <Saturday profile={profile}/>
+                    <Saturday profile={profile} day="saturday"/>
                 </TabsContent>
                 <TabsContent value="sunday">
-                    <Sunday profile={profile}/>
+                    <Sunday profile={profile} day="sunday"/>
                 </TabsContent>                
             </Tabs>
         </div>
