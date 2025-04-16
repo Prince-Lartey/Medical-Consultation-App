@@ -8,7 +8,7 @@ export default function Thursday({profile}: {profile: any}) {
     const timesArray = [
         "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM",
     ]
-    const [selectedTimes, setSelectedTimes] = useState(["7:00 AM", "8:00 AM", "9:00 AM",])
+    const [selectedTimes, setSelectedTimes] = useState<string[]>([])
     const [loading, setLoading] = useState(false)
 
     const availability = profile?.availability || "" 
@@ -45,7 +45,7 @@ export default function Thursday({profile}: {profile: any}) {
                 await updateAvailabilityById(availability?.id, data)
                 toast.success("Thursday Availability Saved")
                 setLoading(false)
-                console.log(data)
+                // console.log(data)
             }else if (profile?.id) {
                 const data = {
                     thursday: selectedTimes,
@@ -102,23 +102,21 @@ export default function Thursday({profile}: {profile: any}) {
                     }
                     
                 </div>
-                {
-                    selectedTimes.length > 0 && (
-                        <div className="border-t border-gray-200 pt-4 flex justify-between">
-                            {
-                                loading ? (
-                                    <Button disabled><Loader className="animate-spin w-4 h-4"/>Please Wait ...</Button>
-                                ) : (
-                                    <Button onClick={handleSubmit}>Save Settings</Button>
-                                )
-                            }
-                            <button className="flex items-center py-2 px-2 border border-red-300 rounded-md text-sm justify-center" onClick={ClearAll}>
-                                <span>Clear All</span>
-                                <X className="w-3 h-3 ml-2"/>
-                            </button>
-                        </div>
-                    )
-                }
+                <div className="border-t border-gray-200 pt-4 flex justify-between">
+                    {
+                        loading ? (
+                            <Button disabled><Loader className="animate-spin w-4 h-4"/>Please Wait ...</Button>
+                        ) : (
+                            <Button onClick={handleSubmit}>Save Settings</Button>
+                        )
+                    }
+                    {selectedTimes.length > 0 && (
+                        <button className="flex items-center py-2 px-2 border border-red-300 rounded-md text-sm justify-center" onClick={ClearAll}>
+                            <span>Clear All</span>
+                            <X className="w-3 h-3 ml-2"/>
+                        </button>
+                    )}
+                </div>
             </div>
         </div>
     )

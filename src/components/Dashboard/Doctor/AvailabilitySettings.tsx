@@ -6,6 +6,10 @@ import Monday from './AvailabilityDays/Monday'
 import { DoctorProfile } from '@prisma/client'
 import Tuesday from './AvailabilityDays/Tuesday'
 import Wednesday from './AvailabilityDays/Wednesday'
+import Thursday from './AvailabilityDays/Thursday'
+import Friday from './AvailabilityDays/Friday'
+import Saturday from './AvailabilityDays/Saturday'
+import Sunday from './AvailabilityDays/Sunday'
 
 export default function AvailabilitySettings({profile}: {profile: DoctorProfile | undefined | null}) {
     // const tabs = [
@@ -58,7 +62,7 @@ export default function AvailabilitySettings({profile}: {profile: DoctorProfile 
         <div className="">
             <p className="py-5 text-sm uppercase font-semibold">Please add your availability for the whole week.</p>
             <Tabs defaultValue="monday" >
-                <TabsList>
+                <TabsList className='my-3'>
                     <TabsTrigger value="monday">Monday</TabsTrigger>
                     <TabsTrigger value="tuesday">Tuesday</TabsTrigger>
                     <TabsTrigger value="wednesday">Wednesday</TabsTrigger>
@@ -77,24 +81,16 @@ export default function AvailabilitySettings({profile}: {profile: DoctorProfile 
                     <Wednesday profile={profile}/>
                 </TabsContent>
                 <TabsContent value="thursday">
-                    This is <span className="font-medium text-gray-800 dark:text-white">Profile tab&apos;s associated content</span>.
-                    Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-                    control the content visibility and styling.
+                    <Thursday profile={profile}/>
                 </TabsContent>
                 <TabsContent value="friday">
-                    This is <span className="font-medium text-gray-800 dark:text-white">Profile tab&apos;s associated content</span>.
-                    Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-                    control the content visibility and styling.
+                    <Friday profile={profile}/>
                 </TabsContent>
                 <TabsContent value="saturday">
-                    This is <span className="font-medium text-gray-800 dark:text-white">Profile tab&apos;s associated content</span>.
-                    Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-                    control the content visibility and styling.
+                    <Saturday profile={profile}/>
                 </TabsContent>
                 <TabsContent value="sunday">
-                    This is <span className="font-medium text-gray-800 dark:text-white">Profile tab&apos;s associated content</span>.
-                    Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-                    control the content visibility and styling.
+                    <Sunday profile={profile}/>
                 </TabsContent>                
             </Tabs>
         </div>
