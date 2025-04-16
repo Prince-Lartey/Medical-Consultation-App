@@ -21,6 +21,11 @@ export default function Tuesday({profile}: {profile: any}) {
         }
     }
 
+    function handleRemoveTime(index: number) {
+        const updatedTime = selectedTimes.filter((_, i) => i !==index )
+        setSelectedTimes(updatedTime)
+    }
+
     function handleAddAll() {
         setSelectedTimes([...timesArray])
     }
@@ -64,10 +69,6 @@ export default function Tuesday({profile}: {profile: any}) {
             <div className="p-4">
                 <h2 className="font-semibold">Select the Times You are Available for this Day</h2>
                 <div className="py-6 grid grid-cols-3 gap-3">
-                    <button className="flex items-center py-2 px-2 border border-gray-300 rounded-md text-sm justify-center" onClick={handleAddAll}>
-                        <span>Add All</span>
-                        <Plus className="w-3 h-3 ml-2"/>
-                    </button>
                     {
                         timesArray.map((time, index) => {
                             return (
@@ -79,6 +80,12 @@ export default function Tuesday({profile}: {profile: any}) {
                         })
                     }
                 </div>
+                <div className="border-t border-gray-200 pt-4 flex justify-between">
+                    <button className="flex items-center py-2 px-2 border border-gray-300 rounded-md text-sm justify-center" onClick={handleAddAll}>
+                        <span>Add All</span>
+                        <Plus className="w-3 h-3 ml-2"/>
+                    </button>
+                </div>
             </div>
             <div className="p-4">
                 <h2 className="font-semibold">Here is your Selected time for this Day</h2>
@@ -86,8 +93,9 @@ export default function Tuesday({profile}: {profile: any}) {
                     {
                         selectedTimes.map((time, index) => {
                             return (
-                                <button key={index} className="flex items-center py-2 px-2 border border-blue-500 bg-blue-100 rounded-md text-sm justify-center">
+                                <button key={index} className="flex items-center py-2 px-2 border border-blue-500 bg-blue-100 rounded-md text-sm justify-center" onClick={() => handleRemoveTime(index)}>
                                     <span>{time}</span>
+                                    <X className="w-3 h-3 ml-2 text-red-500" />
                                 </button>
                             )
                         })

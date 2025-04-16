@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Monday from './AvailabilityDays/Monday'
 import { DoctorProfile } from '@prisma/client'
 import Tuesday from './AvailabilityDays/Tuesday'
+import Wednesday from './AvailabilityDays/Wednesday'
 
 export default function AvailabilitySettings({profile}: {profile: DoctorProfile | undefined | null}) {
     // const tabs = [
@@ -73,9 +74,7 @@ export default function AvailabilitySettings({profile}: {profile: DoctorProfile 
                     <Tuesday profile={profile}/>
                 </TabsContent>
                 <TabsContent value="wednesday">
-                    This is <span className="font-medium text-gray-800 dark:text-white">Profile tab&apos;s associated content</span>.
-                    Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-                    control the content visibility and styling.
+                    <Wednesday profile={profile}/>
                 </TabsContent>
                 <TabsContent value="thursday">
                     This is <span className="font-medium text-gray-800 dark:text-white">Profile tab&apos;s associated content</span>.
