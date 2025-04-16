@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { createAvailability, updateAvailabilityById } from '../../../../../actions/onboarding'
 import SelectedTimes from './SelectedTimes'
+import { timesArray } from '../../../../../config/constants'
 
 export default function Sunday({profile, day}: {profile: any, day: string}) {
     const initialData: string[] = profile?.availability[day] || []
-    const timesArray = [
-        "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM",
-    ]
+    
     const [selectedTimes, setSelectedTimes] = useState<string[]>(initialData)
     const [loading, setLoading] = useState(false)
 
@@ -65,6 +64,6 @@ export default function Sunday({profile, day}: {profile: any, day: string}) {
     }
 
     return (
-        <SelectedTimes handleAddAll={handleAddAll} timesArray={timesArray} handleAddTime={handleAddTime} selectedTimes={selectedTimes} handleRemoveTime={handleRemoveTime} handleSubmit={handleSubmit} ClearAll={ClearAll} loading={loading}/>
+        <SelectedTimes handleAddAll={handleAddAll} timesArray={timesArray} handleAddTime={handleAddTime} selectedTimes={selectedTimes} handleRemoveTime={handleRemoveTime} handleSubmit={handleSubmit} ClearAll={ClearAll} loading={loading} day={day}/>
     )
 }

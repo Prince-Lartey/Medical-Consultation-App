@@ -11,9 +11,10 @@ type SelectedProps = {
     ClearAll: () => void
     handleSubmit: () => void
     loading: boolean
+    day: string
 }
 
-export default function SelectedTimes({handleAddAll, timesArray, handleAddTime, handleRemoveTime, selectedTimes, ClearAll, handleSubmit, loading}: SelectedProps) {
+export default function SelectedTimes({handleAddAll, timesArray, handleAddTime, handleRemoveTime, selectedTimes, ClearAll, handleSubmit, loading, day}: SelectedProps) {
     return (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 border-gray-200 dark:border-gray-600 shadow rounded-md divide-x divide-gray-200">
             <div className="p-4">
@@ -38,7 +39,7 @@ export default function SelectedTimes({handleAddAll, timesArray, handleAddTime, 
                 </div>
             </div>
             <div className="p-4">
-                <h2 className="font-semibold">Here is your Selected time for this Day</h2>
+                <h2 className="font-semibold">Here is your Selected time for <span className="capitalize">{day}</span></h2>
                 <div className="py-6 grid grid-cols-3 gap-3">
                     {
                         selectedTimes.map((time, index) => {
