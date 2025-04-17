@@ -39,6 +39,15 @@ export default function Sidebar({session}: {session: Session}) {
                 title: "Dashboard", path: "/dashboard", icon: Home
             },
             {
+                title: "Services", path: "/dashboard/services", icon: Home
+            },
+            {
+                title: "Specialties", path: "/dashboard/specialties", icon: Home
+            },
+            {
+                title: "Symptoms", path: "/dashboard/symptoms", icon: Home
+            },
+            {
                 title: "Doctors", path: "/dashboard/doctors", icon: Users
             },
             {
