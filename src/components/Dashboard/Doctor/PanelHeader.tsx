@@ -1,7 +1,5 @@
-import { Button } from '@/components/ui/button'
-import { Calendar, Plus } from 'lucide-react'
+import { Calendar } from 'lucide-react'
 import React from 'react'
-import NewButton from './NewButton'
 
 export default function PanelHeader() {
     return (
@@ -9,7 +7,7 @@ export default function PanelHeader() {
             <div className="flex items-center gap-1 text-sm">
                 <Calendar className="w-4 h-4 flex-shrink-0"/>
                 <span>Appointments</span>
-                <span className="bg-white w-6 h-6 rounded-full flex items-center justify-center shadow-sm border text-xs">11</span>
+                <span className="bg-white w-6 h-6 rounded-full flex items-center justify-center shadow-sm border text-xs dark:text-slate-900">11</span>
             </div>
         </div>
     )

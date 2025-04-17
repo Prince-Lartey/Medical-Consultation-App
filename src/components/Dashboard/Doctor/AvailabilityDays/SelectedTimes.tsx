@@ -23,7 +23,7 @@ export default function SelectedTimes({handleAddAll, timesArray, handleAddTime, 
                     {
                         timesArray.map((time, index) => {
                             return (
-                                <button key={index} className="flex items-center py-2 px-2 border border-gray-100 rounded-md text-sm justify-center" onClick={() => handleAddTime(time)}>
+                                <button key={index} className="flex items-center py-2 px-2 border border-gray-100 dark:border-gray-600 rounded-md text-sm justify-center" onClick={() => handleAddTime(time)}>
                                     <span>{time}</span>
                                     <Plus className="w-3 h-3 ml-2"/>
                                 </button>
@@ -44,7 +44,7 @@ export default function SelectedTimes({handleAddAll, timesArray, handleAddTime, 
                     {
                         selectedTimes.map((time, index) => {
                             return (
-                                <button key={index} className="flex items-center py-2 px-2 border border-blue-500 bg-blue-100 rounded-md text-sm justify-center" onClick={() => handleRemoveTime(index)}>
+                                <button key={index} className="flex items-center py-2 px-2 border border-blue-500 bg-blue-100 dark:text-slate-900 rounded-md text-sm justify-center" onClick={() => handleRemoveTime(index)}>
                                     <span>{time}</span>
                                     <X className="w-3 h-3 ml-2 text-red-500" />
                                 </button>

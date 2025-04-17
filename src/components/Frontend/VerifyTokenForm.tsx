@@ -114,8 +114,8 @@ export default function VerifyTokenForm({
                         </FormItem>
                     )}
                 />
-                <Button type="submit" disabled={loading} className="flex items-center">
-                    {loading ? <span><Loader className="w-6 h-6" /> Verifying...</span> : "Submit"}
+                <Button type="submit" disabled={loading} className="">
+                    {loading ? <span><Loader className="w-6 h-6 animate-spin" /> Verifying...</span> : "Submit"}
                 </Button>
             </form>
         </Form>

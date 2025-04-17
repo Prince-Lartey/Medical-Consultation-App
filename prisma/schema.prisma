@@ -112,6 +112,12 @@ model DoctorProfile {
 
   availability Availability?
 
+  serviceId     String    @db.ObjectId @unique
+  service       Service   @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  specialityId  String    @db.ObjectId @unique
+  speciality    Speciality @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
   
@@ -128,6 +134,36 @@ model Availability {
   friday          String[]
   saturday        String[]
   sunday          String[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+}
+
+model Service {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  doctors         DoctorProfile[]
+  title           String
+  slug            String @unique
+  imageUrl        String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+}
+
+model Speciality {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  doctors         DoctorProfile[]
+  title           String
+  slug            String @unique
+  imageUrl        String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+}
+
+model Symptom {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  doctors         DoctorProfile[]
+  title           String
+  slug            String @unique
+  imageUrl        String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
 }
