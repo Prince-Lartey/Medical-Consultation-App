@@ -3,9 +3,10 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import Link from 'next/link'
 import { Briefcase, Dot } from 'lucide-react'
 
-const tags = Array.from({ length: 50 }).map(
-    (_, i, a) => `v1.2.0-beta.${a.length - i}`
-)
+const tags = Array.from({ length: 50 }, (_, i) => ({
+    id: i + 1,
+    name: `name-${i + 1}`,
+}))
 
 export default function ListPanel() {
     return (

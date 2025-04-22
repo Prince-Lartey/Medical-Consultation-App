@@ -10,6 +10,13 @@ export const ourFileRouter = {
             return { uploadedBy: "PriMed" };
         }
     ),
+    serviceImage: f({ image: { maxFileSize: "1MB" } }).onUploadComplete(
+        async ({ file }) => {
+            console.log("file url", file.url);
+
+            return { uploadedBy: "PriMed" };
+        }
+    ),
     doctorProfessionDocs: f({ pdf: { maxFileSize: "4MB", maxFileCount: 4 } }).onUploadComplete(
         async ({ file }) => {
             console.log("file url", file.url);
