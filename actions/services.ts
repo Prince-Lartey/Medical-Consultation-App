@@ -44,6 +44,59 @@ export async function createService(data: ServiceProps) {
     }
 }
 
+export async function createManyServices() {
+    try {
+        const services = [
+            {
+                title: "TeleHealth",
+                imageUrl: "https://e1buy3qdez.ufs.sh/f/J6dncW3AVEReDHYl49QJTcsVbNzpkq0dEAj7noSFKX532U16",
+                slug: "telehealth",
+            },
+            {
+                title: "Video prescription refill",
+                imageUrl: "https://e1buy3qdez.ufs.sh/f/J6dncW3AVEReJrxjmX3AVEReCXQnh9dMZW34zfyqD7g680Ta",
+                slug: "video-prescription-refill",
+            },
+            {
+                title: "In-person doctor visit",
+                imageUrl: "https://e1buy3qdez.ufs.sh/f/J6dncW3AVEReLfykl4aVN5403sknpoXeWfZERdg1y8xAK2Du",
+                slug: "in-person-doctor-visit",
+            },
+            {
+                title: "UTI consult",
+                imageUrl: "https://e1buy3qdez.ufs.sh/f/J6dncW3AVERe02JiQhwyGqSU4Ns6aXZxfPpO9LWoJ8HYuDim",
+                slug: "uti-consult",
+            },
+            {
+                title: "ED consult",
+                imageUrl: "https://e1buy3qdez.ufs.sh/f/J6dncW3AVEReZpGS19fzXUgPMEsjV1HJcfmty9CnvIbrRBFA",
+                slug: "ed-consult",
+            },
+            {
+                title: "Mental health consult",
+                imageUrl: "https://e1buy3qdez.ufs.sh/f/J6dncW3AVERewVmJOFnBquhUNRl1QHVZXmSK823sLCc9DYFr",
+                slug: "mental-health-consult",
+            }
+        ]
+
+        for (const service of services) {
+            try {
+                await createService(service);
+            }catch (error) {
+                console.error(`Error creating service ${service.title}:`, error);
+            }
+        }
+        
+    } catch (error) {
+        console.error("Error creating services:", error);
+        return {
+            data: null,
+            error: "An error occurred while creating the services",
+            status: 500,
+        };
+    }
+}
+
 export async function getServices() {
     try {
         const services = await prismaClient.service.findMany({

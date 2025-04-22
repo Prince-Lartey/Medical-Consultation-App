@@ -11,7 +11,7 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import { X } from 'lucide-react'
 import generateSlug from '@/utils/generateSlug'
-import { createService } from '../../../actions/services'
+import { createManyServices, createService } from '../../../actions/services'
 
 export type ServiceProps = {
     title: string,
@@ -43,11 +43,28 @@ export default function ServiceForm() {
         router.push("/dashboard/services")
     }
 
+    // async function handleCreateMany() {
+    //     setIsLoading(true)
+    //     try {
+    //         await createManyServices()
+    //         toast.success("Services created successfully")
+    //         setIsLoading(false)
+    //     }catch (error) {
+    //         console.error("Error creating many services:", error)
+    //         toast.error("An error occurred while creating many services")
+    //     }
+    // }
+
     return (
         <div className="w-full max-w-xl shadow-sm rounded-md m-3 border border-gray-200 mx-auto">
             <div className="text-center border-b border-gray-200 py-4 dark:border-slate-600">
                 <div className="flex justify-between items-center px-6">
                     <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">Create a Service</h1>
+
+                    {/* <Button onClick={handleCreateMany} disabled={isLoading}>
+                        {isLoading ? "Creating..." : "Create Many"}
+                    </Button> */}
+
                     <Button variant="outline">
                         <Link href="/dashboard/services" className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
                             <X className="w-4 h-4" />
