@@ -66,8 +66,8 @@ model User {
   serviceId     String?    @db.ObjectId
   service       Service?   @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  specialityId  String?    @db.ObjectId
-  speciality    Speciality? @relation(fields: [specialityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  specialtyId  String?    @db.ObjectId
+  specialty    Specialty? @relation(fields: [specialtyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   symptomIds     String[]
 
@@ -151,7 +151,7 @@ model Service {
   updatedAt     DateTime? @updatedAt
 }
 
-model Speciality {
+model Specialty {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
   doctors         User[]
   title           String

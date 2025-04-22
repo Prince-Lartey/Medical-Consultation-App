@@ -10,7 +10,7 @@ export default function HomeDisplayCard() {
                 <div className="py-3">
                     {" "}
                     <p>You have 11 appointments today</p>
-                    <p>11 New Patients, 3 Follow Ups, 4 Annual Physicals</p>
+                    {/* <p>11 New Patients, 3 Follow Ups, 4 Annual Physicals</p> */}
                 </div>
                 <NewButton title="New Appointment" href="#" />
             </div>
