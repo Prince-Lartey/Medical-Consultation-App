@@ -2,26 +2,22 @@
 
 import Link from 'next/link'
 import React from 'react'
-import Image from 'next/image'
 import { Pencil, Trash } from 'lucide-react'
-import { deleteService } from '../../../actions/services'
-import { Service } from '@prisma/client'
+import { deleteSpecialty } from '../../../actions/specialties'
+import { Specialty } from '@prisma/client'
 import toast from 'react-hot-toast'
 
-export default function ServiceCard({service}: {service: Service}) {
-    const { id, title, slug, imageUrl } = service
+export default function SpecialtyCard({specialty}: {specialty: Specialty}) {
+    const { id, title, slug } = specialty
 
     async function handleDelete(id: string) {
-        await deleteService(id)
+        await deleteSpecialty(id)
         toast.success("Specialty deleted successfully")
     }
 
     return (
-        <div className="border mb-2 border-gray-100 shadow-sm text-xs py-3 px-2 w-full bg-white dark:text-slate-900 rounded-md flex items-center justify-between">
-            <div className='flex items-center gap-5'>
-                {imageUrl && (
-                    <Image src={imageUrl} alt={title} width={512} height={512} className="w-14 h-auto" />
-                )}
+        <div className="border mb-2 border-gray-100 shadow-sm text-sm py-3 px-2 w-full bg-white dark:text-slate-900 rounded-md flex items-center justify-between">
+            <div className='flex items-center'>
                 <h2 className="capitalize">{title}</h2>
             </div>
             

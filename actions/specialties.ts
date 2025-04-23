@@ -111,3 +111,27 @@ export async function getSpecialties() {
         };
     }
 }
+
+export async function deleteSpecialty(id: string) {
+    try {
+        await prismaClient.specialty.delete({
+            where: {
+                id,
+            },
+        });
+        revalidatePath("/dashboard/specialties");
+
+        return {
+            ok: true,
+            error: null,
+            status: 200,
+        };
+    } catch (error) {
+        console.error("Error deleting specialty:", error);
+        return {
+            data: null,
+            error: "An error occurred while deleting the specialty",
+            status: 500,
+        };
+    }
+}

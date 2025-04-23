@@ -118,3 +118,27 @@ export async function getServices() {
         };
     }
 }
+
+export async function deleteService(id: string) {
+    try {
+        await prismaClient.service.delete({
+            where: {
+                id,
+            },
+        });
+        revalidatePath("/dashboard/services");
+
+        return {
+            ok: true,
+            error: null,
+            status: 200,
+        };
+    } catch (error) {
+        console.error("Error deleting service:", error);
+        return {
+            data: null,
+            error: "An error occurred while deleting the service",
+            status: 500,
+        };
+    }
+}

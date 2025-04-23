@@ -37,17 +37,17 @@ export default function SpecialtyForm() {
         router.push("/dashboard/specialties")
     }
 
-    async function handleCreateMany() {
-        setIsLoading(true)
-        try {
-            await createManySpecialties()
-            toast.success("Services created successfully")
-            setIsLoading(false)
-        }catch (error) {
-            console.error("Error creating many services:", error)
-            toast.error("An error occurred while creating many services")
-        }
-    }
+    // async function handleCreateMany() {
+    //     setIsLoading(true)
+    //     try {
+    //         await createManySpecialties()
+    //         toast.success("Services created successfully")
+    //         setIsLoading(false)
+    //     }catch (error) {
+    //         console.error("Error creating many services:", error)
+    //         toast.error("An error occurred while creating many services")
+    //     }
+    // }
 
     return (
         <div className="w-full max-w-xl shadow-sm rounded-md m-3 border border-gray-200 mx-auto ">
@@ -55,9 +55,9 @@ export default function SpecialtyForm() {
                 <div className="flex justify-between items-center px-6">
                     <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">Create a Specialty</h1>
 
-                    <Button onClick={handleCreateMany} disabled={isLoading}>
+                    {/* <Button onClick={handleCreateMany} disabled={isLoading}>
                         {isLoading ? "Creating..." : "Create Many"}
-                    </Button>
+                    </Button> */}
 
                     <Button variant="outline">
                         <Link href="/dashboard/specialties" className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
