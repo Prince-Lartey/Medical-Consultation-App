@@ -6,6 +6,17 @@ import { Pencil, Trash } from 'lucide-react'
 import { deleteSpecialty } from '../../../actions/specialties'
 import { Specialty } from '@prisma/client'
 import toast from 'react-hot-toast'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default function SpecialtyCard({specialty}: {specialty: Specialty}) {
     const { id, title, slug } = specialty
@@ -26,9 +37,25 @@ export default function SpecialtyCard({specialty}: {specialty: Specialty}) {
                     <Pencil className="w-4 h-4" />
                 </Link>
 
-                <button className="text-red-600" onClick={() => handleDelete(id)}>
-                    <Trash className="w-4 h-4" />
-                </button>
+                <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <button className="text-red-600">
+                            <Trash className="w-4 h-4" />
+                        </button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle className="text-red-600">Are you absolutely sure?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                This action cannot be undone. This will permanently delete the specialty.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleDelete(id)}>Delete</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </div>
         </div>
     )

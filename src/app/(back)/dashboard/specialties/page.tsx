@@ -6,6 +6,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { getSpecialties } from '../../../../../actions/specialties'
 import { SpecialtyProps } from '@/components/Dashboard/SpecialtyForm'
 import SpecialtyCard from '@/components/Dashboard/SpecialtyCard'
+import { Specialty } from '@prisma/client'
 
 export default async function page() {
     const specialties = (await getSpecialties()).data || []
@@ -23,7 +24,7 @@ export default async function page() {
                     <div className="px-3">
                         <ScrollArea className="h-[32rem] w-full">
                             <div className="p-4">
-                                {specialties.map((specialty: SpecialtyProps) => (
+                                {specialties.map((specialty: Specialty) => (
                                     <SpecialtyCard key={specialty.title} specialty={specialty} />
                                 ))}
                             </div>
@@ -42,7 +43,6 @@ export default async function page() {
                             <div className="py-3">
                                 {" "}
                                 <p>You have {(specialties.length).toString().padStart(2, "0")} specialties</p>
-                                {/* <p>11 New Patients, 3 Follow Ups, 4 Annual Physicals</p> */}
                             </div>
                             <NewButton title="New Specialty" href="/dashboard/specialties/new" />
                         </div>

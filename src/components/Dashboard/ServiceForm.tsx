@@ -61,7 +61,7 @@ export default function ServiceForm() {
                 <div className="flex justify-between items-center px-6">
                     <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">Create a Service</h1>
 
-                    {/* <Button onClick={handleCreateMany} disabled={isLoading}>
+                    {/* <Button type="button" onClick={handleCreateMany} disabled={isLoading}>
                         {isLoading ? "Creating..." : "Create Many"}
                     </Button> */}
 

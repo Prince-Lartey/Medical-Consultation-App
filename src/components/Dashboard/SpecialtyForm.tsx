@@ -55,11 +55,11 @@ export default function SpecialtyForm() {
                 <div className="flex justify-between items-center px-6">
                     <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">Create a Specialty</h1>
 
-                    {/* <Button onClick={handleCreateMany} disabled={isLoading}>
+                    {/* <Button type="button" onClick={handleCreateMany} disabled={isLoading}>
                         {isLoading ? "Creating..." : "Create Many"}
                     </Button> */}
 
-                    <Button variant="outline">
+                    <Button type="button" variant="outline">
                         <Link href="/dashboard/specialties" className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
                             <X className="w-4 h-4" />
                         </Link>
@@ -78,7 +78,7 @@ export default function SpecialtyForm() {
                 </div>
                 
                 <div className="flex justify-between items-center mt-8">
-                    <Button variant="outline">
+                    <Button type="button" variant="outline">
                         <Link href="/dashboard/specialties" className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
                             Cancel
                         </Link>

@@ -5,7 +5,7 @@ import { LayoutGrid } from 'lucide-react'
 import { getServices } from '../../../../../actions/services'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import ServiceCard from '@/components/Dashboard/ServiceCard'
-import { ServiceProps } from '../../../../../types/types'
+import { Service } from '@prisma/client'
 
 export default async function page() {
     const services = (await getServices()).data || []
@@ -23,7 +23,7 @@ export default async function page() {
                     <div className="px-3">
                         <ScrollArea className="h-[32rem] w-full">
                             <div className="p-4">
-                                {services.map((service: ServiceProps) => (
+                                {services.map((service: Service) => (
                                     <ServiceCard key={service.title} service={service} />
                                 ))}
                             </div>
