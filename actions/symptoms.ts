@@ -47,29 +47,81 @@ export async function createManySymptoms() {
     try {
         const symptoms = [
             {
-                title: "Primary Care",
-                slug: "primary-care",
+                title: "Anxiety",
+                slug: "anxiety",
             },
             {
-                title: "Dermatology",
-                slug: "dermatology",
+                title: "Depression",
+                slug: "depression",
             },
             {
-                title: "Pediatrics",
-                slug: "pediatrics",
+                title: "Asthma",
+                slug: "asthma",
             },
             {
-                title: "Men's Health",
-                slug: "mens-health",
+                title: "Erectile Dysfunction",
+                slug: "erectile-dysfunction",
             },
             {
-                title: "Women's Health",
-                slug: "womens-health",
+                title: "Back Pain",
+                slug: "back-pain",
             },
             {
-                title: "Dental",
-                slug: "dental",
-            }
+                title: "UTI",
+                slug: "uti",
+            },
+            {
+                title: "Flu, Cough or Cold",
+                slug: "flu-cough-cold",
+            },
+            {
+                title: "Acne",
+                slug: "acne",
+            },
+            {
+                title: "Tooth Pain",
+                slug: "tooth-pain",
+            },
+            {
+                title: "Vagina Itching",
+                slug: "vagina-itching",
+            },
+            {
+                title: "Skin Itching",
+                slug: "skin-itching",
+            },
+            {
+                title: "Ear Infection",
+                slug: "ear-infection",
+            },
+            {
+                title: "Sore Throat",
+                slug: "sore-throat",
+            },
+            {
+                title: "Rash",
+                slug: "rash",
+            },
+            {
+                title: "Migraine",
+                slug: "migraine",
+            },
+            {
+                title: "Diarrhea",
+                slug: "diarrhea",
+            },
+            {
+                title: "Eczema",
+                slug: "eczema",
+            },
+            {
+                title: "Dizziness",
+                slug: "dizziness",
+            },
+            {
+                title: "Fever",
+                slug: "fever",
+            },
         ]
 
         for (const symptom of symptoms) {

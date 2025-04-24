@@ -3,8 +3,9 @@
 import { prismaClient } from "@/lib/db";
 import { ServiceProps } from "../types/types";
 import { revalidatePath } from "next/cache";
+import { Service } from "@prisma/client";
 
-export async function createService(data: ServiceProps) {
+export async function createService(data: Service) {
     const { title, imageUrl, slug } = data;
     try {
         const existingService = await prismaClient.service.findUnique({
@@ -138,6 +139,67 @@ export async function deleteService(id: string) {
         return {
             data: null,
             error: "An error occurred while deleting the service",
+            status: 500,
+        };
+    }
+}
+
+export async function getServiceBySlug(slug: string) {
+    try {
+        if (slug) {
+            const service = await prismaClient.service.findUnique({
+                where: {
+                    slug,
+                },
+            });
+            return {
+                data: service,
+                error: null,
+                status: 200,
+            };
+        }else {
+            return {
+                data: null,
+                error: "Service ID is required",
+                status: 400,
+            };
+        }
+
+    } catch (error) {
+        console.error("Error fetching service:", error);
+        return {
+            data: null,
+            error: "An error occurred while fetching the service",
+            status: 500,
+        };
+    }
+}
+
+export async function updateService(id: string, data: Service) {
+    try {
+        const { title, imageUrl, slug } = data;
+        const updatedService = await prismaClient.service.update({
+            where: {
+                id,
+            },
+            data: {
+                title,
+                imageUrl,
+                slug,
+            },
+        });
+        revalidatePath("/dashboard/services");
+
+        return {
+            data: updatedService,
+            error: null,
+            status: 200,
+        };
+    } catch (error) {
+        console.error("Error updating service:", error);
+        return {
+            data: null,
+            error: "An error occurred while updating the service",
             status: 500,
         };
     }

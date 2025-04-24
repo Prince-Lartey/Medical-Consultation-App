@@ -10,7 +10,7 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import { X } from 'lucide-react'
 import generateSlug from '@/utils/generateSlug'
-import { createSymptom } from '../../../actions/symptoms'
+import { createManySymptoms, createSymptom } from '../../../actions/symptoms'
 
 export type SymptomProps = {
     title: string,
@@ -37,17 +37,17 @@ export default function SymptomForm() {
         router.push("/dashboard/symptoms")
     }
 
-    // async function handleCreateMany() {
-    //     setIsLoading(true)
-    //     try {
-    //         await createManySpecialties()
-    //         toast.success("Services created successfully")
-    //         setIsLoading(false)
-    //     }catch (error) {
-    //         console.error("Error creating many services:", error)
-    //         toast.error("An error occurred while creating many services")
-    //     }
-    // }
+    async function handleCreateMany() {
+        setIsLoading(true)
+        try {
+            await createManySymptoms()
+            toast.success("Symptoms created successfully")
+            setIsLoading(false)
+        }catch (error) {
+            console.error("Error creating many services:", error)
+            toast.error("An error occurred while creating many services")
+        }
+    }
 
     return (
         <div className="w-full max-w-xl shadow-sm rounded-md m-3 border border-gray-200 mx-auto ">
@@ -55,9 +55,9 @@ export default function SymptomForm() {
                 <div className="flex justify-between items-center px-6">
                     <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">Create a Symptom</h1>
 
-                    {/* <Button type="button" onClick={handleCreateMany} disabled={isLoading}>
+                    <Button type="button" onClick={handleCreateMany} disabled={isLoading}>
                         {isLoading ? "Creating..." : "Create Many"}
-                    </Button> */}
+                    </Button>
 
                     <Button type="button" variant="outline">
                         <Link href="/dashboard/symptoms" className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">

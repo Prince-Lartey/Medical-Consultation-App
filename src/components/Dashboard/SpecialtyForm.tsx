@@ -41,7 +41,7 @@ export default function SpecialtyForm() {
     //     setIsLoading(true)
     //     try {
     //         await createManySpecialties()
-    //         toast.success("Services created successfully")
+    //         toast.success("Specialties created successfully")
     //         setIsLoading(false)
     //     }catch (error) {
     //         console.error("Error creating many services:", error)
