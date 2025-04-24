@@ -3,8 +3,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { Pencil, Trash } from 'lucide-react'
-import { deleteSpecialty } from '../../../actions/specialties'
-import { Specialty } from '@prisma/client'
+import { Symptom } from '@prisma/client'
 import toast from 'react-hot-toast'
 import {
     AlertDialog,
@@ -17,13 +16,14 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { deleteSymptom } from '../../../actions/symptoms'
 
-export default function SpecialtyCard({specialty}: {specialty: Specialty}) {
-    const { id, title, slug } = specialty
+export default function SymptomCard({symptom}: {symptom: Symptom}) {
+    const { id, title, slug } = symptom
 
     async function handleDelete(id: string) {
-        await deleteSpecialty(id)
-        toast.success("Specialty deleted successfully")
+        await deleteSymptom(id)
+        toast.success("Symptom deleted successfully")
     }
 
     return (
@@ -33,7 +33,7 @@ export default function SpecialtyCard({specialty}: {specialty: Specialty}) {
             </div>
             
             <div className="flex items-center gap-2">
-                <Link className="text-blue-600" href={`/dashboard/specialties/update/${slug}`}>
+                <Link className="text-blue-600" href={`/dashboard/symptoms/update/${slug}`}>
                     <Pencil className="w-4 h-4" />
                 </Link>
 
@@ -47,7 +47,7 @@ export default function SpecialtyCard({specialty}: {specialty: Specialty}) {
                         <AlertDialogHeader>
                             <AlertDialogTitle className="text-red-600">Are you absolutely sure?</AlertDialogTitle>
                             <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete the specialty.
+                                This action cannot be undone. This will permanently delete the symptom.
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>

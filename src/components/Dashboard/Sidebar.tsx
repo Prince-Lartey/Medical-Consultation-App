@@ -1,25 +1,24 @@
 "use client"
 
-import { AlarmClock, Angry, Bell, Globe, HeartPulse, Home, LayoutGrid, LineChart, Mail, Package, ScanHeart, Settings, ShoppingCart, UserPen, Users } from "lucide-react";
+import { AlarmClock, Angry, Bell, HeartPulse, Home, LayoutGrid, Mail, Power, ScanHeart, Settings, UserPen, Users } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "../ui/badge";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils"
+import { usePathname, useRouter } from "next/navigation";
 import { Session } from "next-auth";
+import { signOut } from "next-auth/react";
+import { cn } from "@/lib/utils";
 
 export default function Sidebar({session}: {session: Session}) {
     const {user} = session
     const role = user?.role
     const pathname = usePathname()
+    const router = useRouter()
+
+    async function handleLogout() {
+        await signOut()
+        router.push("/login")
+    }
 
     const roles = {
         USER: [
@@ -158,19 +157,10 @@ export default function Sidebar({session}: {session: Session}) {
                         </nav>
                     </div>
                     <div className="mt-auto p-4">
-                        <Card x-chunk="dashboard-02-chunk-0">
-                            <CardHeader className="p-2 pt-0 md:p-4">
-                                <CardTitle>Upgrade to Pro</CardTitle>
-                                <CardDescription>
-                                    Unlock all features and get unlimited access to our support team.
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                                <Button size="sm" className="w-full">
-                                    Upgrade
-                                </Button>
-                            </CardContent>
-                        </Card>
+                        <Button size="sm" className="w-full" onClick={() => handleLogout()}>
+                            <Power className="w-4 h-4 mr-1" />
+                            Logout
+                        </Button>
                     </div>
                 </div>
             </div>
