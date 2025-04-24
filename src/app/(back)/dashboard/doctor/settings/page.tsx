@@ -4,6 +4,7 @@ import AvailabilitySettings from '@/components/Dashboard/Doctor/AvailabilitySett
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { getDoctorProfileById } from '../../../../../../actions/onboarding'
+import DoctorServiceSettings from '@/components/Dashboard/Doctor/DoctorServiceSettings'
 
 export default async function page() {
     const session = await getServerSession(authOptions)
@@ -20,7 +21,9 @@ export default async function page() {
                 <TabsContent value="availability">
                     <AvailabilitySettings profile={profile?.data}/>
                 </TabsContent>
-                <TabsContent value="account">Change your password here.</TabsContent>
+                <TabsContent value="account">
+                    <DoctorServiceSettings />
+                </TabsContent>
             </Tabs>
         </div>
     )
