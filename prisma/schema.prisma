@@ -1,19 +1,18 @@
- 
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
- 
+
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
- 
+
 generator client {
   provider = "prisma-client-js"
 }
- 
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
- 
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
@@ -27,12 +26,12 @@ model Account {
   scope             String?
   id_token          String? @db.String
   session_state     String?
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@unique([provider, providerAccountId])
 }
- 
+
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
@@ -48,88 +47,94 @@ enum UserRole {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   phone         String
-  email         String   @unique
+  email         String         @unique
   emailVerified DateTime?
   image         String?
-  role          UserRole  @default(USER)
+  role          UserRole       @default(USER)
   plan          String?
   password      String
   accounts      Account[]
   sessions      Session[]
   doctorProfile DoctorProfile?
-  isVerfied     Boolean   @default(false)
+  isVerfied     Boolean        @default(false)
   token         Int
 
-  serviceId     String?    @db.ObjectId
-  service       Service?   @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  serviceId String?  @db.ObjectId
+  service   Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  specialtyId  String?    @db.ObjectId
-  specialty    Specialty? @relation(fields: [specialtyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  specialtyId String?    @db.ObjectId
+  specialty   Specialty? @relation(fields: [specialtyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  symptomIds     String[]
+  symptomIds String[]
 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
 }
 
 model DoctorProfile {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId        String   @db.ObjectId @unique
-  user          User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  trackingNumber String @unique
-  firstName     String
-  lastName      String
-  middleName    String?  
-  dob           DateTime?
-  gender        String
-  page          String
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String    @unique @db.ObjectId
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  trackingNumber String    @unique
+  firstName      String
+  lastName       String
+  middleName     String?
+  dob            DateTime?
+  gender         String
+  page           String
 
-  profilePicture String?
-  bio           String?
-  medicalLicense String?
+  profilePicture       String?
+  bio                  String?
+  medicalLicense       String?
   medicalLicenseExpiry DateTime?
-  yearsOfExperience Int?
+  yearsOfExperience    Int?
 
-  region        String?
-  city          String?
-  phone         String?
-  email         String?
+  region String?
+  city   String?
+  phone  String?
+  email  String?
 
-  medicalSchool String?
-  graduationYear String?
+  medicalSchool         String?
+  graduationYear        String?
   primarySpecialization String?
-  otherSpecialties String[]
-  boardCertificates String[]
+  otherSpecialties      String[]
+  boardCertificates     String[]
 
-  hospitalName  String?
-  hospitalAddress String?
-  hospitalContactNumber String?
-  hospitalEmailAddress String?
-  hospitalWebsite String?
+  hospitalName             String?
+  hospitalAddress          String?
+  hospitalContactNumber    String?
+  hospitalEmailAddress     String?
+  hospitalWebsite          String?
   hospitalHoursOfOperation Int?
-  servicesOffered String[]
-  insuranceAccepted String?
-  languageSpoken String[]
+  servicesOffered          String[]
+  insuranceAccepted        String?
+  languageSpoken           String[]
 
   educationHistory String?
-  research       String?
-  accomplishments String?
-  additionalDocs String[]
+  research         String?
+  accomplishments  String?
+  additionalDocs   String[]
 
   availability Availability?
 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime? @updatedAt
-  
+  serviceId      String?    @unique @db.ObjectId
+  service        Service?   @relation(fields: [serviceId], references: [id])
+  specialtyId    String?    @unique @db.ObjectId
+  specialty      Specialty? @relation(fields: [specialtyId], references: [id])
+  symptomIds     String[]   @db.ObjectId
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 model Availability {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  doctorProfileId String    @db.ObjectId @unique
-  doctorProfile   DoctorProfile @relation(fields: [doctorProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  doctorProfileId String          @unique @db.ObjectId
+  doctorProfile   DoctorProfile   @relation(fields: [doctorProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   monday          String[]
   tuesday         String[]
   wednesday       String[]
@@ -137,33 +142,35 @@ model Availability {
   friday          String[]
   saturday        String[]
   sunday          String[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime? @updatedAt
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime?       @updatedAt
 }
 
 model Service {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  doctors         User[]
-  title           String
-  slug            String @unique
-  imageUrl        String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime? @updatedAt
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  doctors       User[]
+  title         String
+  slug          String         @unique
+  imageUrl      String
+  doctorProfiles DoctorProfile[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime?      @updatedAt
 }
 
 model Specialty {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  doctors         User[]
-  title           String
-  slug            String @unique
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime? @updatedAt
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  doctors       User[]
+  title         String
+  slug          String         @unique
+  doctorProfiles DoctorProfile[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime?      @updatedAt
 }
 
 model Symptom {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  title           String
-  slug            String @unique
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime? @updatedAt
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }

@@ -13,7 +13,7 @@ export default async function page() {
     if (role === "DOCTOR") {
         return (
             <>
-                <p>Your role is a {user?.role}</p>
+                <p>Role: {user?.role}</p>
                 <DoctorDashboard />
             </>
         )
@@ -21,7 +21,7 @@ export default async function page() {
     if (role === "USER") {
         return (
             <>
-                <p>Your role is a {user?.role}</p>
+                <p>Role: {user?.role}</p>
                 <PatientDashboard />
             </>
         )
@@ -29,7 +29,7 @@ export default async function page() {
 
     return (
         <div>
-            <p>Your role is a {user?.role}</p>
+            <p>Role: {user?.role}</p>
             <Dashboard />
         </div>
     )

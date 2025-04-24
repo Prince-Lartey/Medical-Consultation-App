@@ -15,7 +15,7 @@ export default async function page() {
             <Tabs defaultValue="availability" className="w-[1000px]">
                 <TabsList>
                     <TabsTrigger value="availability">Availability Settings</TabsTrigger>
-                    <TabsTrigger value="account">Account Settings</TabsTrigger>
+                    <TabsTrigger value="account">Service Settings</TabsTrigger>
                 </TabsList>
                 <TabsContent value="availability">
                     <AvailabilitySettings profile={profile?.data}/>

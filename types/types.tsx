@@ -68,3 +68,9 @@ export type AdditionalFormProps = {
     additionalDocs: any;
     page: string;
 }
+export type Stats = {
+    doctors: string 
+    patients: string
+    appointments: string 
+    services: string
+}
