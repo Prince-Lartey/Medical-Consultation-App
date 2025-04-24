@@ -3,8 +3,9 @@
 import { prismaClient } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { SpecialtyProps } from "@/components/Dashboard/SpecialtyForm";
+import { Specialty } from "@prisma/client";
 
-export async function createSpecialty(data: SpecialtyProps) {
+export async function createSpecialty(data: Specialty) {
     const { title, slug } = data;
     try {
         const existingSpecialty = await prismaClient.specialty.findUnique({
@@ -131,6 +132,78 @@ export async function deleteSpecialty(id: string) {
         return {
             data: null,
             error: "An error occurred while deleting the specialty",
+            status: 500,
+        };
+    }
+}
+
+export async function getSpecialtyBySlug(slug: string) {
+    try {
+        if (slug) {
+            const specialty = await prismaClient.specialty.findUnique({
+                where: {
+                    slug,
+                },
+            });
+            return {
+                data: specialty,
+                error: null,
+                status: 200,
+            };
+        }else {
+            return {
+                data: null,
+                error: "Specialty is required",
+                status: 400,
+            };
+        }
+    } catch (error) {
+        console.error("Error fetching specialty:", error);
+        return {
+            data: null,
+            error: "An error occurred while fetching the specialty",
+            status: 500,
+        };
+    }
+}
+
+export async function updateSpecialty(id: string, data: Specialty) {
+    const { title, slug } = data;
+    try {
+        const existingSpecialty = await prismaClient.specialty.findUnique({
+            where: {
+                id,
+            },
+        });
+        if (!existingSpecialty) {
+            return {
+                data: null,
+                error: "Specialty not found",
+                status: 404,
+            };
+        }
+
+        const updatedSpecialty = await prismaClient.specialty.update({
+            where: {
+                id,
+            },
+            data: {
+                title,
+                slug,
+            },
+        });
+        revalidatePath("/dashboard/specialties");
+
+        return {
+            data: updatedSpecialty,
+            error: null,
+            status: 200,
+        };
+    } catch (error) {
+        console.error("Error updating specialty:", error);
+        return {
+            data: null,
+            error: "An error occurred while updating the specialty",
             status: 500,
         };
     }

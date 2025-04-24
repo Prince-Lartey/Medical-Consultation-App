@@ -10,31 +10,42 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import { X } from 'lucide-react'
 import generateSlug from '@/utils/generateSlug'
-import { createManySpecialties, createSpecialty } from '../../../actions/specialties'
+import { createManySpecialties, createSpecialty, updateSpecialty } from '../../../actions/specialties'
+import { Specialty } from '@prisma/client'
 
 export type SpecialtyProps = {
     title: string,
     slug: string,
 }
 
-export default function SpecialtyForm() {
+export default function SpecialtyForm({title, initialData}: {title: string, initialData?: Specialty}) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
+    const editingId = initialData?.id || ""
 
-    const {register, reset, handleSubmit, formState: { errors }} = useForm<SpecialtyProps>({
-        
+    const {register, reset, handleSubmit, formState: { errors }} = useForm<Specialty>({
+        defaultValues: initialData
     })
 
-    async function onSubmit(data: SpecialtyProps) {
+    async function onSubmit(data: Specialty) {
         setIsLoading(true)
         const slug = generateSlug(data.title)
         data.slug = slug
 
-        await createSpecialty(data)
-        toast.success("Specialty created successfully")
-        setIsLoading(false)
-        reset()
-        router.push("/dashboard/specialties")
+        if (editingId) {
+            // Update existing specialty
+            await updateSpecialty(editingId, data)
+            toast.success("Specialty updated successfully")
+            setIsLoading(false)
+            reset()
+            router.push("/dashboard/specialties")
+        }else {
+            await createSpecialty(data)
+            toast.success("Specialty created successfully")
+            setIsLoading(false)
+            reset()
+            router.push("/dashboard/specialties")
+        }
     }
 
     // async function handleCreateMany() {
@@ -53,7 +64,7 @@ export default function SpecialtyForm() {
         <div className="w-full max-w-xl shadow-sm rounded-md m-3 border border-gray-200 mx-auto ">
             <div className="text-center border-b border-gray-200 py-4 dark:border-slate-600">
                 <div className="flex justify-between items-center px-6">
-                    <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">Create a Specialty</h1>
+                    <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">{title}</h1>
 
                     {/* <Button type="button" onClick={handleCreateMany} disabled={isLoading}>
                         {isLoading ? "Creating..." : "Create Many"}
@@ -84,7 +95,7 @@ export default function SpecialtyForm() {
                         </Link>
                     </Button>
 
-                    <SubmitButton title="Create Specialty" buttonType="submit" loadingTitle="Please wait..." isLoading={isLoading}/>
+                    <SubmitButton title={editingId ? "Update Specialty" : "Create Specialty"} buttonType="submit" loadingTitle="Please wait..." isLoading={isLoading}/>
                 </div>
             </form>
         </div>

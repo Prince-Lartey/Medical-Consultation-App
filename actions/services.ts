@@ -178,6 +178,18 @@ export async function getServiceBySlug(slug: string) {
 export async function updateService(id: string, data: Service) {
     try {
         const { title, imageUrl, slug } = data;
+        const existingService = await prismaClient.service.findUnique({
+            where: {
+                slug,
+            },
+        });
+        if (!existingService) {
+            return {
+                data: null,
+                error: `Service not found`,
+                status: 404,
+            };
+        }
         const updatedService = await prismaClient.service.update({
             where: {
                 id,
