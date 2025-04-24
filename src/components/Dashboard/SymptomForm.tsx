@@ -10,54 +10,64 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import { X } from 'lucide-react'
 import generateSlug from '@/utils/generateSlug'
-import { createManySymptoms, createSymptom } from '../../../actions/symptoms'
+import { createManySymptoms, createSymptom, updateSymptom } from '../../../actions/symptoms'
+import { Symptom } from '@prisma/client'
 
 export type SymptomProps = {
     title: string,
     slug: string,
 }
 
-export default function SymptomForm() {
+export default function SymptomForm({title, initialData}: {title: string, initialData?: Symptom}) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-
-    const {register, reset, handleSubmit, formState: { errors }} = useForm<SymptomProps>({
-        
+    const editingId = initialData?.id || ""
+    
+    const {register, reset, handleSubmit, formState: { errors }} = useForm<Symptom>({
+        defaultValues: initialData    
     })
 
-    async function onSubmit(data: SymptomProps) {
+    async function onSubmit(data: Symptom) {
         setIsLoading(true)
         const slug = generateSlug(data.title)
         data.slug = slug
 
-        await createSymptom(data)
-        toast.success("Symptom created successfully")
-        setIsLoading(false)
-        reset()
-        router.push("/dashboard/symptoms")
-    }
-
-    async function handleCreateMany() {
-        setIsLoading(true)
-        try {
-            await createManySymptoms()
-            toast.success("Symptoms created successfully")
+        if(editingId) {
+            await updateSymptom(editingId, data)
+            toast.success("Symptom updated successfully")
             setIsLoading(false)
-        }catch (error) {
-            console.error("Error creating many services:", error)
-            toast.error("An error occurred while creating many services")
+            reset()
+            router.push("/dashboard/symptoms")
+        }else {
+            await createSymptom(data)
+            toast.success("Symptom created successfully")
+            setIsLoading(false)
+            reset()
+            router.push("/dashboard/symptoms")
         }
     }
+
+    // async function handleCreateMany() {
+    //     setIsLoading(true)
+    //     try {
+    //         await createManySymptoms()
+    //         toast.success("Symptoms created successfully")
+    //         setIsLoading(false)
+    //     }catch (error) {
+    //         console.error("Error creating many services:", error)
+    //         toast.error("An error occurred while creating many services")
+    //     }
+    // }
 
     return (
         <div className="w-full max-w-xl shadow-sm rounded-md m-3 border border-gray-200 mx-auto ">
             <div className="text-center border-b border-gray-200 py-4 dark:border-slate-600">
                 <div className="flex justify-between items-center px-6">
-                    <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">Create a Symptom</h1>
+                    <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">{title}</h1>
 
-                    <Button type="button" onClick={handleCreateMany} disabled={isLoading}>
+                    {/* <Button type="button" onClick={handleCreateMany} disabled={isLoading}>
                         {isLoading ? "Creating..." : "Create Many"}
-                    </Button>
+                    </Button> */}
 
                     <Button type="button" variant="outline">
                         <Link href="/dashboard/symptoms" className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
@@ -84,7 +94,7 @@ export default function SymptomForm() {
                         </Link>
                     </Button>
 
-                    <SubmitButton title="Create Symptom" buttonType="submit" loadingTitle="Please wait..." isLoading={isLoading}/>
+                    <SubmitButton title={editingId ? "Update Symptom" : "Create Symptom"} buttonType="submit" loadingTitle="Please wait..." isLoading={isLoading}/>
                 </div>
             </form>
         </div>

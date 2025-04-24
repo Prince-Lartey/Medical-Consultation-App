@@ -3,8 +3,9 @@
 import { prismaClient } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { SymptomProps } from "@/components/Dashboard/SymptomForm";
+import { Symptom } from "@prisma/client";
 
-export async function createSymptom(data: SymptomProps) {
+export async function createSymptom(data: Symptom) {
     const { title, slug } = data;
     try {
         const existingSymptom = await prismaClient.symptom.findUnique({
@@ -183,6 +184,78 @@ export async function deleteSymptom(id: string) {
         return {
             data: null,
             error: "An error occurred while deleting the symptom",
+            status: 500,
+        };
+    }
+}
+
+export async function getSymptomBySlug(slug: string) {
+    try {
+        if (slug) {
+            const symptom = await prismaClient.symptom.findUnique({
+                where: {
+                    slug,
+                },
+            });
+            return {
+                data: symptom,
+                error: null,
+                status: 200,
+            };
+        }else {
+            return {
+                data: null,
+                error: "Symptom slug is required",
+                status: 400,
+            };
+        }
+    } catch (error) {
+        console.error("Error fetching symptom:", error);
+        return {
+            data: null,
+            error: "An error occurred while fetching the symptom",
+            status: 500,
+        };
+    }
+}
+
+export async function updateSymptom(id: string, data: Symptom) {
+    const { title, slug } = data;
+    try {
+        const existingSymptom = await prismaClient.symptom.findUnique({
+            where: {
+                slug,
+            },
+        });
+        if (!existingSymptom) {
+            return {
+                data: null,
+                error: 'Symptom not found',
+                status: 409,
+            };
+        }
+
+        const updatedSymptom = await prismaClient.symptom.update({
+            where: {
+                id,
+            },
+            data: {
+                title,
+                slug,
+            },
+        });
+        revalidatePath("/dashboard/symptoms");
+
+        return {
+            data: updatedSymptom,
+            error: null,
+            status: 200,
+        };
+    } catch (error) {
+        console.error("Error updating symptom:", error);
+        return {
+            data: null,
+            error: "An error occurred while updating the symptom",
             status: 500,
         };
     }

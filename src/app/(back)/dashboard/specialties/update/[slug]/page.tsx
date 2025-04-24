@@ -7,7 +7,7 @@ export default async function page({ params: {slug}, }: {params: {slug: string}}
 
     return (
         <div>
-            {specialty && specialty.id && (<SpecialtyForm title="Update Service" initialData={specialty} />)}
+            {specialty && specialty.id && (<SpecialtyForm title="Update Specialty" initialData={specialty} />)}
         </div>
     )
 }
