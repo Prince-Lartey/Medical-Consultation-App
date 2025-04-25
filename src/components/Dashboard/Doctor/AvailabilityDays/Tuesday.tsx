@@ -5,7 +5,10 @@ import SelectedTimes from './SelectedTimes'
 import { timesArray } from '../../../../../config/constants'
 
 export default function Tuesday({profile, day}: {profile: any , day: string}) {
-    const initialData: string[] = profile?.availability[day] || []
+    let initialData: string[] = ["7:00 AM"]
+    if(profile && profile?.availability) {
+        initialData = profile?.availability[day] || []
+    }
     
     const [selectedTimes, setSelectedTimes] = useState<string[]>(initialData)
     const [loading, setLoading] = useState(false)
