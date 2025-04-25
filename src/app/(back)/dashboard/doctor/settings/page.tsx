@@ -22,7 +22,7 @@ export default async function page() {
                     <AvailabilitySettings profile={profile?.data}/>
                 </TabsContent>
                 <TabsContent value="account">
-                    <DoctorServiceSettings />
+                    <DoctorServiceSettings profile={profile?.data}/>
                 </TabsContent>
             </Tabs>
         </div>
