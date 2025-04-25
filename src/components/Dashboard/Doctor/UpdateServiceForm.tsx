@@ -7,34 +7,36 @@ import { Button } from '@/components/ui/button'
 import { CardContent, CardFooter } from '@/components/ui/card'
 import { DoctorProfile } from '@prisma/client'
 import { Loader } from 'lucide-react'
-import { useSession } from 'next-auth/react'
+// import { useSession } from 'next-auth/react'
 import React, { useState } from 'react'
+import { updateDoctorProfile } from '../../../../actions/onboarding'
+import toast from 'react-hot-toast'
+import { updateDoctorService } from '../../../../actions/services'
 
 export default function UpdateServiceForm({services, specialties, symptoms, profile}: {services: SelectOptions[], specialties: SelectOptions[], symptoms: SelectOptions[], profile: DoctorProfile}) {
-    const {data: session, status} = useSession()
-    const user = session?.user
+    // const {data: session, status} = useSession()
+    // const user = session?.user
 
     const profileId = profile?.id
 
     const [selectedServiceId, setSelectedServiceId] = useState()
     const [specialtyId, setSpecialtyId] = useState()
     const [symptomIds, setSymptomIds] = useState<SelectOption[]>([])
+    const [loading, setLoading] = useState(false)
 
-    if(status === "loading") {
-        return (
-            <div className="flex items-center justify-center space-y-2 space-x-2">
-                <Loader className="w-4 h-4 mr-1 animate-spin" />
-                <span>Loading User...</span>
-            </div>
-        )
-    }
-
-    function handleUpdateService() {
+    async function handleUpdateService() {
+        setLoading(true)
         const data = {
             serviceId: selectedServiceId,
             specialtyId,
             symptomIds: symptomIds.map((symptom) => symptom.value),
-            profileId,
+        }
+        try{
+            await updateDoctorService(profileId, data)
+            setLoading(false)
+            toast.success("Services updated successfully")
+        }catch (error){
+            console.error("Error updating doctor profile:", error)
         }
         console.log(data)
     }
@@ -47,7 +49,9 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
                 <CustomMultiSelect label="Select Symptom" optionTitle="Symptom" className="" options={symptoms} selectedOptions={symptomIds} setSelectedOptions={setSymptomIds} />
             </CardContent>
             <CardFooter className="border-t px-6 py-4">
-                <Button onClick={handleUpdateService}>Save</Button>
+                <Button onClick={handleUpdateService} disabled={loading}>
+                    {loading ? <Loader className="mr-2 h-4 w-4 animate-spin" /> : "Save"}
+                </Button>
             </CardFooter>
         </div>
     )

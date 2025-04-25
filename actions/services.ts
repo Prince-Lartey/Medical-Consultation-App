@@ -216,3 +216,29 @@ export async function updateService(id: string, data: Service) {
         };
     }
 }
+
+export async function updateDoctorService(id: string | undefined, data: any) {
+    if (id) {
+        try {
+            const updatedProfile = await prismaClient.doctorProfile.update({
+                where: {
+                    id,
+                },
+                data
+            });
+            revalidatePath("/dashboard/doctor/settings");
+            return {
+                data: updatedProfile,
+                error: null,
+                status: 201,
+            };
+        } catch (error) {
+            console.log(error);
+            return {
+                data: null,
+                status: 500,
+                error: "Profile was not updated"
+            }
+        }
+    }
+}
