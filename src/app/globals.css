@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 
-
-
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -62,8 +59,6 @@
   }
 }
 
-
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -79,4 +74,8 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+.react-date-picker__wrapper {
+  border: 0px !important;
 }

@@ -57,7 +57,7 @@ export default function OnboardingSteps({id}: {id: string}) {
     const currentStep = steps.find((step) => step.page === page)
 
     return (
-        <div className="grid grid-cols-12 mx-auto rounded-sm shadow-inner overflow-hidden border border-slate-200 dark:border-slate-500 min-h-screen bg-gray-300 dark:bg-slate-950">
+        <div className="grid grid-cols-12 mx-auto rounded-sm shadow-inner border border-slate-200 dark:border-slate-500 min-h-screen bg-gray-300 dark:bg-slate-950">
             <div className='col-span-full sm:col-span-3 divide-y-2 divide-gray-200 h-full bg-gray-300 dark:bg-slate-900'>
                 {
                     steps.map((step, index) => {

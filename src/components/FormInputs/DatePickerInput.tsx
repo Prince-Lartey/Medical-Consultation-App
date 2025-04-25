@@ -1,17 +1,11 @@
 "use client"
 
 import * as React from "react"
-import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
 import { Label } from '../ui/label';
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
+import DatePicker from 'react-date-picker';
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
 
 type DatePickerInputProps = {
     date: Date | undefined
@@ -25,29 +19,7 @@ export default function DatePickerInput({date, setDate, className="col-span-full
     return (
         <div className={cn("grid gap-2", className)}>
             <Label>{title}</Label>
-            <Popover>
-                <PopoverTrigger asChild>
-                    <Button
-                    variant={"outline"}
-                    className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
-                    )}
-                    >
-                    <CalendarIcon />
-                    {date ? format(date, "PPP") : <span>Pick a date</span>}
-                    </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
-                    initialFocus
-                    />
-                </PopoverContent>
-            </Popover>
+            <DatePicker onChange={setDate} value={date} className="z-50 rounded-md border border-slate-300 dark:border-slate-600 ring-0 py-1 px-3"/>
         </div>
-
     )
 }
