@@ -120,6 +120,7 @@ model DoctorProfile {
   additionalDocs   String[]
 
   availability Availability?
+  operationMode  String?
 
   serviceId      String?    @unique @db.ObjectId
   service        Service?   @relation(fields: [serviceId], references: [id])

@@ -8,7 +8,7 @@ export default function LinkCards({className, specialties}: {className?: string,
             {
                 specialties?.map((specialty, index) => {
                     return (
-                        <Link key={index} href={`/specialties/${specialty.slug}`} className={`rounded-md py-3 px-6 flex gap-4 bg-slate-800 text-slate-50 ${className}`}>
+                        <Link key={index} href={`/specialties/${specialty.slug}`} className={`rounded-md py-3 px-6 flex gap-4 bg-slate-800 text-slate-50 justify-between items-center ${className}`}>
                             <h2 className="text-sm capitalize">{specialty.title}</h2>
                             <span aria-hidden="true">&rarr;</span>
                         </Link>

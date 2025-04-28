@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { Tabs } from "flowbite-react";
-import { HiUserCircle, HiClipboardList, HiHeart, HiLightBulb } from "react-icons/hi"
+import { HiUserCircle, HiHeart, HiLightBulb } from "react-icons/hi"
 import ServiceList from "./Services/ServiceList";
 import LinkCards from "./Doctors/LinkCards";
 import { Service, Specialty, Symptom } from "@prisma/client";
+import SymptomCards from "./Doctors/SymptomCards";
 
 export default function TabbedItems({services, specialties, symptoms}: {services: Service[], specialties: Specialty[], symptoms: Symptom[]}) {
   const [activeTab, setActiveTab] = useState(0)
@@ -21,15 +22,15 @@ export default function TabbedItems({services, specialties, symptoms}: {services
     {
       title: "Specialists",
       icon: HiHeart,
-      component: <LinkCards className="bg-blue-950" data={specialties}/>,
+      component: <LinkCards className="bg-blue-950" specialties={specialties}/>,
       content: [],
     },
-    // {
-    //   title: "Symptoms",
-    //   icon: HiLightBulb,
-    //   component: <LinkCards className="bg-purple-900" data={symptoms}/>,
-    //   content: [],
-    // },
+    {
+      title: "Symptoms",
+      icon: HiLightBulb,
+      component: <SymptomCards className="bg-purple-900" symptoms={symptoms}/>,
+      content: [],
+    },
   ]
 
   return (

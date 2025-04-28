@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { CardContent } from '@/components/ui/card'
 import { DoctorProfile, Service, Specialty, Symptom } from '@prisma/client'
-import { Loader } from 'lucide-react'
+import { Loader, Map, PictureInPicture2, Video } from 'lucide-react'
 // import { useSession } from 'next-auth/react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -20,10 +20,25 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
     const [selectedServiceId, setSelectedServiceId] = useState(profile?.serviceId)
     const [specialtyId, setSpecialtyId] = useState(profile?.specialtyId)
     const [symptomIds, setSymptomIds] = useState<string[]>(profile?.symptomIds || [])
+    const [operationMode, setOperationMode] = useState(profile?.operationMode)
 
     const [savingServices, setSavingServices] = useState(false)
     const [savingSpecialty, setSavingSpecialty] = useState(false)
     const [savingSymptoms, setSavingSymptoms] = useState(false)
+    const [savingOperationMode, setSavingOperationMode] = useState(false)
+
+    const operationModes = [
+        {
+            title: "Telehealth Visit",
+            slug: "telehealth-visit",
+            icon: Video
+        },
+        {
+            title: "In-Person Doctor Visit",
+            slug: "in-person-doctor-visit",
+            icon: Map
+        },
+    ]
 
     async function handleUpdateService() {
         setSavingServices(true)
@@ -70,14 +85,51 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
         }
     }
 
+    async function handleUpdateOperationMode() {
+        setSavingOperationMode(true)
+        const data = {
+            operationMode,
+        }
+        try{
+            await updateDoctorService(profileId, data)
+            setSavingOperationMode(false)
+            toast.success("Operation Mode updated successfully")
+        }catch (error){
+            console.error("Error updating doctor profile:", error)
+            setSavingOperationMode(false)
+        }
+    }
+
     return (
         <div>
             <CardContent className="space-y-4">
                 <div className="border shadow rounded-md p-4 mt-4">
                     <div className="flex items-center justify-between border-b">
+                        <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">Choose your Mode of Operation.</h2>
+                        <Button onClick={handleUpdateOperationMode} disabled={savingOperationMode}>
+                            {savingOperationMode ? <span className="flex"><Loader className="mr-2 h-4 w-4 animate-spin" />Please wait...</span> : "Update Operation Mode"}
+                        </Button>
+                    </div>
+                    <div className="grid grid-cols-4 gap-2 py-3">
+                        {
+                            operationModes?.map((operation) => {
+                                const Icon = operation.icon
+                                return (
+                                    <button key={operation.title} className={cn("flex items-center justify-center flex-col py-3 px-3 border rounded-md cursor-pointer", operationMode === operation.title ? "border-slate-900 border-2 bg-slate-50 dark:bg-slate-950 dark:border-slate-50" : "")} onClick={() => setOperationMode(operation.title)}>
+                                        <Icon className="w-8 h-8" />
+                                        <p className="text-xs capitalize">{operation.title}</p>
+                                    </button>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+
+                <div className="border shadow rounded-md p-4 mt-4">
+                    <div className="flex items-center justify-between border-b">
                         <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">Choose the Service you would want to Offer.</h2>
                         <Button onClick={handleUpdateService} disabled={savingServices}>
-                            {savingServices ? <Loader className="mr-2 h-4 w-4 animate-spin" /> : "Update Service"}
+                            {savingServices ? <span className="flex"><Loader className="mr-2 h-4 w-4 animate-spin" />Please wait...</span> : "Update Service"}
                         </Button>
                     </div>
                     <div className="grid grid-cols-4 gap-2 py-3">
@@ -98,7 +150,7 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
                     <div className="flex items-center justify-between border-b">
                         <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-3 mb-3">Choose your Specialty.</h2>
                         <Button onClick={handleUpdateSpecialty} disabled={savingSpecialty}>
-                            {savingSpecialty ? <Loader className="mr-2 h-4 w-4 animate-spin" /> : "Update Specialty"}
+                            {savingSpecialty ? <span className="flex"><Loader className="mr-2 h-4 w-4 animate-spin" />Please wait...</span> : "Update Specialty"}
                         </Button>
                     </div>                    
                     <div className="grid grid-cols-4 gap-2 py-3">
@@ -118,7 +170,7 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
                     <div className="flex items-center justify-between border-b">
                         <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-3 mb-3">Choose the Symptoms you would want to attend to.</h2>
                         <Button onClick={handleUpdateSymptoms} disabled={savingSymptoms}>
-                            {savingSymptoms ? <Loader className="mr-2 h-4 w-4 animate-spin" /> : "Update Symptoms"}
+                            {savingSymptoms ? <span className="flex"><Loader className="mr-2 h-4 w-4 animate-spin" />Please wait...</span> : "Update Symptoms"}
                         </Button>
                     </div>                    
                     <div className="grid grid-cols-4 gap-2 py-3">
@@ -133,7 +185,6 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
                         }
                     </div>
                 </div>
-
             </CardContent>
         </div>
     )
