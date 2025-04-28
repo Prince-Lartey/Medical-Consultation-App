@@ -5,43 +5,11 @@ import { Tabs } from "flowbite-react";
 import { HiUserCircle, HiClipboardList, HiHeart, HiLightBulb } from "react-icons/hi"
 import ServiceList from "./Services/ServiceList";
 import LinkCards from "./Doctors/LinkCards";
+import { Service, Specialty, Symptom } from "@prisma/client";
 
-export default function TabbedItems() {
+export default function TabbedItems({services, specialties, symptoms}: {services: Service[], specialties: Specialty[], symptoms: Symptom[]}) {
   const [activeTab, setActiveTab] = useState(0)
 
-  const services = [
-    {
-      title: "Telehealth",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "Video prescription refill",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "UTI consult",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "Mental health consult",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "In preson doctor visit",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    },
-    {
-      title: "ED consult",
-      image: "/doctor.jpg",
-      slug: "telehealth",
-    }, 
-
-  ]
 
   const tabs = [
     {
@@ -51,23 +19,17 @@ export default function TabbedItems() {
       content: [],
     },
     {
-      title: "Doctors",
-      icon: HiClipboardList,
-      component: <LinkCards />,
-      content: [],
-    },
-    {
       title: "Specialists",
       icon: HiHeart,
-      component: <LinkCards className="bg-blue-950"/>,
+      component: <LinkCards className="bg-blue-950" data={specialties}/>,
       content: [],
     },
-    {
-      title: "Symptoms",
-      icon: HiLightBulb,
-      component: <LinkCards className="bg-purple-900"/>,
-      content: [],
-    },
+    // {
+    //   title: "Symptoms",
+    //   icon: HiLightBulb,
+    //   component: <LinkCards className="bg-purple-900" data={symptoms}/>,
+    //   content: [],
+    // },
   ]
 
   return (
