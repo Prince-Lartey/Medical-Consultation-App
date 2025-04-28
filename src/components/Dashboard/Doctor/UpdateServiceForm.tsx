@@ -1,15 +1,11 @@
 "use client"
 
-import CustomMultiSelect from '@/components/FormInputs/CustomMultiSelect'
-import { SelectOption } from '@/components/FormInputs/SelectInput'
-import ShadSelectInput, { SelectOptions } from '@/components/FormInputs/ShadSelectInput'
 import { Button } from '@/components/ui/button'
-import { CardContent, CardFooter } from '@/components/ui/card'
+import { CardContent } from '@/components/ui/card'
 import { DoctorProfile, Service, Specialty, Symptom } from '@prisma/client'
 import { Loader } from 'lucide-react'
 // import { useSession } from 'next-auth/react'
 import React, { useState } from 'react'
-import { updateDoctorProfile } from '../../../../actions/onboarding'
 import toast from 'react-hot-toast'
 import { updateDoctorService } from '../../../../actions/services'
 import Image from 'next/image'
@@ -40,9 +36,8 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
             toast.success("Services updated successfully")
         }catch (error){
             console.error("Error updating doctor profile:", error)
-
+            setSavingServices(false)
         }
-        console.log(data)
     }
 
     async function handleUpdateSpecialty() {
@@ -56,8 +51,8 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
             toast.success("Specialty updated successfully")
         }catch (error){
             console.error("Error updating doctor profile:", error)
+            setSavingSpecialty(false)
         }
-        console.log(data)
     }
 
     async function handleUpdateSymptoms() {
@@ -71,8 +66,8 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
             toast.success("Symptoms Updated successfully")
         }catch (error){
             console.error("Error updating doctor profile:", error)
+            setSavingSymptoms(false)
         }
-        console.log(data)
     }
 
     return (
@@ -130,7 +125,7 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
                         {
                             symptoms?.map((symptom) => {
                                 return (
-                                    <button key={symptom.id} className={cn("flex items-center justify-center flex-col py-3 px-3 border rounded-md cursor-pointer", symptomIds === symptom.id ? "border-slate-900 border-2 bg-slate-50 dark:bg-slate-950 dark:border-slate-50" : "")} onClick={() => setSymptomIds((prev) => prev.includes(symptom.id) ? prev.filter((id) => id !== symptom.id) : [...prev, symptom.id])}>
+                                    <button key={symptom.id} className={cn("flex items-center justify-center flex-col py-3 px-3 border rounded-md cursor-pointer", symptomIds.includes(symptom.id) ? "border-slate-900 border-2 bg-slate-50 dark:bg-slate-950 dark:border-slate-50" : "")} onClick={() => setSymptomIds([...symptomIds, symptom.id])}>
                                         <p className="text-xs capitalize">{symptom.title}</p>
                                     </button>
                                 )

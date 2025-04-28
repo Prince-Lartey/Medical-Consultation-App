@@ -16,14 +16,7 @@ export default async function DoctorServiceSettings({profile}: {profile: DoctorP
     return (
         <div className="grid gap-6">
             <Card x-chunk="dashboard-04-chunk-1">
-                {/* <CardHeader>
-                    <CardTitle>Choose Service</CardTitle>
-                    <CardDescription>
-                        Used to identify your store in the marketplace.
-                    </CardDescription>
-                </CardHeader> */}
                 <UpdateServiceForm services={services} specialties={specialties} symptoms={symptoms} profile={profile}/>
-                
             </Card>
         </div>
     )

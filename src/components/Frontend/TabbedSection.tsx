@@ -1,7 +1,9 @@
 import React from "react";
 import TabbedItems from "./TabbedItems";
 
-const TabbedSection = () => {
+const TabbedSection = async () => {
+    const services = await getServices() || []
+    
     return (
         <section className="pb-12 pt-10 bg-gray-200 lg:pb-[90px] dark:bg-slate-950 ">
             <div className="container mx-auto">
@@ -18,7 +20,7 @@ const TabbedSection = () => {
                     </div>
                 </div>
                 
-                <TabbedItems />
+                <TabbedItems services={services}/>
             </div>
         </section>
     );
