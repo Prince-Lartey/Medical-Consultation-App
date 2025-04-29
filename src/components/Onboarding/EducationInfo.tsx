@@ -13,8 +13,13 @@ import MultipleFileUpload, { File } from '../FormInputs/MultipleFileUpload'
 import toast from 'react-hot-toast'
 import { updateDoctorProfile } from '../../../actions/onboarding'
 import { useOnboardingContext } from '@/context/context'
+import { Specialty } from '@prisma/client'
 
-export default function EducationInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
+interface EducationProps extends StepFormProps {
+    specialties: Specialty[];
+}
+
+export default function EducationInfo({ page, title, description, formId, nextPage, userId, specialties }: EducationProps) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     const { educationData, setEducationData, savedDBData } = useOnboardingContext()
@@ -23,6 +28,13 @@ export default function EducationInfo({ page, title, description, formId, nextPa
     const initialDocs = educationData.boardCertificates.length > 0 ? educationData.boardCertificates : savedDBData.boardCertificates
     const [otherSpecialties, setOtherSpecialties] = useState(initialOtherSpecialities)
     const [docs, setDocs] = useState<File[]>(initialDocs)
+
+    const allSpecialties = specialties?.map((specialty) => {
+        return {
+            label: specialty.title,
+            value: specialty.id
+        }
+    })
 
     const {register, handleSubmit, formState: { errors }} = useForm<EducationInfoProps>({
         defaultValues: {
@@ -90,19 +102,7 @@ export default function EducationInfo({ page, title, description, formId, nextPa
                         name="primarySpecialization"
                         register={register}
                         className="col-span-full sm:col-span-1"
-                        options={[
-                            {label: "Cardiology", value: "cardiology"},
-                            {label: "Dermatology", value: "dermatology"},
-                            {label: "Endocrinology", value: "endocrinology"},
-                            {label: "Gastroenterology", value: "gastroenterology"},
-                            {label: "Hematology", value: "hematology"},
-                            {label: "Nephrology", value: "nephrology"},
-                            {label: "Neurology", value: "neurology"},
-                            {label: "Oncology", value: "oncology"},
-                            {label: "Pulmonology", value: "pulmonology"},
-                            {label: "Rheumatology", value: "rheumatology"},
-                            {label: "Urology", value: "urology"},
-                        ]}
+                        options={allSpecialties}
                     />
 
                     <ArrayInput 

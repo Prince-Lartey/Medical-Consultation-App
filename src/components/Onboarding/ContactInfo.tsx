@@ -72,7 +72,7 @@ export default function ContactInfo({ page, title, description, formId, nextPage
                         label="Phone"
                         register={register}
                         name="phone"
-                        type="number"
+                        type="phone"
                         errors={errors}
                         placeholder="eg: 0241234567"
                         className="col-span-full sm:col-span-1"

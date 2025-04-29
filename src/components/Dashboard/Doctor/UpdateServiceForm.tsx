@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { CardContent } from '@/components/ui/card'
 import { DoctorProfile, Service, Specialty, Symptom } from '@prisma/client'
-import { Loader, Map, PictureInPicture2, Video } from 'lucide-react'
+import { Loader, Map, Video } from 'lucide-react'
 // import { useSession } from 'next-auth/react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'

@@ -122,9 +122,9 @@ model DoctorProfile {
   availability Availability?
   operationMode  String?
 
-  serviceId      String?    @unique @db.ObjectId
+  serviceId      String?    @db.ObjectId
   service        Service?   @relation(fields: [serviceId], references: [id])
-  specialtyId    String?    @unique @db.ObjectId
+  specialtyId    String?    @db.ObjectId
   specialty      Specialty? @relation(fields: [specialtyId], references: [id])
   symptomIds     String[]   @db.ObjectId
 
