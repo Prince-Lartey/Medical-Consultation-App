@@ -21,11 +21,13 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
     const [specialtyId, setSpecialtyId] = useState(profile?.specialtyId)
     const [symptomIds, setSymptomIds] = useState<string[]>(profile?.symptomIds || [])
     const [operationMode, setOperationMode] = useState(profile?.operationMode)
+    const [price, setPrice] = useState(profile?.hourlyWage)
 
     const [savingServices, setSavingServices] = useState(false)
     const [savingSpecialty, setSavingSpecialty] = useState(false)
     const [savingSymptoms, setSavingSymptoms] = useState(false)
     const [savingOperationMode, setSavingOperationMode] = useState(false)
+    const [savingPrice, setSavingPrice] = useState(false)
 
     const operationModes = [
         {
@@ -100,18 +102,37 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
         }
     }
 
+    async function handleUpdatePrice() {
+        setSavingPrice(true)
+        const data = {
+            hourlyWage: price,
+        }
+        try{
+            await updateDoctorService(profileId, data)
+            setSavingPrice(false)
+            toast.success("Hourly Charge updated successfully")
+        }catch (error){
+            console.error("Error updating doctor profile:", error)
+            setSavingPrice(false)
+        }
+    }
+
     return (
         <div>
             <CardContent className="space-y-4">
                 <div className="border shadow rounded-md p-4 mt-4">
                     <div className="sm:col-span-4">
-                        <label htmlFor="username" className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">Update your Hourly Charge</label>
-                        <div className="flex justify-between items-center mt-2">
-                            <div className="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                                <span className="shrink-0 text-base text-gray-500 select-none sm:text-sm/6">GHS </span>
-                                <input type="number" name="price" id="price" className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="100" />
+                        <div className="border-b pb-4">
+                            <label htmlFor="username" className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">Update your Hourly Charge</label>
+                        </div>
+                        <div className="flex justify-between items-center py-3">
+                            <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-slate-900 sm:max-w-md">
+                                <span className="flex text-gray-500 select-none sm:text-sm items-center pl-3">GHS </span>
+                                <input type="number" name="price" id="price" value={price} className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="100" onChange={(e) => setPrice(+e.target.value)} />
                             </div>
-                            <Button>Update Price</Button>
+                            <Button onClick={handleUpdatePrice} disabled={savingPrice}>
+                                {savingPrice ? <span className="flex"><Loader className="mr-2 h-4 w-4 animate-spin" />Please wait...</span> : "Update Price"}
+                            </Button>
                         </div>
                     </div>
                 </div>
