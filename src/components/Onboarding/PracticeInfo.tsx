@@ -32,6 +32,7 @@ export default function PracticeInfo({ page, title, description, formId, nextPag
             hospitalWebsite: practiceData.hospitalWebsite || savedDBData.hospitalWebsite,
             hospitalHoursOfOperation: practiceData.hospitalHoursOfOperation || savedDBData.hospitalHoursOfOperation,
             insuranceAccepted: practiceData.insuranceAccepted || savedDBData.insuranceAccepted,
+            hourlyWage: practiceData.hourlyWage || savedDBData.hourlyWage,
             page: practiceData.page || savedDBData.page,
         }
     })
@@ -143,6 +144,16 @@ export default function PracticeInfo({ page, title, description, formId, nextPag
                         options={insuranceOptions}
                         selectedOptions={insuranceAccepted}
                         setSelectedOptions={setInsuranceAccepted}
+                        className="col-span-full sm:col-span-1"
+                    />
+                    <TextInput 
+                        label="Hourly Charge"
+                        register={register}
+                        name="hourlyWage"
+                        type="number"
+                        errors={errors}
+                        placeholder="Enter your Hourly Charge"
+                        className="col-span-full sm:col-span-1"
                     />
                     <ArrayInput 
                         setItems={setServices}

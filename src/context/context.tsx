@@ -77,6 +77,7 @@ const initialPracticeData = {
     hospitalHoursOfOperation: 0,
     servicesOffered: [],
     insuranceAccepted: "",
+    hourlyWage: 100,
     page: "",
 }
 

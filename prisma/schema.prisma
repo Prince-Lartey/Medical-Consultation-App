@@ -120,7 +120,8 @@ model DoctorProfile {
   additionalDocs   String[]
 
   availability Availability?
-  operationMode  String?
+  operationMode  String? @default("Telehealth Visit")
+  hourlyWage     Int @default(100)
 
   serviceId      String?    @db.ObjectId
   service        Service?   @relation(fields: [serviceId], references: [id])

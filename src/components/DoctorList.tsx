@@ -5,40 +5,43 @@ import Link from 'next/link'
 import { ArrowUpRight, Map } from 'lucide-react'
 import DoctorListCarousel from './DoctorListCarousel'
 import { Button } from './ui/button'
+import { DoctorProfile, User } from '@prisma/client'
 
 export default function DoctorList({
     title="Telehealth Visit", 
     isInPerson, 
-    className="bg-white dark:bg-gray-400 py-8 lg:py-24"
+    className="bg-white dark:bg-gray-400 py-8 lg:py-24",
+    doctors
 }: { 
     title?: string; 
     isInPerson?: boolean; 
-    className?: string 
+    className?: string
+    doctors: User[]
 }) {
 
-    const doctors = [
-        {
-            name: "Prince"
-        },
-        {
-            name: "Prince"
-        },
-        {
-            name: "Prince"
-        },
-        {
-            name: "Prince"
-        },
-        {
-            name: "Prince"
-        },
-        {
-            name: "Prince"
-        },
-        {
-            name: "Prince"
-        },
-    ]
+    // const doctors = [
+    //     {
+    //         name: "Prince"
+    //     },
+    //     {
+    //         name: "Prince"
+    //     },
+    //     {
+    //         name: "Prince"
+    //     },
+    //     {
+    //         name: "Prince"
+    //     },
+    //     {
+    //         name: "Prince"
+    //     },
+    //     {
+    //         name: "Prince"
+    //     },
+    //     {
+    //         name: "Prince"
+    //     },
+    // ]
 
     return (
         <div className={className}>
