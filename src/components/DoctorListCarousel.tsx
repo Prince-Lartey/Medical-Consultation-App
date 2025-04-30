@@ -4,12 +4,13 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import DoctorCard from "./DoctorCard";
 import { DoctorProfile, User } from "@prisma/client";
+import { Doctor } from "../../types/types";
 
-interface Doctor {
-    name: string;
-}
+// interface Doctor {
+//     name: string;
+// }
 
-export default function DoctorListCarousel({ doctors, isInPerson }: { doctors: User[]; isInPerson?: boolean }) {
+export default function DoctorListCarousel({ doctors, isInPerson }: { doctors: Doctor[]; isInPerson?: boolean }) {
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
@@ -47,7 +48,7 @@ export default function DoctorListCarousel({ doctors, isInPerson }: { doctors: U
             itemClass="px-4"
         >
             {
-                doctors.map((doctor: any, index: number) => {
+                doctors.map((doctor: Doctor, index: number) => {
                     return <DoctorCard doctor={doctor} key={index} isInPerson={isInPerson} />
                 })
             }

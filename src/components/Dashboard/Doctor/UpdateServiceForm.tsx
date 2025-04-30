@@ -104,6 +104,19 @@ export default function UpdateServiceForm({services, specialties, symptoms, prof
         <div>
             <CardContent className="space-y-4">
                 <div className="border shadow rounded-md p-4 mt-4">
+                    <div className="sm:col-span-4">
+                        <label htmlFor="username" className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">Update your Hourly Charge</label>
+                        <div className="flex justify-between items-center mt-2">
+                            <div className="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                                <span className="shrink-0 text-base text-gray-500 select-none sm:text-sm/6">GHS </span>
+                                <input type="number" name="price" id="price" className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="100" />
+                            </div>
+                            <Button>Update Price</Button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="border shadow rounded-md p-4 mt-4">
                     <div className="flex items-center justify-between border-b">
                         <h2 className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">Choose your Mode of Operation.</h2>
                         <Button onClick={handleUpdateOperationMode} disabled={savingOperationMode}>

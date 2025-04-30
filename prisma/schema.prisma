@@ -119,7 +119,7 @@ model DoctorProfile {
   accomplishments  String?
   additionalDocs   String[]
 
-  availability Availability?
+  availability   Availability?
   operationMode  String? @default("Telehealth Visit")
   hourlyWage     Int @default(100)
 
