@@ -86,7 +86,7 @@ export type DoctorProfileAvailabilty = {
     sunday: string[];
 }
 
-export type DoctorProfile = {
+export interface DoctorProfile {
     firstName: string;
     lastName: string;
     gender: string;
@@ -97,6 +97,25 @@ export type DoctorProfile = {
     hourlyWage: number
 }
 
+interface DoctorProfileDetail extends DoctorProfile {
+    yearsOfExperience: number | null;
+    region: string | null;
+    city: string | null;
+    primarySpecialization: string | null;
+    otherSpecialties: string[] | null;
+    hospitalName: string | null;
+    hospitalAddress: string | null;
+    hospitalContactNumber: string | null;
+    hospitalEmailAddress: string | null; 
+    hospitalWebsite: string | null;
+    hospitalHoursOfOperation: number | null;
+    servicesOffered: string[] | null;
+    insuranceAccepted: string | null;
+    educationHistory: string | null;
+    research: string | null;
+    accomplishments: string | null;
+}
+
 export type Doctor = {
     id: string;
     name: string;
@@ -104,4 +123,13 @@ export type Doctor = {
     email: string;
     phone: string;
     doctorProfile: DoctorProfile | null;
+}
+
+export type DoctorDetail = {
+    id: string;
+    name: string;
+    slug: string;
+    email: string;
+    phone: string;
+    doctorProfile: DoctorProfileDetail | null;
 }

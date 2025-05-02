@@ -171,3 +171,69 @@ export async function getDoctors(){
         return null;
     }
 }
+
+export async function getDoctorBySlug(slug: string) {
+    if (slug) {
+        try {
+            const doctor = await prismaClient.user.findFirst({
+                where: {
+                    role: "DOCTOR",
+                    slug
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    slug: true,
+                    email: true,
+                    phone: true,
+                    doctorProfile: {
+                        select: {
+                            firstName: true,
+                            lastName: true,
+                            gender: true,
+                            bio: true,
+                            profilePicture: true,
+                            operationMode: true,
+                            hourlyWage: true,
+                            yearsOfExperience: true,
+                            region: true,
+                            city: true,
+                            primarySpecialization: true,
+                            otherSpecialties: true,
+                            hospitalName: true,
+                            hospitalAddress: true,
+                            hospitalContactNumber: true, 
+                            hospitalEmailAddress: true,
+                            hospitalWebsite: true,
+                            hospitalHoursOfOperation: true,
+                            servicesOffered: true,
+                            insuranceAccepted: true,
+                            educationHistory: true,
+                            research: true,
+                            accomplishments: true,          
+                            availability: {
+                                select: {
+                                    monday: true,
+                                    tuesday: true,
+                                    wednesday: true,
+                                    thursday: true,
+                                    friday: true,
+                                    saturday: true,
+                                    sunday: true,
+                                },
+                            }
+                        }
+                    }
+                }
+                    
+            })
+            if (!doctor) {
+                return null;
+            }
+            return doctor;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    }
+}
