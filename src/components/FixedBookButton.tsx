@@ -3,14 +3,17 @@
 import { Plus } from 'lucide-react'
 import React from 'react'
 import { Button } from './ui/button'
+import { DoctorDetail } from '../../types/types'
+import getFormattedDate from '@/utils/getFormattedDate'
 
-export default function FixedBookButton() {
+export default function FixedBookButton({doctor}: {doctor: DoctorDetail}) {
+    const formattedDate = getFormattedDate()
     return (
         <div className="fixed bottom-0 w-full shadow-2xl py-8 px-6 z-50 bg-white dark:bg-slate-700">
             <div className="max-w-4xl mx-auto flex justify-between">
                 <div className="w-full">
-                    <p className="text-xl font-bold">GHS 1000</p>
-                    <p className="font-semibold text-sm">Tue, Mar 12 - 8:00 AM GMT+3</p>
+                    <p className="text-xl font-bold">GHS {doctor.doctorProfile?.hourlyWage}</p>
+                    <p className="font-semibold text-sm">{formattedDate}</p>
                 </div>
                 <Button
                     variant="outline"
