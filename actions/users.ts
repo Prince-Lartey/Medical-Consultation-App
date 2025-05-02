@@ -5,6 +5,7 @@ import { RegisterInputProps } from "../types/types";
 import bcrypt from "bcrypt";
 import EmailTemplate from "@/components/Emails/email-template";
 import {Resend} from "resend"
+import generateSlug from "@/utils/generateSlug";
 
 export async function createUser(formData: RegisterInputProps) {
     const { fullName, email, phone, role, password, plan } = formData;
@@ -34,6 +35,7 @@ export async function createUser(formData: RegisterInputProps) {
         const newUser = await prismaClient.user.create({
             data: {
                 name: fullName,
+                slug: generateSlug("fullName"),
                 email,
                 phone,
                 role,
@@ -135,6 +137,7 @@ export async function getDoctors(){
             select: {
                 id: true,
                 name: true,
+                slug: true,
                 email: true,
                 phone: true,
                 doctorProfile: {

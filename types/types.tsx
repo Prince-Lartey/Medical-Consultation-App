@@ -100,6 +100,7 @@ export type DoctorProfile = {
 export type Doctor = {
     id: string;
     name: string;
+    slug: string;
     email: string;
     phone: string;
     doctorProfile: DoctorProfile | null;

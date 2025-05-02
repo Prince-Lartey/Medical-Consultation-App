@@ -5,6 +5,7 @@ import Link from 'next/link'
 import React from 'react'
 import { Doctor, DoctorProfileAvailabilty } from '../../types/types'
 import getFormattedDate from '@/utils/getFormattedDate'
+import generateSlug from '@/utils/generateSlug'
 
 export default function DoctorCard({ isInPerson = false, doctor }: { isInPerson?: boolean, doctor: Doctor }) {
     const formattedDate = getFormattedDate()
@@ -18,12 +19,14 @@ export default function DoctorCard({ isInPerson = false, doctor }: { isInPerson?
     const today: keyof DoctorProfileAvailabilty = getDayName()
     const isAvailableDoctors = doctor.doctorProfile?.availability?.[today] ?? null
 
+    const slug = doctor.slug
+
     return (
         <>
             {
                 isAvailableDoctors ? (
                     <div className="border border-gray-200 dark:border-gray-600 py-8 px-6 inline-flex flex-col bg-white dark:bg-slate-800 hover:border-gray-400 duration-300 transition-all">
-                        <Link href="/doctors/slug">
+                        <Link href={`/doctors/${slug}`}>
                             <h2 className='uppercase font-bold text-2xl track-widest'>{doctor.name}</h2>
                             { isInPerson && <p className="py-3">3250 Lincoln Highway, Kendrall Park, NJ 08824</p>}
                             <div className="flex items-center gap-4 py-4">
@@ -53,12 +56,12 @@ export default function DoctorCard({ isInPerson = false, doctor }: { isInPerson?
                             <div className="py-3 grid grid-cols-3 gap-4">
                                 {isAvailableDoctors.slice(0, 5).map((item, index) => {
                                     return (
-                                        <Link href="#" key={index} className="bg-blue-950 text-white p-2 rounded-lg text-center text-sm">
+                                        <Link href={`/doctors/${slug}`} key={index} className="bg-blue-950 text-white p-2 rounded-lg text-center text-sm">
                                             {item}
                                         </Link>
                                     )
                                 })}
-                                <Link href="/doctors/slug" className="bg-gray-200 text-blue-950 p-2 rounded-lg text-center text-sm truncate">More times</Link>
+                                <Link href={`/doctors/${slug}`} className="bg-gray-200 text-blue-950 p-2 rounded-lg text-center text-sm truncate">More times</Link>
                             </div>
                         </div>
                     </div>
