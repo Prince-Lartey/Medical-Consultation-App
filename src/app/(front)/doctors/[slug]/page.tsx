@@ -23,7 +23,7 @@ export default async function page({params: {slug}}: {params: {slug: string}}) {
                                         </div>
                                         <div className="py-3">
                                             <p>{doctor.doctorProfile?.operationMode}</p>
-                                            <p>3250 Lincoln Highway, Kendall Park, NJ 08824</p>
+                                            <p>{doctor.doctorProfile.region}, {doctor.doctorProfile.city}</p>
                                         </div>
                                     </div>
                                     <Image src={doctor.doctorProfile?.profilePicture ?? "/doctor.jpg"} width={512} height={512} alt="Doctor" className="w-36 h-36 rounded-md object-cover mr-2" />

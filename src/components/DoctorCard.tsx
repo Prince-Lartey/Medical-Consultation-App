@@ -5,17 +5,10 @@ import Link from 'next/link'
 import React from 'react'
 import { Doctor, DoctorProfileAvailabilty } from '../../types/types'
 import getFormattedDate from '@/utils/getFormattedDate'
-import generateSlug from '@/utils/generateSlug'
+import { getDayName } from '@/utils/getDayName'
 
 export default function DoctorCard({ isInPerson = false, doctor }: { isInPerson?: boolean, doctor: Doctor }) {
-    const formattedDate = getFormattedDate()
-
-    const getDayName = (): keyof DoctorProfileAvailabilty => {
-        const daysOfWeek: (keyof DoctorProfileAvailabilty)[] = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-        const today = new Date();
-        const dayName = daysOfWeek[today.getDay()];
-        return dayName;
-    }
+    const formattedDate = getFormattedDate()    
     const today: keyof DoctorProfileAvailabilty = getDayName()
     const isAvailableDoctors = doctor.doctorProfile?.availability?.[today] ?? null
 
