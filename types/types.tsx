@@ -133,3 +133,24 @@ export type DoctorDetail = {
     phone: string;
     doctorProfile: DoctorProfileDetail | null;
 }
+
+export interface AppointmentProps {
+    appointmentDate: string;
+    appointmentYear: string;
+    appointmentMonth: string;
+    doctorId: string;
+    charge: string;
+    appointmentTime: string;
+
+    // Patient details
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    dob: string;
+    gender: string;
+    location: string;
+    appointmentReason: string;
+    medicalDocument: string[];
+    occupation: string;
+}

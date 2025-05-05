@@ -1,12 +1,17 @@
 "use client"
 
 import React, { useState } from 'react'
-import { DoctorDetail } from '../../types/types'
+import { AppointmentProps, DoctorDetail } from '../../types/types'
 import { Button } from './ui/button'
 import { Calendar } from './ui/calendar'
 import getFormattedLongDate from '@/utils/getFormattedLongDate'
 import { getDayFromDate } from '@/utils/getDayFromDate'
 import { MoveRight } from 'lucide-react'
+import Link from 'next/link'
+import ImageInput from './FormInputs/ImageInput'
+import TextInput from './FormInputs/TextInput'
+import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 
 export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
     const [isActive, setIsActive] = useState("availability")
@@ -17,6 +22,19 @@ export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
     const formattedDate = getFormattedLongDate(date!.toDateString())    
     const isAvailableDoctors = doctor.doctorProfile?.availability?.[day] ?? null
     const [selectedTime, setSelectedTime] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
+    // const [imageUrl, setImageUrl] = useState(initialImageUrl)
+    const router = useRouter()
+
+    const {register, reset, handleSubmit, formState: { errors }} = useForm<AppointmentProps>({
+        // defaultValues: initialData
+    })
+
+    async function onSubmit(data: AppointmentProps) {
+        setIsLoading(true)
+        console.log(data)
+    }
+
 
     return (
         <>
@@ -75,12 +93,52 @@ export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
                         </div>
                     </div>
                 ) : (
-                    <div className="p-8 bg-blue-500">
+                    <div className="p-8 shadow-2xl">
                         <h1>This is step 2</h1>
-                        <div className="flex items-center space-x-8">
-                            <Button variant={"outline"} type="button" onClick={() => setStep((currStep) => currStep - 1)}>Previous</Button>
-                            <Button>Submit</Button>
-                        </div>
+                        <form className="py-4 px-4 mx-auto space-y-6" onSubmit={handleSubmit(onSubmit)}>
+                            <div className="grid grid-cols-2 gap-6">
+                                <TextInput 
+                                    label="First Name"
+                                    register={register}
+                                    name="firstName"
+                                    errors={errors}
+                                    placeholder="Enter First Name"
+                                    className="col-span-1"
+                                />
+                                <TextInput 
+                                    label="Last Name"
+                                    register={register}
+                                    name="lastName"
+                                    errors={errors}
+                                    placeholder="Enter Last Name"
+                                    className="col-span-1"
+                                />
+                            </div>
+                            <div className="grid grid-cols-2 gap-6">
+                                <TextInput 
+                                    label="Phone Number"
+                                    register={register}
+                                    name="phone"
+                                    errors={errors}
+                                    placeholder="Enter Phone Number"
+                                    className="col-span-1"
+                                />
+                                <TextInput 
+                                    label="Email Address"
+                                    register={register}
+                                    name="email"
+                                    errors={errors}
+                                    placeholder="Enter Email Address"
+                                    className="col-span-1"
+                                />
+                            </div>
+                            
+                            <div className="flex justify-between items-center mt-8">
+                                <Button variant={"outline"} type="button" onClick={() => setStep((currStep) => currStep - 1)}>Previous</Button>
+                                <Button>Submit</Button>
+                            </div>
+                        </form>
+                        
                     </div>
                 )
             }
