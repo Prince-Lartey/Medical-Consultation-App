@@ -151,6 +151,6 @@ export interface AppointmentProps {
     gender: string;
     location: string;
     appointmentReason: string;
-    medicalDocument: string[];
+    medicalDocuments: string[];
     occupation: string;
 }
