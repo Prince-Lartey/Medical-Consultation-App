@@ -4,16 +4,18 @@ import React from 'react'
 import HomeDisplayCard from '@/components/Dashboard/Doctor/HomeDisplayCard'
 import NewButton from '@/components/Dashboard/Doctor/NewButton'
 import { Calendar } from 'lucide-react'
+import { getAppointments } from '../../../../../../actions/appointments'
 
-export default function page() {
+export default async function page() {
+    const appointments = await getAppointments()
+
     return (
         <div>
-            
             <div className="grid grid-cols-12">
                 <div className="col-span-4 py-3 border-r border-gray-100">
                     <PanelHeader title="Appointments" count="11" icon={Calendar} />
                     <div className="px-3">
-                        <ListPanel />
+                        <ListPanel appointments={appointments}/>
                     </div>
                 </div>
                 <div className="col-span-8">
