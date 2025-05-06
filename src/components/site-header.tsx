@@ -23,9 +23,11 @@ import {
     AvatarFallback,
     AvatarImage,
 } from "@/components/ui/avatar"
+import { generateInitials } from "@/utils/generateInitials"
 
 export function SiteHeader({session}: {session: Session | null}) {
     const user = session?.user
+    const initials = generateInitials(user?.name)
     const router = useRouter()
 
     async function handleLogout() {
@@ -50,7 +52,7 @@ export function SiteHeader({session}: {session: Session | null}) {
                                     {user.image ? (
                                         <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                                     ) : (
-                                        <AvatarFallback>CN</AvatarFallback>
+                                        <AvatarFallback>{initials}</AvatarFallback>
                                     )}
                                 </Avatar>
                             </DropdownMenuTrigger>

@@ -10,14 +10,14 @@ import { getDayName } from '@/utils/getDayName'
 export default function DoctorCard({ isInPerson = false, doctor }: { isInPerson?: boolean, doctor: Doctor }) {
     const formattedDate = getFormattedDate()    
     const today: keyof DoctorProfileAvailabilty = getDayName()
-    const isAvailableDoctors = doctor.doctorProfile?.availability?.[today] ?? null
+    const isAvailableDoctors = doctor.doctorProfile?.availability?.[today] ?? []
 
     const slug = doctor.slug
 
     return (
         <>
             {
-                isAvailableDoctors ? (
+                isAvailableDoctors.length > 0 && (
                     <div className="border border-gray-200 dark:border-gray-600 py-8 px-6 inline-flex flex-col bg-white dark:bg-slate-800 hover:border-gray-400 duration-300 transition-all">
                         <Link href={`/doctors/${slug}`}>
                             <h2 className='uppercase font-bold text-2xl track-widest'>{doctor.name}</h2>
@@ -54,12 +54,14 @@ export default function DoctorCard({ isInPerson = false, doctor }: { isInPerson?
                                         </Link>
                                     )
                                 })}
-                                <Link href={`/doctors/${slug}`} className="bg-gray-200 text-blue-950 p-2 rounded-lg text-center text-sm truncate">More times</Link>
+                                {isAvailableDoctors.length > 5 && (
+                                    <Link href={`/doctors/${slug}`} className="bg-gray-200 text-blue-950 p-2 rounded-lg text-center text-sm truncate">
+                                        More times
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     </div>
-                ) : (
-                    <div>No Doctors Available Today</div>
                 )
             }
         </>

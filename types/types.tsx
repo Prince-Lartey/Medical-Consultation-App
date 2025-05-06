@@ -87,6 +87,7 @@ export type DoctorProfileAvailabilty = {
 }
 
 export interface DoctorProfile {
+    id: string
     firstName: string;
     lastName: string;
     gender: string;
@@ -135,11 +136,11 @@ export type DoctorDetail = {
 }
 
 export interface AppointmentProps {
-    appointmentDate: string;
-    appointmentYear: string;
-    appointmentMonth: string;
+    appointmentDate: Date | undefined;
+    appointmentFormattedDate: string;
     doctorId: string;
-    charge: string;
+    doctorProfileId: string;
+    charge: number;
     appointmentTime: string;
 
     // Patient details
@@ -147,10 +148,11 @@ export interface AppointmentProps {
     lastName: string;
     email: string;
     phone: string;
-    dob: string;
+    dob: Date | undefined;
     gender: string;
     location: string;
     appointmentReason: string;
     medicalDocuments: string[];
     occupation: string;
+    patientId?: string;
 }

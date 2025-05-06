@@ -142,6 +142,7 @@ export async function getDoctors(){
                 phone: true,
                 doctorProfile: {
                     select: {
+                        id: true,
                         firstName: true,
                         lastName: true,
                         gender: true,
@@ -188,6 +189,7 @@ export async function getDoctorBySlug(slug: string) {
                     phone: true,
                     doctorProfile: {
                         select: {
+                            id: true,
                             firstName: true,
                             lastName: true,
                             gender: true,

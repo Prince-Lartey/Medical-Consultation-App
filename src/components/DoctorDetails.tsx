@@ -6,18 +6,22 @@ import { Button } from './ui/button'
 import { Calendar } from './ui/calendar'
 import getFormattedLongDate from '@/utils/getFormattedLongDate'
 import { getDayFromDate } from '@/utils/getDayFromDate'
-import { MoveRight } from 'lucide-react'
-import Link from 'next/link'
-import ImageInput from './FormInputs/ImageInput'
+import { Loader, MoveRight } from 'lucide-react'
 import TextInput from './FormInputs/TextInput'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import DatePickerInput from './FormInputs/DatePickerInput'
 import RadioInput from './FormInputs/RadioInput'
 import TextAreaInput from './FormInputs/TextAreaInput'
-import MultipleFileUpload from './FormInputs/MultipleFileUpload'
+import MultipleFileUpload, { File } from './FormInputs/MultipleFileUpload'
+import { useSession } from 'next-auth/react'
+import { createAppointment } from '../../actions/appointments'
+import toast from 'react-hot-toast'
 
 export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
+    const {data: session} = useSession()
+    const patient = session?.user
+
     const [isActive, setIsActive] = useState("availability")
     const [step, setStep] = useState(1)
     const [date, setDate] = useState<Date | undefined>(new Date())
@@ -28,7 +32,7 @@ export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
     const [selectedTime, setSelectedTime] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [dob, setDob] = useState<Date | undefined>(undefined)
-    const [medicalDocs, setMedicalDocs] = useState([])
+    const [medicalDocs, setMedicalDocs] = useState<File[]>([])
     const router = useRouter()
 
     const genderOptions = [
@@ -44,14 +48,43 @@ export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
     ]
 
     const {register, reset, handleSubmit, formState: { errors }} = useForm<AppointmentProps>({
-        // defaultValues: initialData
+        defaultValues: {
+            email: patient?.email ?? "",
+        }
     })
 
     async function onSubmit(data: AppointmentProps) {
         setIsLoading(true)
+        data.dob = dob
+        data.appointmentDate = date
+        data.appointmentFormattedDate = formattedDate
+        data.appointmentTime = selectedTime
+        data.doctorId = doctor.id
+        data.charge = doctor.doctorProfile?.hourlyWage ?? 0
+        data.doctorProfileId = doctor.doctorProfile?.id ?? ""
+        data.medicalDocuments = medicalDocs.map((file) => file.url)
+        data.patientId = patient?.id
         console.log(data)
+
+        try {
+            await createAppointment(data)
+            setIsLoading(false)
+            toast.success("Appointment Created Successfully")
+            router.push("/dashboard/user/appointments")
+
+        } catch (error) {
+            console.log(error)
+            setIsLoading(false)
+        }
     }
 
+    function initiateAppointment() {
+        if (patient?.id){
+            setStep((currStep) => currStep + 1)
+        } else {
+            router.push("/login")
+        }
+    }
 
     return (
         <>
@@ -92,9 +125,9 @@ export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
                                         {
                                             selectedTime && (
                                                 <div className="py-2">
-                                                    <button type="button" className="text-white bg-blue-600 hover:bg-blue-600/80 focus:ring-4 focus:outline-none focus:ring-blue-600/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-blue-600/80 dark:focus:ring-blue-600/40 me-2 mb-2" onClick={() => setStep((currStep) => currStep + 1)}>
+                                                    <button type="button" className="text-white bg-blue-600 hover:bg-blue-600/80 focus:ring-4 focus:outline-none focus:ring-blue-600/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-blue-600/80 dark:focus:ring-blue-600/40 me-2 mb-2" onClick={initiateAppointment}>
                                                         Book Doctor (GHS {doctor.doctorProfile?.hourlyWage})
-                                                        <MoveRight className="w-6 h-6 ml-3" />
+                                                        <MoveRight className="w-6 h-6 ml-3"/>
                                                     </button>
                                                 </div>
                                             )
@@ -208,7 +241,15 @@ export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
                                         />
                                         <div className="flex justify-between items-center mt-8">
                                             <Button variant={"outline"} type="button" onClick={() => setStep((currStep) => currStep - 1)}>Previous</Button>
-                                            <Button type="submit" onClick={() => setStep((currStep) => currStep + 1)}>Submit</Button>
+                                            {
+                                                isLoading ? (
+                                                    <Button type="button" disabled className="flex items-center gap-2">
+                                                        <Loader className="w-4 h-4 animate-spin" /> Submitting...
+                                                    </Button>
+                                                ) : (
+                                                    <Button type="submit" onClick={() => setStep((currStep) => currStep + 1)}>Complete Appointment</Button>
+                                                )
+                                            }
                                         </div>
                                     </div>
                                 )
