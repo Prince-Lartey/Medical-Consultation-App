@@ -73,26 +73,13 @@ export async function getAppointmentById(id: string) {
                     id,
                 },
             });
-            return {
-                data: appointment,
-                error: null,
-                status: 200,
-            };
+            return appointment
         }else {
-            return {
-                data: null,
-                error: "Appointment ID is required",
-                status: 400,
-            };
+            return null
         }
 
     } catch (error) {
         console.error("Error fetching appointment:", error);
-        return {
-            data: null,
-            error: "An error occurred while fetching the appointment",
-            status: 500,
-        };
     }
 }
 

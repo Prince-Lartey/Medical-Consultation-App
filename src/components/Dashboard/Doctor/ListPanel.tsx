@@ -1,18 +1,23 @@
+"use client"
+
 import React from 'react'
 import { ScrollArea } from "@/components/ui/scroll-area"
 import Link from 'next/link'
 import { CalendarCheck, History } from 'lucide-react'
 import { Appointment } from '@prisma/client'
 import { timeAgo } from '@/utils/timeAgo'
+import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils'
 
 export default function ListPanel({ appointments }: { appointments: Appointment[]}) {
+    const pathname = usePathname()
 
     return (
         <ScrollArea className="h-[32rem] w-full">
             <div className="p-4">
                 {appointments.length > 0 ? ( 
                     appointments.map((appointment) => (
-                        <Link key={appointment.id}  href="/dashboard/doctor/appointments/view/1" className="border mb-2 border-gray-300 shadow-sm text-xs py-3 px-2 inline-block w-full bg-white dark:text-slate-900 rounded-md">
+                        <Link key={appointment.id}  href={`/dashboard/doctor/appointments/view/${appointment.id}`} className={cn("border mb-2 border-gray-300 shadow-sm text-xs py-3 px-2 inline-block w-full bg-white dark:text-slate-900 rounded-md", pathname === `/dashboard/doctor/appointments/view/${appointment.id}` && "border-gray-700 border-2 dark:border-blue-500")}>
                             <div className="flex justify-between items-center pb-2">
                                 <h2>{appointment.firstName} {appointment.lastName}</h2>
                                 <span className="font-semibold">{appointment.appointmentTime}</span>
