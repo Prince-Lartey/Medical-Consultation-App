@@ -3,6 +3,7 @@ import React from 'react'
 
 export default function PanelHeader({title, count, icon}: {title: string, count: number, icon: LucideIcon}) {
     const Icon = icon
+
     return (
         <div className="py-2 px-6 border-b border-gray-200 flex items-center justify-between">
             <div className="flex items-center gap-1 text-sm">

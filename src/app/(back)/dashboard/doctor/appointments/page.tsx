@@ -13,7 +13,7 @@ export default async function page() {
         <div>
             <div className="grid grid-cols-12">
                 <div className="col-span-4 py-3 border-r border-gray-100">
-                    <PanelHeader title="Appointments" count="11" icon={Calendar} />
+                    <PanelHeader title="Appointments" count={appointments.length} icon={Calendar} />
                     <div className="px-3">
                         <ListPanel appointments={appointments}/>
                     </div>
@@ -24,7 +24,7 @@ export default async function page() {
                             <NewButton title="New Appointment" href="#" />
                         </div>
                     </div>
-                    <HomeDisplayCard />
+                    <HomeDisplayCard count={appointments.length} />
                 </div>
             </div>
         </div>

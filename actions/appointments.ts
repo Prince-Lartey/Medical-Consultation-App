@@ -34,19 +34,11 @@ export async function getAppointments() {
                 createdAt: "desc",
             },
         });
-        return {
-            data: appointments,
-            error: null,
-            status: 200,
-        };
+        return appointments
     } catch (error) {
         console.error("Error fetching appointments:", error);
-        return {
-            data: null,
-            error: "An error occurred while fetching the appointments",
-            status: 500,
-        };
-    }
+        return []
+    } 
 }
 
 export async function deleteAppointment(id: string) {
