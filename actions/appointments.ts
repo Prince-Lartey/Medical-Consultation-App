@@ -3,6 +3,7 @@
 import { prismaClient } from "@/lib/db";
 import { AppointmentProps } from "../types/types";
 import { revalidatePath } from "next/cache";
+import { AppointmentUpdateProps } from "@/components/Dashboard/Doctor/UpdateAppointmentForm";
 
 export async function createAppointment(data: AppointmentProps) {
     try {
@@ -84,6 +85,31 @@ export async function getAppointmentById(id: string) {
 }
 
 export async function updateAppointment(id: string, data: AppointmentProps) {
+    try {
+        const updatedAppointment = await prismaClient.appointment.update({
+            where: {
+                id,
+            },
+            data,
+        });
+        revalidatePath("/dashboard/doctor/appointments");
+
+        return {
+            data: updatedAppointment,
+            error: null,
+            status: 200,
+        };
+    } catch (error) {
+        console.error("Error updating Appointment:", error);
+        return {
+            data: null,
+            error: "An error occurred while updating the Appointment",
+            status: 500,
+        };
+    }
+}
+
+export async function updateAppointmentById(id: string, data: AppointmentUpdateProps) {
     try {
         const updatedAppointment = await prismaClient.appointment.update({
             where: {

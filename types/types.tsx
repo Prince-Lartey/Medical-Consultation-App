@@ -155,4 +155,7 @@ export interface AppointmentProps {
     medicalDocuments: string[];
     occupation: string;
     patientId?: string;
+    status: string;
+    meetingLink: string;
+    meetingProvider: string;
 }
