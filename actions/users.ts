@@ -35,7 +35,7 @@ export async function createUser(formData: RegisterInputProps) {
         const newUser = await prismaClient.user.create({
             data: {
                 name: fullName,
-                slug: generateSlug("fullName"),
+                slug: generateSlug(fullName),
                 email,
                 phone,
                 role,

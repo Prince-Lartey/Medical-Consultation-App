@@ -4,12 +4,34 @@ import { prismaClient } from "@/lib/db";
 import { AppointmentProps } from "../types/types";
 import { revalidatePath } from "next/cache";
 import { AppointmentUpdateProps } from "@/components/Dashboard/Doctor/UpdateAppointmentForm";
+import {Resend} from "resend"
+import NewAppointmentEmail from "@/components/Emails/new-appointment-email";
 
 export async function createAppointment(data: AppointmentProps) {
+    const resend = new Resend(process.env.RESEND_API_KEY)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+    const doctor = await prismaClient.user.findUnique({
+        where: {
+            id: data.doctorId,
+        },
+    });
+
     try {
 
         const newAppointment = await prismaClient.appointment.create({
             data,
+        });
+        const firstName = doctor.name
+        const email = doctor.email
+        const link = `${baseUrl}/dashboard/doctor/appointments/view/${newAppointment.id}`;
+        const message = "You have a new appointment scheduled. Please review and approve it by clicking the button below.";
+
+        await resend.emails.send({
+            from: "PriMed <info@pricorp.info>",
+            to: email,
+            subject: "New Appointment",
+            react: NewAppointmentEmail({ firstName, link, message }),
         });
         revalidatePath("/dashboard/doctor/appointments");
 

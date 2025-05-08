@@ -70,7 +70,7 @@ export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
             await createAppointment(data)
             setIsLoading(false)
             toast.success("Appointment Created Successfully")
-            router.push("/dashboard/user/appointments")
+            router.push("/dashboard")
 
         } catch (error) {
             console.log(error)
@@ -247,7 +247,7 @@ export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
                                                         <Loader className="w-4 h-4 animate-spin" /> Submitting...
                                                     </Button>
                                                 ) : (
-                                                    <Button type="submit" onClick={() => setStep((currStep) => currStep + 1)}>Complete Appointment</Button>
+                                                    <Button type="submit">Complete Appointment</Button>
                                                 )
                                             }
                                         </div>
