@@ -18,7 +18,6 @@ export async function createAppointment(data: AppointmentProps) {
     });
 
     try {
-
         const newAppointment = await prismaClient.appointment.create({
             data,
         });
@@ -55,6 +54,23 @@ export async function getAppointments() {
         const appointments = await prismaClient.appointment.findMany({
             orderBy: {
                 createdAt: "desc",
+            },
+        });
+        return appointments
+    } catch (error) {
+        console.error("Error fetching appointments:", error);
+        return []
+    } 
+}
+
+export async function getPatientAppointments(patientId: string) {
+    try {
+        const appointments = await prismaClient.appointment.findMany({
+            orderBy: {
+                createdAt: "desc",
+            },
+            where: {
+                patientId,
             },
         });
         return appointments

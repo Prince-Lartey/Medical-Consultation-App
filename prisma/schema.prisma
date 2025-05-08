@@ -178,6 +178,12 @@ model Symptom {
   updatedAt DateTime? @updatedAt
 }
 
+enum AppointmentStatus {
+  pending
+  rejected
+  approved
+}
+
 model Appointment {
   id            String         @id @default(auto()) @map("_id") @db.ObjectId
   appointmentDate DateTime
@@ -196,9 +202,9 @@ model Appointment {
   appointmentReason String
   medicalDocuments String[]
   occupation String
-  patientId String?
+  patientId String
 
-  status String @default("pending")
+  status AppointmentStatus @default(pending)
   meetingLink String @default("")
   meetingProvider String @default("zoom")
   

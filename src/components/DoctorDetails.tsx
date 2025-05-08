@@ -70,7 +70,7 @@ export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
             await createAppointment(data)
             setIsLoading(false)
             toast.success("Appointment Created Successfully")
-            router.push("/dashboard")
+            router.push("/dashboard/user/appointments")
 
         } catch (error) {
             console.log(error)
