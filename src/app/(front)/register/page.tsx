@@ -1,8 +1,8 @@
 import Register from '@/components/Auth/Register'
 import React from 'react'
 
-export default function page({ searchParams } : { searchParams: { [key: string]: string | string[] | undefined } }) {
-    const { role, plan } = searchParams;
+export default function page({ params }: any }) {
+    const { role, plan } = params;
     console.log(role, plan)
 
     return (
