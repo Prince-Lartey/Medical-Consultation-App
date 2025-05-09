@@ -1,7 +1,7 @@
 import Register from '@/components/Auth/Register'
 import React from 'react'
 
-export default function page({ params }: any }) {
+export default function page({ params }: any) {
     const { role, plan } = params;
     console.log(role, plan)
 
