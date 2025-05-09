@@ -6,8 +6,14 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import UpdateAppointmentForm from '@/components/Dashboard/Doctor/UpdateAppointmentForm'
 
-export default async function page({params: {id}}: {params: {id: string}}) {
-    const appointment = await getAppointmentById(id)
+interface PageProps {
+    params: {
+        id: string;
+    };
+}
+
+export default async function page({params}: PageProps) {
+    const appointment = await getAppointmentById(params.id)
 
     return (
         <div>
