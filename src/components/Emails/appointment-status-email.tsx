@@ -19,7 +19,7 @@ interface NewAppointmentEmailProps {
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const NewAppointmentEmail = ({
+export const AppointmentStatusEmail = ({
     firstName = "",
     link,
     message,
@@ -38,12 +38,12 @@ export const NewAppointmentEmail = ({
     
                 <Section style={section}>
                     <Text style={text}>
-                        Dear Dr.<strong>{firstName}</strong>!
+                        Hey <strong>{firstName}</strong>!
                     </Text>
                     <Text style={text}>{message}</Text>
             
                     <Button href={link} style={button}>
-                        View Appointment
+                        View Details
                     </Button>
                     <Text style={text}>
                         If you have any questions, feel free to reach out.
@@ -54,7 +54,7 @@ export const NewAppointmentEmail = ({
     </Html>   
 );
 
-export default NewAppointmentEmail;
+export default AppointmentStatusEmail;
 
 const main = {
     backgroundColor: "#ffffff",

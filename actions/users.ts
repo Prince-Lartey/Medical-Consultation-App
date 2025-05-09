@@ -150,6 +150,9 @@ export async function getDoctors(){
                         profilePicture: true,
                         operationMode: true,
                         hourlyWage: true,
+                        region: true,
+                        city: true,
+                        hospitalAddress: true,
                         availability: {
                             select: {
                                 monday: true,

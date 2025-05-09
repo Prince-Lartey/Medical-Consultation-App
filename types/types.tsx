@@ -123,7 +123,7 @@ export type Doctor = {
     slug: string;
     email: string;
     phone: string;
-    doctorProfile: DoctorProfile | null;
+    doctorProfile: DoctorProfileDetail | null;
 }
 
 export type DoctorDetail = {

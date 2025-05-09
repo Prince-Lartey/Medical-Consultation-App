@@ -6,11 +6,12 @@ import { revalidatePath } from "next/cache";
 import { AppointmentUpdateProps } from "@/components/Dashboard/Doctor/UpdateAppointmentForm";
 import {Resend} from "resend"
 import NewAppointmentEmail from "@/components/Emails/new-appointment-email";
+import { AppointmentStatusEmail } from "@/components/Emails/appointment-status-email";
+
+const resend = new Resend(process.env.RESEND_API_KEY)
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export async function createAppointment(data: AppointmentProps) {
-    const resend = new Resend(process.env.RESEND_API_KEY)
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
     const doctor = await prismaClient.user.findUnique({
         where: {
             id: data.doctorId,
@@ -171,6 +172,23 @@ export async function updateAppointmentById(id: string, data: AppointmentUpdateP
                 id,
             },
             data,
+        });
+        const patientId = updatedAppointment.patientId
+        const patient = await prismaClient.user.findUnique({
+            where: {
+                id: patientId,
+            },
+        });
+        const firstName = patient.name
+        const email = patient.email
+        const link = `${baseUrl}/dashboard/user/appointments/view/${updatedAppointment.id}`;
+        const message = "We wish to inform you that the status of your appointment has been updated by the attending doctor. Kindly click the button below to review the updated details.";
+
+        await resend.emails.send({
+            from: "PriMed <info@pricorp.info>",
+            to: email,
+            subject: "Update on Your Appointment Status",
+            react: AppointmentStatusEmail({ firstName, link, message }),
         });
         revalidatePath("/dashboard/doctor/appointments");
 
