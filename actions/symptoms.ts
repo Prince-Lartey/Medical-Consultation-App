@@ -2,7 +2,6 @@
 
 import { prismaClient } from "@/lib/db";
 import { revalidatePath } from "next/cache";
-import { SymptomProps } from "@/components/Dashboard/SymptomForm";
 import { Symptom } from "@prisma/client";
 
 export async function createSymptom(data: Symptom) {
@@ -44,104 +43,104 @@ export async function createSymptom(data: Symptom) {
     }
 }
 
-export async function createManySymptoms() {
-    try {
-        const symptoms = [
-            {
-                title: "Anxiety",
-                slug: "anxiety",
-            },
-            {
-                title: "Depression",
-                slug: "depression",
-            },
-            {
-                title: "Asthma",
-                slug: "asthma",
-            },
-            {
-                title: "Erectile Dysfunction",
-                slug: "erectile-dysfunction",
-            },
-            {
-                title: "Back Pain",
-                slug: "back-pain",
-            },
-            {
-                title: "UTI",
-                slug: "uti",
-            },
-            {
-                title: "Flu, Cough or Cold",
-                slug: "flu-cough-cold",
-            },
-            {
-                title: "Acne",
-                slug: "acne",
-            },
-            {
-                title: "Tooth Pain",
-                slug: "tooth-pain",
-            },
-            {
-                title: "Vagina Itching",
-                slug: "vagina-itching",
-            },
-            {
-                title: "Skin Itching",
-                slug: "skin-itching",
-            },
-            {
-                title: "Ear Infection",
-                slug: "ear-infection",
-            },
-            {
-                title: "Sore Throat",
-                slug: "sore-throat",
-            },
-            {
-                title: "Rash",
-                slug: "rash",
-            },
-            {
-                title: "Migraine",
-                slug: "migraine",
-            },
-            {
-                title: "Diarrhea",
-                slug: "diarrhea",
-            },
-            {
-                title: "Eczema",
-                slug: "eczema",
-            },
-            {
-                title: "Dizziness",
-                slug: "dizziness",
-            },
-            {
-                title: "Fever",
-                slug: "fever",
-            },
-        ]
+// export async function createManySymptoms() {
+//     try {
+//         const symptoms = [
+//             {
+//                 title: "Anxiety",
+//                 slug: "anxiety",
+//             },
+//             {
+//                 title: "Depression",
+//                 slug: "depression",
+//             },
+//             {
+//                 title: "Asthma",
+//                 slug: "asthma",
+//             },
+//             {
+//                 title: "Erectile Dysfunction",
+//                 slug: "erectile-dysfunction",
+//             },
+//             {
+//                 title: "Back Pain",
+//                 slug: "back-pain",
+//             },
+//             {
+//                 title: "UTI",
+//                 slug: "uti",
+//             },
+//             {
+//                 title: "Flu, Cough or Cold",
+//                 slug: "flu-cough-cold",
+//             },
+//             {
+//                 title: "Acne",
+//                 slug: "acne",
+//             },
+//             {
+//                 title: "Tooth Pain",
+//                 slug: "tooth-pain",
+//             },
+//             {
+//                 title: "Vagina Itching",
+//                 slug: "vagina-itching",
+//             },
+//             {
+//                 title: "Skin Itching",
+//                 slug: "skin-itching",
+//             },
+//             {
+//                 title: "Ear Infection",
+//                 slug: "ear-infection",
+//             },
+//             {
+//                 title: "Sore Throat",
+//                 slug: "sore-throat",
+//             },
+//             {
+//                 title: "Rash",
+//                 slug: "rash",
+//             },
+//             {
+//                 title: "Migraine",
+//                 slug: "migraine",
+//             },
+//             {
+//                 title: "Diarrhea",
+//                 slug: "diarrhea",
+//             },
+//             {
+//                 title: "Eczema",
+//                 slug: "eczema",
+//             },
+//             {
+//                 title: "Dizziness",
+//                 slug: "dizziness",
+//             },
+//             {
+//                 title: "Fever",
+//                 slug: "fever",
+//             },
+//         ]
 
-        for (const symptom of symptoms) {
-            try {
-                await createSymptom(symptom);
-            }catch (error) {
-                console.error(`Error creating symptom ${symptom.title}:`, error);
-            }
-        }
+//         for (const symptom of symptoms) {
+//             try {
+//                 await createSymptom(symptom);
+//             }catch (error) {
+//                 console.error(`Error creating symptom ${symptom.title}:`, error);
+//             }
+//         }
         
-    } catch (error) {
-        console.error("Error creating symptoms:", error);
-        return {
-            data: null,
-            error: "An error occurred while creating the symptoms",
-            status: 500,
-        };
-    }
-}
+//     } catch (error) {
+//         console.error("Error creating symptoms:", error);
+//         return {
+//             data: null,
+//             error: "An error occurred while creating the symptoms",
+//             status: 500,
+//         };
+//     }
+// }
 
 export async function getSymptoms() {
     try {

@@ -2,7 +2,6 @@
 
 import { prismaClient } from "@/lib/db";
 import { revalidatePath } from "next/cache";
-import { SpecialtyProps } from "@/components/Dashboard/SpecialtyForm";
 import { Specialty } from "@prisma/client";
 
 export async function createSpecialty(data: Specialty) {
@@ -44,52 +43,52 @@ export async function createSpecialty(data: Specialty) {
     }
 }
 
-export async function createManySpecialties() {
-    try {
-        const specialties = [
-            {
-                title: "Primary Care",
-                slug: "primary-care",
-            },
-            {
-                title: "Dermatology",
-                slug: "dermatology",
-            },
-            {
-                title: "Pediatrics",
-                slug: "pediatrics",
-            },
-            {
-                title: "Men's Health",
-                slug: "mens-health",
-            },
-            {
-                title: "Women's Health",
-                slug: "womens-health",
-            },
-            {
-                title: "Dental",
-                slug: "dental",
-            }
-        ]
+// export async function createManySpecialties() {
+//     try {
+//         const specialties = [
+//             {
+//                 title: "Primary Care",
+//                 slug: "primary-care",
+//             },
+//             {
+//                 title: "Dermatology",
+//                 slug: "dermatology",
+//             },
+//             {
+//                 title: "Pediatrics",
+//                 slug: "pediatrics",
+//             },
+//             {
+//                 title: "Men's Health",
+//                 slug: "mens-health",
+//             },
+//             {
+//                 title: "Women's Health",
+//                 slug: "womens-health",
+//             },
+//             {
+//                 title: "Dental",
+//                 slug: "dental",
+//             }
+//         ]
 
-        for (const specialty of specialties) {
-            try {
-                await createSpecialty(specialty);
-            }catch (error) {
-                console.error(`Error creating service ${specialty.title}:`, error);
-            }
-        }
+//         for (const specialty of specialties) {
+//             try {
+//                 await createSpecialty(specialty);
+//             }catch (error) {
+//                 console.error(`Error creating service ${specialty.title}:`, error);
+//             }
+//         }
         
-    } catch (error) {
-        console.error("Error creating specialties:", error);
-        return {
-            data: null,
-            error: "An error occurred while creating the specialties",
-            status: 500,
-        };
-    }
-}
+//     } catch (error) {
+//         console.error("Error creating specialties:", error);
+//         return {
+//             data: null,
+//             error: "An error occurred while creating the specialties",
+//             status: 500,
+//         };
+//     }
+// }
 
 export async function getSpecialties() {
     try {
