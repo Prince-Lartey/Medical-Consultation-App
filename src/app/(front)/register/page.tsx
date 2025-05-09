@@ -1,8 +1,8 @@
 import Register from '@/components/Auth/Register'
 import React from 'react'
 
-export default function page({ params }: any) {
-    const { role, plan } = params;
+export default async function page({params}: {params: Promise<{ role: string, plan: string }>;}) {
+    const { role, plan } = await params;
     console.log(role, plan)
 
     return (

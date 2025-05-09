@@ -7,12 +7,7 @@ import {
     CardHeader,
 } from "@/components/ui/card"
 
-export default async function VerifyAccount({
-    params,
-}: {
-    params: Promise<{ id: string }>;
-}) {
-
+export default async function VerifyAccount({params,}: {params: Promise<{ id: string }>;}) {
     const { id } = await params
 
     //Get a User

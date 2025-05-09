@@ -2,8 +2,9 @@ import React from 'react'
 import { getSpecialtyBySlug } from '../../../../../../../actions/specialties'
 import SpecialtyForm from '@/components/Dashboard/SpecialtyForm'
 
-export default async function page({ params }: any) {
-    const specialty = (await getSpecialtyBySlug(params.slug)).data
+export default async function page({params}: {params: Promise<{ slug: string }>;}) {
+    const { slug } = await params
+    const specialty = (await getSpecialtyBySlug(slug)).data
 
     return (
         <div>

@@ -51,12 +51,12 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
     const {register, handleSubmit, formState: { errors }} = useForm<AppointmentProps>({
         defaultValues: {
             email: appointment?.email ?? "",
-            firstName: appointment.firstName ?? "",
-            lastName: appointment.lastName ?? "",
-            phone: appointment.phone ?? "",
-            location: appointment.location ?? "",
-            occupation: appointment.occupation ?? "" ,
-            gender: appointment.gender ?? ""
+            firstName: appointment?.firstName ?? "",
+            lastName: appointment?.lastName ?? "",
+            phone: appointment?.phone ?? "",
+            location: appointment?.location ?? "",
+            occupation: appointment?.occupation ?? "" ,
+            gender: appointment?.gender ?? ""
         }
     })
 
