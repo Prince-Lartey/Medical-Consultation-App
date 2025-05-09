@@ -18,8 +18,6 @@ interface EmailTemplateProps {
     message: string;
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
 export const EmailTemplate = ({
     firstName = "",
     token,

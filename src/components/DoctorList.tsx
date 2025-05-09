@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { ArrowUpRight, Map } from 'lucide-react'
 import DoctorListCarousel from './DoctorListCarousel'
 import { Button } from './ui/button'
-import { DoctorProfile, User } from '@prisma/client'
 import { Doctor } from '../../types/types'
 
 export default function DoctorList({

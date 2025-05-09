@@ -11,7 +11,7 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import { X } from 'lucide-react'
 import generateSlug from '@/utils/generateSlug'
-import { createManyServices, createService, updateService } from '../../../actions/services'
+import { createService, updateService } from '../../../actions/services'
 import { Service } from '@prisma/client'
 
 export type ServiceProps = {

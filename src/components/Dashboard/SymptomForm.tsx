@@ -10,7 +10,7 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import { X } from 'lucide-react'
 import generateSlug from '@/utils/generateSlug'
-import { createManySymptoms, createSymptom, updateSymptom } from '../../../actions/symptoms'
+import { createSymptom, updateSymptom } from '../../../actions/symptoms'
 import { Symptom } from '@prisma/client'
 
 export type SymptomProps = {

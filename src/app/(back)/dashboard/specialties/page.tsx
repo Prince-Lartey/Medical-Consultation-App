@@ -4,7 +4,6 @@ import NewButton from '@/components/Dashboard/Doctor/NewButton'
 import { LayoutGrid, ScanHeart } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { getSpecialties } from '../../../../../actions/specialties'
-import { SpecialtyProps } from '@/components/Dashboard/SpecialtyForm'
 import SpecialtyCard from '@/components/Dashboard/SpecialtyCard'
 import { Specialty } from '@prisma/client'
 

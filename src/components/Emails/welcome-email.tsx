@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
     Body,
-    Button,
     Container,
     Head,
     Html,
@@ -16,8 +15,6 @@ interface EmailTemplateProps {
     message: string;
     previewText: string
 }
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const WelcomeEmail = ({
     firstName = "",
@@ -93,15 +90,6 @@ const section = {
 const text = {
     margin: "0 0 10px 0",
     textAlign: "left" as const,
-};
-
-const button = {
-    fontSize: "24px",
-    backgroundColor: "#28a745",
-    color: "#fff",
-    lineHeight: 1.5,
-    borderRadius: "0.5em",
-    padding: "0.75em 1.5em",
 };
 
 const links = {

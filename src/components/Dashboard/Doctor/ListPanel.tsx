@@ -4,7 +4,7 @@ import React from 'react'
 import { ScrollArea } from "@/components/ui/scroll-area"
 import Link from 'next/link'
 import { BadgeCheck, CalendarCheck, CircleEllipsis, CircleX, History } from 'lucide-react'
-import { Appointment, User } from '@prisma/client'
+import { Appointment } from '@prisma/client'
 import { timeAgo } from '@/utils/timeAgo'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'

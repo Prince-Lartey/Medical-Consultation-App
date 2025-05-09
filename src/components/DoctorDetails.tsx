@@ -48,7 +48,7 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
 
     ]
 
-    const {register, reset, handleSubmit, formState: { errors }} = useForm<AppointmentProps>({
+    const {register, handleSubmit, formState: { errors }} = useForm<AppointmentProps>({
         defaultValues: {
             email: appointment?.email ?? "",
             firstName: appointment.firstName ?? "",

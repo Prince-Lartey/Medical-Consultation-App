@@ -9,10 +9,10 @@ import TextAreaInput from '../FormInputs/TextAreaInput'
 import toast from 'react-hot-toast'
 import { StepFormProps } from './BioDataForm'
 import MultipleFileUpload, { File } from '../FormInputs/MultipleFileUpload'
-import { completeProfile, updateDoctorProfile } from '../../../actions/onboarding'
+import { completeProfile } from '../../../actions/onboarding'
 import { useOnboardingContext } from '@/context/context'
 
-export default function AdditionalInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
+export default function AdditionalInfo({ page, title, description, formId }: StepFormProps) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     const {additionalData, setAdditionalData, savedDBData} = useOnboardingContext()

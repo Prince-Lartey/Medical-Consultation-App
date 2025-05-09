@@ -12,13 +12,13 @@ import ArrayInput from '../FormInputs/ArrayInput'
 import MultipleFileUpload from '../FormInputs/MultipleFileUpload'
 
 export default function ProfessionInfo({ page, title, description }: StepFormProps) {
-    const {register, handleSubmit, reset, formState: { errors }} = useForm<BioDataFormProps>()
+    const {register, handleSubmit, formState: { errors }} = useForm<BioDataFormProps>()
     const [isLoading, setIsLoading] = useState(false)
-    const router = useRouter()
     const [otherSpecialties, setOtherSpecialties] = useState([])
     const [docs, setDocs] = useState([])
 
     async function onSubmit(data: BioDataFormProps) {
+        setIsLoading(false)
         data.page = page
         console.log(data)
     }

@@ -2,7 +2,6 @@
 
 import { Plus, X } from 'lucide-react';
 import React, { useState } from 'react'
-import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 
 export default function ArrayInput({setItems, items = [], itemTitle,} : {setItems: any, items: string[], itemTitle: string}) {

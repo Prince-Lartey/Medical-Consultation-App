@@ -10,7 +10,7 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import { X } from 'lucide-react'
 import generateSlug from '@/utils/generateSlug'
-import { createManySpecialties, createSpecialty, updateSpecialty } from '../../../actions/specialties'
+import { createSpecialty, updateSpecialty } from '../../../actions/specialties'
 import { Specialty } from '@prisma/client'
 
 export type SpecialtyProps = {

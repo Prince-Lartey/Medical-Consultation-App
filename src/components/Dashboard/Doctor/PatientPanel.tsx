@@ -3,13 +3,12 @@
 import React from 'react'
 import { ScrollArea } from "@/components/ui/scroll-area"
 import Link from 'next/link'
-import { BadgeCheck, Mail, MapPin, UserCircle } from 'lucide-react'
-import { Appointment, User } from '@prisma/client'
+import { Mail, MapPin, UserCircle } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { PatientProps } from '@/app/(back)/dashboard/doctor/patients/layout'
 
-export default function PatientPanel({ patients, role }: { patients: PatientProps[], role: string}) {
+export default function PatientPanel({ patients }: { patients: PatientProps[] }) {
     const pathname = usePathname()
 
     return (

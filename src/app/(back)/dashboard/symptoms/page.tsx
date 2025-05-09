@@ -1,7 +1,7 @@
 import PanelHeader from '@/components/Dashboard/Doctor/PanelHeader'
 import React from 'react'
 import NewButton from '@/components/Dashboard/Doctor/NewButton'
-import { Activity, LayoutGrid } from 'lucide-react'
+import { Activity } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { getSymptoms } from '../../../../../actions/symptoms'
 import { Symptom } from '@prisma/client'

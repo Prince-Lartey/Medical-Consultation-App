@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form"
 import { RegisterInputProps } from "../../../types/types";
 import SubmitButton from "../FormInputs/SubmitButton";
 import { useState } from "react";
-import { UserRole } from "@prisma/client";
 import { createUser } from "../../../actions/users";
 import toast from "react-hot-toast";
 import TextInput from "../FormInputs/TextInput";

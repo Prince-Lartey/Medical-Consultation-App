@@ -6,7 +6,6 @@ import {
     Head,
     Html,
     Img,
-    Link,
     Preview,
     Section,
     Text,
@@ -16,8 +15,6 @@ interface NewAppointmentEmailProps {
     link: string;
     message: string;
 }
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const AppointmentStatusEmail = ({
     firstName = "",
@@ -69,11 +66,6 @@ const container = {
     padding: "20px 0 48px",
 };
 
-const title = {
-    fontSize: "24px",
-    lineHeight: 1.25,
-};
-
 const section = {
     padding: "24px",
     border: "solid 1px #dedede",
@@ -93,20 +85,4 @@ const button = {
     lineHeight: 1.5,
     borderRadius: "0.5em",
     padding: "0.75em 1.5em",
-};
-
-const links = {
-    textAlign: "center" as const,
-};
-
-const link = {
-    color: "#0366d6",
-    fontSize: "12px",
-};
-
-const footer = {
-    color: "#6a737d",
-    fontSize: "12px",
-    textAlign: "center" as const,
-    marginTop: "60px",
 };

@@ -3,7 +3,6 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import DoctorCard from "./DoctorCard";
-import { DoctorProfile, User } from "@prisma/client";
 import { Doctor } from "../../types/types";
 
 // interface Doctor {

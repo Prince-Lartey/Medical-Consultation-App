@@ -3,23 +3,19 @@
 import React, { useState } from 'react'
 import TextInput from '../FormInputs/TextInput'
 import { BioDataFormProps } from '../../../types/types'
-import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import SubmitButton from '../FormInputs/SubmitButton'
 import RadioInput from '../FormInputs/RadioInput'
-import toast from 'react-hot-toast'
 import { Checkbox } from '../ui/checkbox'
 import { Label } from '../ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
-import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Plus } from 'lucide-react'
 import { StepFormProps } from './BioDataForm'
 
 export default function Availability({ page, title, description }: StepFormProps) {
-    const {register, handleSubmit, reset, formState: { errors }} = useForm<BioDataFormProps>()
+    const {register, handleSubmit, formState: { errors }} = useForm<BioDataFormProps>()
     const [isLoading, setIsLoading] = useState(false)
-    const router = useRouter()
 
     const availabilityOptions = [
         { label: 'Weekly (You are available for one or more times during the week, every week)', value: 'weekly' },
@@ -27,7 +23,7 @@ export default function Availability({ page, title, description }: StepFormProps
     ]
 
     async function onSubmit(data: BioDataFormProps) {
-
+        setIsLoading(false)
         data.page = page
         console.log(data)
     }
