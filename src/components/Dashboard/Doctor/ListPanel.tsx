@@ -9,7 +9,7 @@ import { timeAgo } from '@/utils/timeAgo'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
-export default function ListPanel({ appointments, user }: { appointments: Appointment[], user: User}) {
+export default function ListPanel({ appointments, role }: { appointments: Appointment[], role: string}) {
     const pathname = usePathname()
 
     return (
@@ -17,7 +17,7 @@ export default function ListPanel({ appointments, user }: { appointments: Appoin
             <div className="p-4">
                 {appointments.length > 0 ? ( 
                     appointments.map((appointment) => (
-                        <Link key={appointment.id}  href={user.role === "USER" ? `/dashboard/user/appointments/view/${appointment.id}` : `/dashboard/doctor/appointments/view/${appointment.id}`} className={cn("border mb-2 border-gray-300 shadow-sm text-xs py-3 px-2 inline-block w-full bg-white dark:text-slate-900 rounded-md", pathname === `/dashboard/doctor/appointments/view/${appointment.id}` && "border-gray-700 border-2 dark:border-blue-500 bg-gray-100")}>
+                        <Link key={appointment.id}  href={role === "USER" ? `/dashboard/user/appointments/view/${appointment.id}` : `/dashboard/doctor/appointments/view/${appointment.id}`} className={cn("border mb-2 border-gray-300 shadow-sm text-xs py-3 px-2 inline-block w-full bg-white dark:text-slate-900 rounded-md", pathname === `/dashboard/doctor/appointments/view/${appointment.id}` && "border-gray-700 border-2 dark:border-blue-500 bg-gray-100")}>
                             <div className="flex justify-between items-center pb-2">
                                 <h2>{appointment.firstName} {appointment.lastName}</h2>
                                 <div className="flex items-center">

@@ -80,6 +80,23 @@ export async function getPatientAppointments(patientId: string) {
     } 
 }
 
+export async function getDoctorAppointments(doctorId: string) {
+    try {
+        const appointments = await prismaClient.appointment.findMany({
+            orderBy: {
+                createdAt: "desc",
+            },
+            where: {
+                doctorId,
+            },
+        });
+        return appointments
+    } catch (error) {
+        console.error("Error fetching appointments:", error);
+        return []
+    } 
+}
+
 export async function deleteAppointment(id: string) {
     try {
         await prismaClient.appointment.delete({

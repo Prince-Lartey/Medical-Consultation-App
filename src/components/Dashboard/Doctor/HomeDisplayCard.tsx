@@ -12,7 +12,7 @@ export default function HomeDisplayCard({count}: {count: number}) {
                     {" "}
                     <p>You have {count} appointments today</p>
                 </div>
-                <NewButton title="New Appointment" href="#" />
+                <NewButton title="New Appointment" href="/dashboard/user/appointments/new" />
             </div>
         </div>
     )

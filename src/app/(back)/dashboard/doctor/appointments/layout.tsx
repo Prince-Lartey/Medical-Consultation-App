@@ -2,17 +2,27 @@ import PanelHeader from '@/components/Dashboard/Doctor/PanelHeader'
 import ListPanel from '@/components/Dashboard/Doctor/ListPanel'
 import React from 'react'
 import { Calendar } from 'lucide-react'
-import { getAppointments } from '../../../../../../actions/appointments'
+import { getDoctorAppointments } from '../../../../../../actions/appointments'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
+import NotAuthorized from '@/components/NotAuthorized'
 
 export default async function layout({children}: {children: React.ReactNode}) {
-    const appointments = await getAppointments()
+    const session = await getServerSession(authOptions)
+    const user = session?.user
+    if (user?.role !== "DOCTOR") {
+        return (
+            <NotAuthorized />
+        )
+    }
+    const appointments = await getDoctorAppointments(user?.id)
 
     return (
         <div className="grid grid-cols-12">
             <div className="col-span-4 py-3 border-r border-gray-100">
                 <PanelHeader title="Appointments" count={appointments.length} icon={Calendar} />
                 <div className="px-3">
-                    <ListPanel appointments={appointments}/>
+                    <ListPanel appointments={appointments} role={user?.role}/>
                 </div>
             </div>
             <div className="col-span-8">{children}</div>

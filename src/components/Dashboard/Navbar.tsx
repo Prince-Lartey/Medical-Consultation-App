@@ -31,6 +31,7 @@ import {
 import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { generateInitials } from "@/utils/generateInitials";
 
 export default function Navbar({session}: {session: Session}) {
     const user = session.user
@@ -141,7 +142,7 @@ export default function Navbar({session}: {session: Session}) {
                         {user.image ? (
                             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                         ) : (
-                            <AvatarFallback>CN</AvatarFallback>
+                            <AvatarFallback>{generateInitials(user.name)}</AvatarFallback>
                         )}
                     </Avatar>
                 </DropdownMenuTrigger>
