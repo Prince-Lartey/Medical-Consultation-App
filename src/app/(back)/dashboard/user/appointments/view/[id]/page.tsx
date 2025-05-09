@@ -48,7 +48,7 @@ export default async function page({ params }: any) {
                 <p className="px-3 text-sm font-semibold">Medical Documents</p>
                 <div className="grid grid-cols-4 px-3 gap-4">
                     {
-                        appointment.medicalDocuments.map((doc, index) => {
+                        appointment.medicalDocuments.map((doc: any, index: any) => {
                             return (
                                 <Button key={index} variant="outline" asChild>
                                     <Link target="_blank" href={doc} download>{`Doc-${index + 1}`}</Link>
