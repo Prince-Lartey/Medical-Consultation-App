@@ -20,11 +20,11 @@ export function MainNav() {
       </Link>
       <nav className="flex items-center gap-4 text-sm xl:gap-6">
         {
-          docsConfig.mainNav?.map((item, index) => {
+          docsConfig.mainNav?.filter((item) => item.href).map((item, index) => {
             return (
               <Link
                 key={index}
-                href={item?.href}
+                href={item.href!}
                 className={cn(
                   "transition-colors hover:text-foreground/80",
                   pathname === item.href
