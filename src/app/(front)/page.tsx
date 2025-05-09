@@ -3,12 +3,13 @@ import Brands from "@/components/Frontend/Brands";
 import Hero from "@/components/Frontend/Hero";
 import TabbedSection from "@/components/Frontend/TabbedSection";
 import { getDoctors } from "../../../actions/users";
+import { Doctor } from "../../../types/types";
 
 export default async function Home() {
   const doctors = (await getDoctors()) || []
 
-  const telehealthDoctors = doctors.filter((doctor) => doctor.doctorProfile?.operationMode === "Telehealth Visit");
-  const inPersonDoctors = doctors.filter((doctor) => doctor.doctorProfile?.operationMode === "In-Person Doctor Visit");
+  const telehealthDoctors = doctors.filter((doctor: Doctor) => doctor.doctorProfile?.operationMode === "Telehealth Visit");
+  const inPersonDoctors = doctors.filter((doctor: Doctor) => doctor.doctorProfile?.operationMode === "In-Person Doctor Visit");
 
   return (
     <section className="">
