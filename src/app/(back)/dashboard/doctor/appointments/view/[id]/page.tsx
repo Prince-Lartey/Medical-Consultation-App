@@ -12,7 +12,7 @@ interface PageProps {
     };
 }
 
-export default async function page({params}: PageProps) {
+export default async function Page({params}: PageProps) {
     const appointment = await getAppointmentById(params.id)
 
     return (
