@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import TextInput from '../FormInputs/TextInput'
 import { BioDataFormProps } from '../../../types/types'
-import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import SubmitButton from '../FormInputs/SubmitButton'
 import { StepFormProps } from './BioDataForm'
