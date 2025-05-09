@@ -1,66 +1,50 @@
 import React from 'react'
-import { getAppointmentById } from '../../../../../../../../actions/appointments'
-import { Clock } from 'lucide-react'
-import { formatDateOfBirth } from '@/utils/formatDateOfBirth'
-import { Button } from '@/components/ui/button'
+import { getPatientAppointments } from '../../../../../../../../actions/appointments'
+import { BadgeCheck, CalendarCheck, CircleEllipsis, CircleX, History } from 'lucide-react'
 import Link from 'next/link'
-import UpdateAppointmentForm from '@/components/Dashboard/Doctor/UpdateAppointmentForm'
+import { timeAgo } from '@/utils/timeAgo'
+import { cn } from '@/lib/utils'
+import { Appointment } from '@prisma/client'
 
 export default async function page({params: {id}}: {params: {id: string}}) {
-    const appointment = await getAppointmentById(id)
+    const appointments = await getPatientAppointments(id)
 
     return (
-        <div>
-            <div className="flex items-center justify-between px-4 py-4 border-b">
-                <div className="">
-                    <h2 className="scroll-m-20 pb-2 text-2xl font-semibold tracking-tight first:mt-0">{appointment.firstName} {appointment.lastName}</h2>
-                    <div className="flex space-x-2 divide-x-2 divide-gray-200 text-sm">
-                        <p className="capitalize px-2">{appointment.gender}</p>
-                        <p className="px-2">{appointment.phone}</p>
-                    </div>
-                </div>
-                <div>
-                    <h2 className="scroll-m-20 pb-2 text-xl tracking-tight first:mt-0">{appointment?.appointmentFormattedDate}</h2>
-                    <div className="flex items-center text-sm ">
-                        <Clock className="w-4 h-4 mr-2"/>
-                        <span>{appointment?.appointmentTime}</span>
-                    </div>
-                </div>
-            </div>
-            <div className="py-4">
-                <div className="flex divide-x-2 px-4 py-3 divide-gray-200 border-b">
-                    <p className="px-3 text-sm font-semibold">Reason</p>
-                    <p className="px-3 text-sm">{appointment.appointmentReason}</p>
-                </div>
-            </div>
-            <div className="flex divide-x-2 px-4 py-3 divide-gray-200 border-b">
-                <p className="px-3 text-sm font-semibold">Date of Birth</p>
-                <p className="px-3 text-sm">{formatDateOfBirth(appointment.dob)}</p>
-            </div>
-            <div className="flex divide-x-2 px-4 py-3 divide-gray-200 border-b">
-                <p className="px-3 text-sm font-semibold">Email</p>
-                <p className="px-3 text-sm">{appointment.email}</p>
-            </div>
-            <div className="flex divide-x-2 px-4 py-3 divide-gray-200 border-b">
-                <p className="px-3 text-sm font-semibold">Location</p>
-                <p className="px-3 text-sm">{appointment.location}</p>
-            </div>
-            <div className="flex divide-x-2 px-4 py-3 divide-gray-200 border-b items-center">
-                <p className="px-3 text-sm font-semibold">Medical Documents</p>
-                <div className="grid grid-cols-4 px-3 gap-4">
-                    {
-                        appointment.medicalDocuments.map((doc, index) => {
-                            return (
-                                <Button key={index} variant="outline" asChild>
-                                    <Link target="_blank" href={doc} download>{`Doc-${index + 1}`}</Link>
-                                </Button>
-                            )
-                        })
-                    }
-                </div>
-            </div>
-            <div className="">
-                <UpdateAppointmentForm appointment={appointment}/>
+        <div className="p-4">
+            <h2 className="border-b pb-3 mb-3 scroll-m-20 text-xl font-semibold tracking-tight">Appointments ({appointments.length.toString().padStart(2, "0")})</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {appointments.map((appointment: Appointment) => {
+                    return (
+                        <Link key={appointment.id}  href={`/dashboard/doctor/appointments/view/${appointment.id}`} className={cn("border mb-2 border-gray-300 shadow-sm text-xs py-3 px-2 inline-block w-full bg-white dark:text-slate-900 rounded-md")}>
+                            <div className="flex justify-between items-center pb-2">
+                                <h2>{appointment.firstName} {appointment.lastName}</h2>
+                                <div className="flex items-center">
+                                    <History className="w-4 h-4 mr-2"/>
+                                    <span>{timeAgo(appointment.createdAt)}</span>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-4 border-b pb-2">
+                                <div className="flex items-center font-semibold">
+                                    <CalendarCheck className="w-4 h-4 mr-2"/>
+                                    <span>{appointment.appointmentFormattedDate}</span>
+                                </div>
+                                <span className="font-semibold">{appointment.appointmentTime}</span>
+                            </div>
+                            <div className={cn("flex items-center pt-2", appointment.status === "approved" ? "text-green-500" : appointment.status === "rejected" ? "text-red-500" : "text-yellow-500")}>
+                                {
+                                    appointment.status === "pending" ? (
+                                        <CircleEllipsis className="w-4 h-4 mr-2"/>
+                                    ) : appointment.status === "approved" ? (
+                                        <BadgeCheck className="w-4 h-4 mr-2"/>
+                                    ) : (
+                                        <CircleX className="w-4 h-4 mr-2"/>
+                                    )
+                                }
+                                <span className="font-semibold capitalize">{appointment.status}</span>
+                            </div>
+                        </Link>
+                    )
+                })}
             </div>
         </div>
     )
