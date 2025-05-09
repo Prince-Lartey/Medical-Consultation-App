@@ -7,8 +7,8 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { getFirstPatientAppointmentsById } from '../../../../../actions/appointments'
 
-export default async function page({params: {slug}}: {params: {slug: string}}) {
-    const doctor = await getDoctorBySlug(slug)
+export default async function page({ params }: any) {
+    const doctor = await getDoctorBySlug(params.slug)
     const session = await getServerSession(authOptions)
     const user = session?.user
 
