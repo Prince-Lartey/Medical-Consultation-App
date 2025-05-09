@@ -6,8 +6,8 @@ import { timeAgo } from '@/utils/timeAgo'
 import { cn } from '@/lib/utils'
 import { Appointment } from '@prisma/client'
 
-export default async function page({params: {id}}: {params: {id: string}}) {
-    const appointments = await getPatientAppointments(id)
+export default async function page({params}: any) {
+    const appointments = await getPatientAppointments(params.id)
 
     return (
         <div className="p-4">

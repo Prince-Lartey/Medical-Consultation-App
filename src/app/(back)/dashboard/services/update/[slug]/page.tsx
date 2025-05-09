@@ -2,8 +2,8 @@ import ServiceForm from '@/components/Dashboard/ServiceForm'
 import React from 'react'
 import { getServiceBySlug } from '../../../../../../../actions/services'
 
-export default async function page({ params: {slug}, }: {params: {slug: string}}) {
-    const service = (await getServiceBySlug(slug)).data
+export default async function page({ params }: any) {
+    const service = (await getServiceBySlug(params.slug)).data
 
     return (
         <div>

@@ -2,8 +2,8 @@ import React from 'react'
 import { getSymptomBySlug } from '../../../../../../../actions/symptoms'
 import SymptomForm from '@/components/Dashboard/SymptomForm'
 
-export default async function page({ params: {slug}, }: {params: {slug: string}}) {
-    const symptom = (await getSymptomBySlug(slug)).data
+export default async function page({ params }: any) {
+    const symptom = (await getSymptomBySlug(params.slug)).data
 
     return (
         <div>

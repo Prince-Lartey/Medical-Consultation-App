@@ -5,8 +5,8 @@ import { formatDateOfBirth } from '@/utils/formatDateOfBirth'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-export default async function page({params: {id}}: {params: {id: string}}) {
-    const appointment = await getAppointmentById(id)
+export default async function page({ params }: any) {
+    const appointment = await getAppointmentById(params.id)
 
     return (
         <div>
