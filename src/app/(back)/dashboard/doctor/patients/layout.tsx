@@ -52,7 +52,7 @@ export default async function layout({children}: {children: React.ReactNode}) {
             <div className="col-span-4 py-3 border-r border-gray-100">
                 <PanelHeader title="Patients" count={patients.length} icon={Users} />
                 <div className="px-3">
-                    <PatientPanel patients={patients} role={user?.role}/>
+                    <PatientPanel patients={patients}/>
                 </div>
             </div>
             <div className="col-span-8">{children}</div>
