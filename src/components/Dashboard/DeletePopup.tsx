@@ -12,11 +12,12 @@ import {
 import { Trash } from "lucide-react"
 
 export type DeletePopupProps = {
-    handleDelete: (id: string) => void,
-    title: string,
+    id: string;
+    handleDelete: (id: string) => void
+    title: string
 }
 
-export default function DeletePopup({handleDelete, title}: DeletePopupProps) {
+export default function DeletePopup({id, handleDelete, title}: DeletePopupProps) {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -33,7 +34,7 @@ export default function DeletePopup({handleDelete, title}: DeletePopupProps) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+                    <AlertDialogAction onClick={() => handleDelete(id)}>Delete</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
