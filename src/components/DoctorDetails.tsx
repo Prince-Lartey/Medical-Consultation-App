@@ -17,8 +17,9 @@ import MultipleFileUpload, { File } from './FormInputs/MultipleFileUpload'
 import { useSession } from 'next-auth/react'
 import { createAppointment } from '../../actions/appointments'
 import toast from 'react-hot-toast'
+import { Appointment } from '@prisma/client'
 
-export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
+export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDetail, appointment: Appointment}) {
     const {data: session} = useSession()
     const patient = session?.user
 
@@ -49,7 +50,13 @@ export default function DoctorDetails({doctor}: {doctor: DoctorDetail}) {
 
     const {register, reset, handleSubmit, formState: { errors }} = useForm<AppointmentProps>({
         defaultValues: {
-            email: patient?.email ?? "",
+            email: appointment?.email ?? "",
+            firstName: appointment.firstName ?? "",
+            lastName: appointment.lastName ?? "",
+            phone: appointment.phone ?? "",
+            location: appointment.location ?? "",
+            occupation: appointment.occupation ?? "" ,
+            gender: appointment.gender ?? ""
         }
     })
 

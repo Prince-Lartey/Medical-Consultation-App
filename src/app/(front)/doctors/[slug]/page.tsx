@@ -1,12 +1,18 @@
 import DoctorDetails from '@/components/DoctorDetails'
-import FixedBookButton from '@/components/FixedBookButton'
 import Image from 'next/image'
 import React from 'react'
 import { getDoctorBySlug } from '../../../../../actions/users'
 import Link from 'next/link'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
+import { getFirstPatientAppointmentsById } from '../../../../../actions/appointments'
 
 export default async function page({params: {slug}}: {params: {slug: string}}) {
     const doctor = await getDoctorBySlug(slug)
+    const session = await getServerSession(authOptions)
+    const user = session?.user
+
+    const appointment = await getFirstPatientAppointmentsById(user?.id)
 
     return (
         <>
@@ -30,7 +36,7 @@ export default async function page({params: {slug}}: {params: {slug: string}}) {
                                 </div>
                             </div>
                             <div className="">
-                                <DoctorDetails doctor={doctor} />
+                                <DoctorDetails doctor={doctor} appointment={appointment}/>
                             </div>
                         </div>
 
