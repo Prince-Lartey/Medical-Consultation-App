@@ -4,6 +4,16 @@ import { prismaClient } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { Service } from "@prisma/client";
 
+export interface ServiceWithDoctorProfileCount {
+    id: string;
+    title: string;
+    slug: string;
+    imageUrl: string;
+    _count: {
+        doctorProfiles: number;
+    }
+}
+
 export async function createService(data: Service) {
     const { title, imageUrl, slug } = data;
     try {
@@ -103,6 +113,17 @@ export async function getServices() {
             orderBy: {
                 createdAt: "desc",
             },
+            select: {
+                id: true,
+                title: true,
+                slug: true,
+                imageUrl: true,
+                _count: {
+                    select: {
+                        doctorProfiles: true
+                    }
+                }
+            }
         });
         return {
             data: services,

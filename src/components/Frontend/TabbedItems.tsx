@@ -5,12 +5,12 @@ import { Tabs } from "flowbite-react";
 import { HiUserCircle, HiHeart, HiLightBulb } from "react-icons/hi"
 import ServiceList from "./Services/ServiceList";
 import LinkCards from "./Doctors/LinkCards";
-import { Service, Specialty, Symptom } from "@prisma/client";
+import { Specialty, Symptom } from "@prisma/client";
 import SymptomCards from "./Doctors/SymptomCards";
+import { ServiceWithDoctorProfileCount } from "../../../actions/services";
 
-export default function TabbedItems({services, specialties, symptoms}: {services: Service[], specialties: Specialty[], symptoms: Symptom[]}) {
+export default function TabbedItems({services, specialties, symptoms}: {services: ServiceWithDoctorProfileCount[], specialties: Specialty[], symptoms: Symptom[]}) {
   const [activeTab, setActiveTab] = useState(0)
-
 
   const tabs = [
     {

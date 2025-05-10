@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { dataProps, getDoctorsByServiceSlug } from '../../../../../actions/doctors'
+import { dataProps, getDoctorsBySpecialtySlug } from '../../../../../actions/doctors'
 import DoctorCard from '@/components/DoctorCard'
 import { Doctor } from '../../../../../types/types'
 
@@ -11,7 +11,7 @@ export default async function Page({ params, searchParams,}: { params: Promise<{
 
     const title = slug.split('-').join(" ")
 
-    const data =  await getDoctorsByServiceSlug(slug) as dataProps
+    const data =  await getDoctorsBySpecialtySlug(slug) as dataProps
     const doctors = data?.doctors as Doctor[]
     const services = data?.services
 

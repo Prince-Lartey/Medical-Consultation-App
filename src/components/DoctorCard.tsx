@@ -18,8 +18,8 @@ export default function DoctorCard({ isInPerson = false, doctor }: { isInPerson?
             {
                 isAvailableDoctors.length > 0 && (
                     <div className="border border-gray-200 dark:border-gray-600 py-8 px-6 inline-flex flex-col bg-white dark:bg-slate-800 hover:border-gray-400 duration-300 transition-all">
-                        <Link href={`/doctors/${slug}`}>
-                            <h2 className='uppercase font-bold text-2xl track-widest'>{doctor.name}</h2>
+                        <Link href={`/doctors/${slug}?id=${doctor.id}`}>
+                            <h2 className='uppercase font-bold text-2xl track-widest'>{`${doctor.doctorProfile?.firstName} ${doctor.doctorProfile?.lastName}`}</h2>
                             { isInPerson && <p className="py-3">{doctor.doctorProfile?.hospitalAddress}</p>}
                             <div className="flex items-center gap-4 py-4">
                                 <div className="relative">
@@ -48,13 +48,13 @@ export default function DoctorCard({ isInPerson = false, doctor }: { isInPerson?
                             <div className="py-3 grid grid-cols-3 gap-4">
                                 {isAvailableDoctors.slice(0, 5).map((item, index) => {
                                     return (
-                                        <Link href={`/doctors/${slug}`} key={index} className="bg-blue-950 text-white p-2 rounded-lg text-center text-sm">
+                                        <Link href={`/doctors/${slug}?id=${doctor.id}`} key={index} className="bg-blue-950 text-white p-2 rounded-lg text-center text-sm">
                                             {item}
                                         </Link>
                                     )
                                 })}
                                 {isAvailableDoctors.length > 5 && (
-                                    <Link href={`/doctors/${slug}`} className="bg-gray-200 text-blue-950 p-2 rounded-lg text-center text-sm truncate">
+                                    <Link href={`/doctors/${slug}?id=${doctor.id}`} className="bg-gray-200 text-blue-950 p-2 rounded-lg text-center text-sm truncate">
                                         More times
                                     </Link>
                                 )}

@@ -1,16 +1,19 @@
 import DoctorDetails from '@/components/DoctorDetails'
 import Image from 'next/image'
 import React from 'react'
-import { getDoctorBySlug } from '../../../../../actions/users'
+import { getDoctorById } from '../../../../../actions/users'
 import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { getFirstPatientAppointmentsById } from '../../../../../actions/appointments'
 
-export default async function page({params}: {params: Promise<{ slug: string }>;}) {
-    const { slug } = await params
+export default async function page({ searchParams,}: {searchParams: Promise<{ [key: string]: string | string[] | undefined }>}) {
+    const resolvedSearchParams = await searchParams;
 
-    const doctor = await getDoctorBySlug(slug)
+    const id = resolvedSearchParams.id as string;
+
+    // const doctor = await getDoctorBySlug(slug)
+    const doctor = await getDoctorById(id)
     const session = await getServerSession(authOptions)
     const user = session?.user
 
