@@ -4,10 +4,8 @@ import { dataProps, getDoctorsByServiceSlug } from '../../../../../actions/docto
 import DoctorCard from '@/components/DoctorCard'
 import { Doctor } from '../../../../../types/types'
 
-export default async function Page({ params, searchParams,}: { params: Promise<{ slug: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }>}) {
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params
-    const { type } = await searchParams
-    console.log(type)
 
     const title = slug.split('-').join(" ")
 

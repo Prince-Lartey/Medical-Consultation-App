@@ -15,6 +15,11 @@ export type dataProps = {
     services: serviceProps[]
 }
 
+export type specialtyDataProps = {
+    doctors: Doctor[]
+    specialties: serviceProps[]
+}
+
 export async function getDoctorsByServiceSlug(slug: string) {
     try {
         let doctors: Doctor[] = []
@@ -64,9 +69,9 @@ export async function getDoctorsByServiceSlug(slug: string) {
 export async function getDoctorsBySpecialtySlug(slug: string) {
     try {
         let doctors: Doctor[] = []
-        let services: serviceProps[] = []
+        let specialties: serviceProps[] = []
         if (slug) {
-            const service = await prismaClient.service.findUnique({
+            const specialty = await prismaClient.specialty.findUnique({
                 where: {
                     slug,
                 },
@@ -78,7 +83,7 @@ export async function getDoctorsBySpecialtySlug(slug: string) {
                     }
                 },
             });
-            doctors = service?.doctorProfiles.map((doctor: DoctorProfile) => {
+            doctors = specialty?.doctorProfiles.map((doctor: DoctorProfile) => {
                 return {
                     id: doctor.userId,
                     name: `${doctor.firstName} ${doctor.lastName}`,
@@ -89,15 +94,15 @@ export async function getDoctorsBySpecialtySlug(slug: string) {
                 }
             })
 
-            services = await prismaClient.service.findMany({
+            specialties = await prismaClient.specialty.findMany({
                 where: {
                     id: {
-                        not: service?.id
+                        not: specialty?.id
                     }
                 }
             })
 
-            const data: dataProps = {doctors, services}
+            const data: specialtyDataProps = {doctors, specialties}
             return data
         }
 
