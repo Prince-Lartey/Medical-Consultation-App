@@ -8,6 +8,7 @@ import generateSlug from "@/utils/generateSlug";
 export type serviceProps = {
     title: string
     slug: string
+    id?: string
 }
 
 export type dataProps = {
@@ -18,6 +19,11 @@ export type dataProps = {
 export type specialtyDataProps = {
     doctors: Doctor[]
     specialties: serviceProps[]
+}
+
+export type symptomDataProps = {
+    doctors: Doctor[]
+    symptoms: serviceProps[]
 }
 
 export async function getDoctorsByServiceSlug(slug: string) {
@@ -109,5 +115,85 @@ export async function getDoctorsBySpecialtySlug(slug: string) {
     } catch (error) {
         console.error("Error fetching service:", error);
         return []
+    }
+}
+
+export async function getDoctorsBySymptomId(symptomId: string) {
+    try {
+        if (symptomId) {
+            let doctors: Doctor[] = []
+            let symptoms: serviceProps[] = []
+            const doctorProfiles = await prismaClient.doctorProfile.findMany({
+                where: {
+                    symptomIds: {
+                        has: symptomId,
+                    }
+                },
+                include: {
+                    availability: true
+                }
+            })
+            doctors = doctorProfiles.map((doctor: DoctorProfile) => {
+                return {
+                    id: doctor.userId,
+                    name: `${doctor.firstName} ${doctor.lastName}`,
+                    slug: generateSlug(`${doctor.firstName} ${doctor.lastName} `),
+                    email: doctor.email,
+                    phone: doctor.phone,
+                    doctorProfile: doctor
+                }
+            })
+
+            symptoms = await prismaClient.symptom.findMany({
+                where: {
+                    id: {
+                        not: symptomId
+                    }
+                }
+            })
+
+            const data: symptomDataProps = {doctors, symptoms}
+            return data
+        }
+
+    } catch (error) {
+        console.error("Error fetching service:", error);
+        return []
+    }
+}
+
+export async function getDoctorsBySearch(query: string) {
+    const results = await Promise.all([
+        prismaClient.service.findMany({
+            where: {
+                OR: [
+                    { title: { contains: query, mode: 'insensitive' }},
+                    { slug: { contains: query, mode: 'insensitive' }}
+                ]
+            }
+        }),
+        prismaClient.symptom.findMany({
+            where: {
+                OR: [
+                    { title: { contains: query, mode: 'insensitive' }},
+                    { slug: { contains: query, mode: 'insensitive' }}
+                ]
+            }
+        }),
+        prismaClient.doctorProfile.findMany({
+            where: {
+                OR: [
+                    { firstName: { contains: query, mode: 'insensitive' }},
+                    { lastName: { contains: query, mode: 'insensitive' }},
+                    { servicesOffered: { hasSome: [query]}},
+                ]
+            }
+        })
+    ])
+
+    return {
+        services: results[0],
+        symptoms: results[1],
+        doctorProfiles: results[2],
     }
 }
