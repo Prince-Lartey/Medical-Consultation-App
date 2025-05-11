@@ -18,11 +18,11 @@ export const docsConfig: DocsConfig = {
     },
     {
       title: "TeleHealth Visit",
-      href: "/telehealth"
+      href: "/category?mode=Telehealth%20Visit"
     },
     {
       title: "In-Person Visit",
-      href: "/inperson"
+      href: "/category?mode=In-Person%20Doctor%20Visit"
     },
     {
       title: "Provide Service",

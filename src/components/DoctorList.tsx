@@ -50,7 +50,7 @@ export default function DoctorList({
                 <div className="py-4 flex items-center justify-between">
                     {
                         isInPerson ? (
-                            <Link href="#" className="text-blue-500 font-semibold text-sm flex items-center">
+                            <Link href={`/category?mode=${title}`} className="text-blue-500 font-semibold text-sm flex items-center">
                                 <Map className="mr-2 flex-shrink-0 w-4 h-4"/>
                                 <span>Map View</span>
                             </Link>
@@ -59,7 +59,7 @@ export default function DoctorList({
                         )
                     }
                     <Button asChild>
-                        <Link href="#" className="">
+                        <Link href={`/category?mode=${title}`} className="">
                             See All
                             <ArrowUpRight className="h-4 w-4 ms-2"/>
                         </Link>
