@@ -163,37 +163,70 @@ export async function getDoctorsBySymptomId(symptomId: string) {
 }
 
 export async function getDoctorsBySearch(query: string) {
-    const results = await Promise.all([
-        prismaClient.service.findMany({
+    if (query) {
+        const services = await prismaClient.service.findMany({
+            where: {
+                OR: [
+                    { title: { contains: query, mode: 'insensitive' }},
+                    { slug: { contains: query, mode: 'insensitive' }}
+                ]
+            },
+            select: {
+                id: true,
+                title: true,
+                slug: true,
+                imageUrl: true,
+                _count: {
+                    select: {
+                        doctorProfiles: true
+                    }
+                }
+            }
+        })
+        const symptoms = await prismaClient.symptom.findMany({
             where: {
                 OR: [
                     { title: { contains: query, mode: 'insensitive' }},
                     { slug: { contains: query, mode: 'insensitive' }}
                 ]
             }
-        }),
-        prismaClient.symptom.findMany({
+        })
+        const specialties = await prismaClient.specialty.findMany({
             where: {
                 OR: [
                     { title: { contains: query, mode: 'insensitive' }},
                     { slug: { contains: query, mode: 'insensitive' }}
                 ]
             }
-        }),
-        prismaClient.doctorProfile.findMany({
+        })
+        const doctorProfiles = await prismaClient.doctorProfile.findMany({
             where: {
                 OR: [
                     { firstName: { contains: query, mode: 'insensitive' }},
                     { lastName: { contains: query, mode: 'insensitive' }},
                     { servicesOffered: { hasSome: [query]}},
                 ]
+            },
+            include: {
+                availability: true
+            },
+        })
+        const doctors = doctorProfiles.map((doctor: DoctorProfile) => {
+            return {
+                id: doctor.userId,
+                name: `${doctor.firstName} ${doctor.lastName}`,
+                slug: generateSlug(`${doctor.firstName} ${doctor.lastName} `),
+                email: doctor.email,
+                phone: doctor.phone,
+                doctorProfile: doctor
             }
         })
-    ])
 
-    return {
-        services: results[0],
-        symptoms: results[1],
-        doctorProfiles: results[2],
+        return {
+            services,
+            symptoms,
+            specialties,
+            doctors,
+        }
     }
 }
