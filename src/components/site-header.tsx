@@ -24,7 +24,7 @@ import {
     AvatarImage,
 } from "@/components/ui/avatar"
 import { generateInitials } from "@/utils/generateInitials"
-import SearchBar from "./Frontend/SearchBar"
+import Searchbar from "./Searchbar"
 
 export function SiteHeader({session}: {session: Session | null}) {
     const user = session?.user
@@ -42,8 +42,8 @@ export function SiteHeader({session}: {session: Session | null}) {
                 <MainNav />
                 <MobileNav />
                 <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
-                <div className="w-full flex-1 md:flex md:w-auto md:flex-none">
-                    <SearchBar />
+                <div className="w-full flex-1 ">
+                    <Searchbar />
                 </div>
                 <nav className="flex items-center gap-4">
                     {session && session.user && user?.email ? (

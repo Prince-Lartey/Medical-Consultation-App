@@ -47,9 +47,6 @@ export function MobileNav() {
             />
           </svg>
           <span className="sr-only">Toggle Menu</span>
-          <span className="flex h-8 flex-1 items-center justify-between rounded-md border bg-muted/50 px-2 text-sm font-normal text-muted-foreground shadow-none">
-            Search documentation...
-          </span>
         </Button>
       </DrawerTrigger>
       <DrawerContent className="max-h-[80svh] p-0">
@@ -68,7 +65,7 @@ export function MobileNav() {
                 )
             )}
           </div>
-          <div className="flex flex-col space-y-2">
+          {/* <div className="flex flex-col space-y-2">
             {docsConfig.sidebarNav.map((item, index) => (
               <div key={index} className="flex flex-col gap-4 pt-6">
                 <h4 className="text-xl font-medium">{item.title}</h4>
@@ -96,7 +93,7 @@ export function MobileNav() {
                   ))}
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </DrawerContent>
     </Drawer>

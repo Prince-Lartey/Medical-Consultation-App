@@ -2,7 +2,6 @@ import { MainNavItem, SidebarNavItem } from "../types/nav"
 
 export interface DocsConfig {
   mainNav: MainNavItem[]
-  sidebarNav: SidebarNavItem[]
   chartsNav: SidebarNavItem[]
 }
 
@@ -27,18 +26,6 @@ export const docsConfig: DocsConfig = {
     {
       title: "Provide Service",
       href: "/join/doctors"
-    },
-  ],
-  sidebarNav: [
-    {
-      title: "Getting Started",
-      items: [
-        {
-          title: "Introduction",
-          href: "/docs",
-          items: [],
-        },
-      ],
     },
   ],
   chartsNav: [
