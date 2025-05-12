@@ -13,8 +13,7 @@ export default async function page() {
     if (role === "DOCTOR") {
         return (
             <>
-                <p>Role: {user?.role}</p>
-                <DoctorDashboard />
+                <DoctorDashboard session={session} />
             </>
         )
     }
