@@ -29,6 +29,9 @@ export default function Sidebar({session}: {session: Session}) {
                 title: "My Appointments", path: "/dashboard/user/appointments", icon: AlarmClock
             },
             {
+                title: "Inbox", path: "/dashboard/user/inbox", icon: Mail
+            },
+            {
                 title: "Settings", path: "/dashboard/user/settings", icon: Settings
             },
         ],
@@ -71,9 +74,6 @@ export default function Sidebar({session}: {session: Session}) {
                 title: "Patients", path: "/dashboard/doctor/patients", icon: Users
             },
             {
-                title: "Tasks", path: "/dashboard/doctor/tasks", icon: AlarmClock
-            },
-            {
                 title: "Inbox", path: "/dashboard/doctor/inbox", icon: Mail
             },
             {
@@ -83,45 +83,6 @@ export default function Sidebar({session}: {session: Session}) {
     }
 
     const sideBarLinks = roles[role] || []
-
-    // const sideBarLinks = [
-    //     {
-    //         name: "Dashboard",
-    //         path: "/dashboard",
-    //         icon: Home,
-    //     },
-    //     {
-    //         name: "Products",
-    //         path: "/dashboard/products",
-    //         icon: Package,
-    //     },
-    //     {
-    //         name: "Orders",
-    //         path: "/dashboard/orders",
-    //         icon: ShoppingCart,
-    //         badgeCount: 6,
-    //     },
-    //     {
-    //         name: "Customers",
-    //         path: "/dashboard/customers",
-    //         icon: Users,
-    //     },
-    //     {
-    //         name: "Analytics",
-    //         path: "/dashboard/analytics",
-    //         icon: LineChart,
-    //     },
-    //     {
-    //         name: "Settings",
-    //         path: "/dashboard/settings",
-    //         icon: Settings,
-    //     },
-    //     {
-    //         name: "Online",
-    //         path: "/",
-    //         icon: Globe,
-    //     },
-    // ]
 
     return (
         <div className="hidden border-r bg-muted/40 md:block">

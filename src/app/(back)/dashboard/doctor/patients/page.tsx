@@ -22,21 +22,21 @@ export default async function page() {
 
     const uniquePatientsMap = new Map()
     
-        appointments.forEach((appointment: Appointment) => {
-            if(!uniquePatientsMap.has(appointment.patientId)) {
-                uniquePatientsMap.set(appointment.patientId, {
-                    patientId: appointment.patientId,
-                    name: `${appointment.firstName} ${appointment.lastName}`,
-                    email: appointment.email,
-                    phone: appointment.phone,
-                    location: appointment.location,
-                    gender: appointment.gender,
-                    occupation: appointment.occupation,
-                    dob: appointment.dob,
-                })
-            }
-        })
-        const patients = Array.from(uniquePatientsMap.values()) as PatientProps[]
+    appointments.forEach((appointment: Appointment) => {
+        if(!uniquePatientsMap.has(appointment.patientId)) {
+            uniquePatientsMap.set(appointment.patientId, {
+                patientId: appointment.patientId,
+                name: `${appointment.firstName} ${appointment.lastName}`,
+                email: appointment.email,
+                phone: appointment.phone,
+                location: appointment.location,
+                gender: appointment.gender,
+                occupation: appointment.occupation,
+                dob: appointment.dob,
+            })
+        }
+    })
+    const patients = Array.from(uniquePatientsMap.values()) as PatientProps[]
 
     return (
         <div>

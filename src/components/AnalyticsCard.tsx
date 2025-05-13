@@ -17,7 +17,7 @@ export default function AnalyticsCard({data}: {data: DoctorAnalyticsProps}) {
                 <Icon className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-                <div className="text-2xl font-bold">{data.unit}{data.count}</div>
+                <div className="text-2xl font-bold">{data.unit}{data.count.toString().padStart(2, "0")}</div>
                 <Link href={data.detailLink} className="text-xs text-muted-foreground">View Details</Link>
             </CardContent>
         </Card>
