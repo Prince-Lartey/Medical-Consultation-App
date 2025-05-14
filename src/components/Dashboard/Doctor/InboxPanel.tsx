@@ -18,50 +18,19 @@ export default function InboxPanel({ messages, role }: { messages: Inbox[], role
                     <Link
                         href={role === "DOCTOR" ? `/dashboard/doctor/inbox/view/${item.id}` : `/dashboard/user/inbox/view/${item.id}`}
                         key={item.id}
-                        className={cn(
-                        "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent",
-                        // mail.selected === item.id && "bg-muted"
-                        )}
-                        // onClick={() =>
-                        // setMail({
-                        //     ...mail,
-                        //     selected: item.id,
-                        // })
-                        // }
+                        className={cn("border mb-2 border-gray-300 shadow-sm text-xs py-3 px-2 inline-block w-full bg-white dark:text-slate-900 rounded-md", pathname === `/dashboard/${role === "DOCTOR" ? "doctor" : "user"}/inbox/view/${item.id}` && "border-gray-700 border-2 dark:border-blue-500 bg-gray-100")}
                     >
                         <div className="flex w-full flex-col gap-1">
                             <div className="flex items-center">
                                 <div className="flex items-center gap-2">
                                     <div className="font-semibold">{item.senderName}</div>
-                                    {/* {!item.read && (
-                                        <span className="flex h-2 w-2 rounded-full bg-blue-600" />
-                                    )} */}
-                                    </div>
-                                <div
-                                className={cn(
-                                    "ml-auto text-xs",
-                                    // mail.selected === item.id
-                                    // ? "text-foreground"
-                                    // : "text-muted-foreground"
-                                )}
-                                >
+                                </div>
+                                <div className={cn("ml-auto text-xs",)}>
                                     {timeAgo(item.createdAt)}
                                 </div>
                             </div>
                             <div className="text-xs font-medium">{item.subject}</div>
                         </div>
-                        {/* <div className="line-clamp-2 text-xs text-muted-foreground">
-                            {item.body.substring(0, 300)}
-                        </div> */}
-                        {/* {item.labels.length ? (
-                            <div className="flex items-center gap-2">
-                                {item.labels.map((label) => (
-                                <Badge key={label} variant={getBadgeVariantFromLabel(label)}>
-                                    {label}
-                                </Badge>
-                                ))}
-                            </div>
-                        ) : null} */}
                     </Link>
                 ))}
             </div>
