@@ -159,3 +159,12 @@ export interface AppointmentProps {
     meetingLink: string;
     meetingProvider: string;
 }
+
+export type InboxProps = {
+    receiverId:    string
+    senderId:  string
+    senderName: string
+    senderEmail: string
+    subject:     string
+    body:      string 
+}
