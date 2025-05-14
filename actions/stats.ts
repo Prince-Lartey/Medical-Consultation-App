@@ -1,9 +1,10 @@
 import { prismaClient } from "@/lib/db";
-import { AlarmClock, LucideIcon, Mail, Users } from "lucide-react";
-import { getDoctorAppointments } from "./appointments";
+import { AlarmClock, LucideIcon, Mail, UserPen, Users } from "lucide-react";
+import { getDoctorAppointments, getPatientAppointments } from "./appointments";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { Appointment } from "@prisma/client";
+import { getInboxMessage } from "./inbox";
 
 export type DoctorAnalyticsProps = {
     title: string;
@@ -61,6 +62,7 @@ export async function getDoctorAnalytics() {
             }
         })
         const patients = Array.from(uniquePatientsMap.values())
+        const messages = (await getInboxMessage(user!.id)).data
         
         const analytics = [
             {
@@ -79,10 +81,61 @@ export async function getDoctorAnalytics() {
             },
             {
                 title: "Inbox",
-                count: 1000,
+                count: messages.length ?? 0,
                 icon: Mail,
                 unit: "",
-                detailLink: "/dashboard/doctor/sales"
+                detailLink: "/dashboard/doctor/inbox"
+            },
+        ]
+
+        return analytics as DoctorAnalyticsProps[]
+    } catch (error) {
+        console.error("Error fetching services:", error);
+        return []
+    }
+}
+
+export async function getUserAnalytics() {
+    try {
+        const session = await getServerSession(authOptions)
+        const user = session?.user
+
+        const appointments = (await getPatientAppointments(user?.id ?? ""))
+
+        const uniquePatientsMap = new Map()
+            
+        appointments.forEach((appointment: Appointment) => {
+            if(!uniquePatientsMap.has(appointment.doctorId)) {
+                uniquePatientsMap.set(appointment.doctorId, {
+                    doctorId: appointment.doctorId,
+                    name: appointment.doctorName,
+                })
+            }
+        })
+        const doctors = Array.from(uniquePatientsMap.values())
+        const messages = (await getInboxMessage(user!.id)).data
+        
+        const analytics = [
+            {
+                title: "Appointments",
+                count: appointments.length ?? 0,
+                icon: AlarmClock,
+                unit: "",
+                detailLink: "/dashboard/user/appointments"
+            },
+            {
+                title: "Doctors",
+                count: doctors.length ?? 0,
+                icon: UserPen,
+                unit: "",
+                detailLink: "/dashboard/user/doctors"
+            },
+            {
+                title: "Inbox",
+                count: messages.length ?? 0,
+                icon: Mail,
+                unit: "",
+                detailLink: "/dashboard/user/inbox"
             },
         ]
 

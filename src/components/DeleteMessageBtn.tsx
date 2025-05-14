@@ -25,7 +25,7 @@ export default function DeleteMessageBtn({id, role}: {id: string | undefined, ro
             if(res.ok){
                 setIsLoading(false)
                 toast.success("Message deleted")
-                router.replace(role === "DOCTOR" ? "/dashboard/doctor/inbox/new" : "/dashboard/user/inbox/new")
+                router.replace(role === "DOCTOR" ? "/dashboard/doctor/inbox" : "/dashboard/user/inbox")
             }
         } catch (error) {
             setIsLoading(false)

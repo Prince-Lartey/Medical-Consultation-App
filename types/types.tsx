@@ -139,6 +139,7 @@ export interface AppointmentProps {
     appointmentDate: Date | undefined;
     appointmentFormattedDate: string;
     doctorId: string;
+    doctorName: string
     doctorProfileId: string;
     charge: number;
     appointmentTime: string;

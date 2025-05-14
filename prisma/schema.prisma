@@ -189,7 +189,8 @@ model Appointment {
   appointmentDate DateTime
   appointmentFormattedDate String
   appointmentTime String
-  doctorId   String        
+  doctorId   String
+  doctorName   String?        
   doctorProfileId String       
   charge      Int
   firstName   String

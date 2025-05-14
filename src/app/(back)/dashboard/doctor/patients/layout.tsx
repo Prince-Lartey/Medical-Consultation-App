@@ -19,6 +19,11 @@ export interface PatientProps {
     dob: string
 }
 
+export interface DoctorProps {
+    doctorId: string
+    doctorName: string
+}
+
 export default async function layout({children}: {children: React.ReactNode}) {
     const session = await getServerSession(authOptions)
     const user = session?.user

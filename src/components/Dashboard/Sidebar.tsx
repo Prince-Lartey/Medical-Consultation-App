@@ -29,6 +29,9 @@ export default function Sidebar({session}: {session: Session}) {
                 title: "My Appointments", path: "/dashboard/user/appointments", icon: AlarmClock
             },
             {
+                title: "Doctors", path: "/dashboard/user/doctors", icon: UserPen
+            },
+            {
                 title: "Inbox", path: "/dashboard/user/inbox", icon: Mail
             },
             {

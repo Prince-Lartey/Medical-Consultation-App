@@ -67,6 +67,7 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
         data.appointmentFormattedDate = formattedDate
         data.appointmentTime = selectedTime
         data.doctorId = doctor.id
+        data.doctorName = doctor.name
         data.charge = doctor.doctorProfile?.hourlyWage ?? 0
         data.doctorProfileId = doctor.doctorProfile?.id ?? ""
         data.medicalDocuments = medicalDocs.map((file) => file.url)

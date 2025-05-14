@@ -29,7 +29,7 @@ export type ServiceProps = {
     slug: string,
 }
 
-export default function InboxForm({title, users, session}: {title: string, users: Options, session: Session}) {
+export default function InboxForm({title, users, session}: {title: string, users: Options, session: Session | null}) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
 
@@ -53,7 +53,7 @@ export default function InboxForm({title, users, session}: {title: string, users
                 reset()
                 toast.success("Message sent successfully!")
                 setIsLoading(false)
-                router.push("/dashboard/doctor/inbox")
+                router.push(`/dashboard/${session?.user.role === "DOCTOR" ? "doctor" : "user"}/inbox`)
             }
         } catch (error) {
             setIsLoading(false)
