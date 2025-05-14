@@ -4,7 +4,7 @@ import { Mail } from 'lucide-react'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import NotAuthorized from '@/components/NotAuthorized'
-import { getInboxMessage } from '../../../../../../actions/inbox'
+import { getInboxMessage, getInboxSentMessage } from '../../../../../../actions/inbox'
 import InboxPanel from '@/components/Dashboard/Doctor/InboxPanel'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
@@ -16,7 +16,8 @@ export default async function layout({children}: {children: React.ReactNode}) {
             <NotAuthorized />
         )
     }
-    const messages = (await getInboxMessage()).data
+    const messages = (await getInboxMessage(user.id)).data
+    const sentMessages = (await getInboxSentMessage(user.id)).data
 
     return (
         <div className="grid grid-cols-12">
@@ -25,14 +26,14 @@ export default async function layout({children}: {children: React.ReactNode}) {
                 <div className="p-3">
                     <Tabs defaultValue="received" className="">
                         <TabsList>
-                            <TabsTrigger value="received">Received</TabsTrigger>
-                            <TabsTrigger value="sent">Sent</TabsTrigger>
+                            <TabsTrigger value="received">Received ({messages.length.toString().padStart(2, "0")})</TabsTrigger>
+                            <TabsTrigger value="sent">Sent ({sentMessages.length.toString().padStart(2, "0")})</TabsTrigger>
                         </TabsList>
                         <TabsContent value="received">
                             <InboxPanel messages={messages} role={user?.role}/>
                         </TabsContent>
                         <TabsContent value="sent">
-                            <InboxPanel messages={messages} role={user?.role}/>
+                            <InboxPanel messages={sentMessages} role={user?.role}/>
                         </TabsContent>
                     </Tabs>
                 </div>

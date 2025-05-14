@@ -1,68 +1,105 @@
-import React from 'react'
-import { getAppointmentById } from '../../../../../../../../actions/appointments'
-import { Clock } from 'lucide-react'
-import { formatDateOfBirth } from '@/utils/formatDateOfBirth'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import UpdateAppointmentForm from '@/components/Dashboard/Doctor/UpdateAppointmentForm'
 
-export default async function Page({params}: {params: Promise<{ id: string }>;}) {
-    const { id } = await params
-    const appointment = await getAppointmentById(id)
+import {
+    Reply,
+    Trash2,
+} from "lucide-react"
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
+
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { getInboxMessageById } from "../../../../../../../../actions/inbox"
+import { format } from "date-fns"
+import MessageBody from "@/components/MessageBody"
+import { authOptions } from "@/lib/auth"
+import { getServerSession } from "next-auth"
+import Link from "next/link"
+import DeleteMessageBtn from "@/components/DeleteMessageBtn"
+
+export default async function MailDisplay({params}: {params: Promise<{ id: string }>;}) {
+    const {id} = await params
+    const mail = await getInboxMessageById(id)
+
+    const session = await getServerSession(authOptions)
+    const role = session?.user?.role
+    const userEmail = session?.user?.email
 
     return (
-        <div>
-            <div className="flex items-center justify-between px-4 py-4 border-b">
-                <div className="">
-                    <h2 className="scroll-m-20 pb-2 text-2xl font-semibold tracking-tight first:mt-0">{appointment.firstName} {appointment.lastName}</h2>
-                    <div className="flex space-x-2 divide-x-2 divide-gray-200 text-sm">
-                        <p className="capitalize px-2">{appointment.gender}</p>
-                        <p className="px-2">{appointment.phone}</p>
+        <div className="flex h-full flex-col">
+        <div className="flex items-center p-2">
+            {
+                userEmail === mail.senderEmail && (
+                    <div className="flex items-center gap-2">
+                        <DeleteMessageBtn role={role} id={mail.id} />
+                        <Separator orientation="vertical" className="mx-1 h-6" />
                     </div>
-                </div>
-                <div>
-                    <h2 className="scroll-m-20 pb-2 text-xl tracking-tight first:mt-0">{appointment?.appointmentFormattedDate}</h2>
-                    <div className="flex items-center text-sm ">
-                        <Clock className="w-4 h-4 mr-2"/>
-                        <span>{appointment?.appointmentTime}</span>
+                )
+            }
+            <div className="ml-auto flex items-center gap-2">
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button variant="ghost" asChild size="icon" disabled={!mail}>
+                                <Link href={role === "DOCTOR" ? "/dashboard/doctor/inbox/new" : "/dashboard/user/inbox/new"}>
+                                    <Reply className="h-4 w-4" />
+                                    <span className="sr-only">Reply</span>
+                                </Link>
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Reply</TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
+            </div>
+            <Separator orientation="vertical" className="mx-2 h-6" />
+        </div>
+        <Separator />
+        {mail ? (
+            <div className="flex flex-1 flex-col">
+                <div className="flex items-start p-4">
+                    <div className="flex items-start gap-4 text-sm">
+                        <Avatar>
+                            <AvatarImage alt={mail.senderName} />
+                            <AvatarFallback>
+                            {mail.senderName
+                                .split(" ")
+                                .map((chunk: any) => chunk[0])
+                                .join("")}
+                            </AvatarFallback>
+                        </Avatar>
+                        <div className="grid gap-1">
+                            <div className="font-semibold">{mail.senderName}</div>
+                            <div className="line-clamp-1 text-xs">{mail.subject}</div>
+                            <div className="line-clamp-1 text-xs">
+                                <span className="font-medium">Reply-To:</span> {mail.senderEmail}
+                            </div>
+                        </div>
                     </div>
+                    {mail.createdAt && (
+                        <div className="ml-auto text-xs text-muted-foreground">
+                            {format(new Date(mail.createdAt), "PPpp")}
+                        </div>
+                    )}
+                </div>
+                <Separator />
+                <div className="flex-1 whitespace-pre-wrap p-4 text-sm">
+                    {/* {mail.text} */}
+                    <MessageBody html={mail.body} />
                 </div>
             </div>
-            <div className="py-4">
-                <div className="flex divide-x-2 px-4 py-3 divide-gray-200 border-b">
-                    <p className="px-3 text-sm font-semibold">Reason</p>
-                    <p className="px-3 text-sm">{appointment.appointmentReason}</p>
-                </div>
+        ) : (
+            <div className="p-8 text-center text-muted-foreground">
+                No message selected
             </div>
-            <div className="flex divide-x-2 px-4 py-3 divide-gray-200 border-b">
-                <p className="px-3 text-sm font-semibold">Date of Birth</p>
-                <p className="px-3 text-sm">{formatDateOfBirth(appointment.dob)}</p>
-            </div>
-            <div className="flex divide-x-2 px-4 py-3 divide-gray-200 border-b">
-                <p className="px-3 text-sm font-semibold">Email</p>
-                <p className="px-3 text-sm">{appointment.email}</p>
-            </div>
-            <div className="flex divide-x-2 px-4 py-3 divide-gray-200 border-b">
-                <p className="px-3 text-sm font-semibold">Location</p>
-                <p className="px-3 text-sm">{appointment.location}</p>
-            </div>
-            <div className="flex divide-x-2 px-4 py-3 divide-gray-200 border-b items-center">
-                <p className="px-3 text-sm font-semibold">Medical Documents</p>
-                <div className="grid grid-cols-4 px-3 gap-4">
-                    {
-                        appointment.medicalDocuments.map((doc: any, index: any) => {
-                            return (
-                                <Button key={index} variant="outline" asChild>
-                                    <Link target="_blank" href={doc} download>{`Doc-${index + 1}`}</Link>
-                                </Button>
-                            )
-                        })
-                    }
-                </div>
-            </div>
-            <div className="">
-                <UpdateAppointmentForm appointment={appointment}/>
-            </div>
+        )}
         </div>
     )
 }

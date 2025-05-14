@@ -7,7 +7,6 @@ import { Inbox } from '@prisma/client'
 import { timeAgo } from '@/utils/timeAgo'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { formatDistanceToNow } from 'date-fns'
 
 export default function InboxPanel({ messages, role }: { messages: Inbox[], role: string}) {
     const pathname = usePathname()
@@ -16,7 +15,8 @@ export default function InboxPanel({ messages, role }: { messages: Inbox[], role
         <ScrollArea className="h-[32rem] w-full">
             <div className="flex flex-col gap-2 p-4 pt-0">
                 {messages.map((item) => (
-                    <button
+                    <Link
+                        href={`/dashboard/doctor/inbox/view/${item.id}`}
                         key={item.id}
                         className={cn(
                         "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent",
@@ -45,9 +45,7 @@ export default function InboxPanel({ messages, role }: { messages: Inbox[], role
                                     // : "text-muted-foreground"
                                 )}
                                 >
-                                    {formatDistanceToNow(new Date(item.createdAt), {
-                                        addSuffix: true,
-                                    })}
+                                    {timeAgo(item.createdAt)}
                                 </div>
                             </div>
                             <div className="text-xs font-medium">{item.subject}</div>
@@ -64,7 +62,7 @@ export default function InboxPanel({ messages, role }: { messages: Inbox[], role
                                 ))}
                             </div>
                         ) : null} */}
-                    </button>
+                    </Link>
                 ))}
             </div>
         </ScrollArea>

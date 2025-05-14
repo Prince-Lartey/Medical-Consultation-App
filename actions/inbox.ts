@@ -26,12 +26,15 @@ export async function createInboxMessage(data: InboxProps) {
     }
 }
 
-export async function getInboxMessage({receiverId: string}) {
+export async function getInboxMessage(receiverId: string) {
     try {
         const messages = await prismaClient.inbox.findMany({
             orderBy: {
                 createdAt: "desc",
             },
+            where: {
+                receiverId: receiverId
+            }
         });
         return {
             data: messages,
@@ -45,6 +48,49 @@ export async function getInboxMessage({receiverId: string}) {
             error: "An error occurred while fetching the messages",
             status: 500,
         };
+    }
+}
+
+export async function getInboxSentMessage(senderId: string) {
+    try {
+        const messages = await prismaClient.inbox.findMany({
+            orderBy: {
+                createdAt: "desc",
+            },
+            where: {
+                senderId
+            }
+        });
+        return {
+            data: messages,
+            error: null,
+            status: 200,
+        };
+    } catch (error) {
+        console.error("Error fetching messages:", error);
+        return {
+            data: null,
+            error: "An error occurred while fetching the messages",
+            status: 500,
+        };
+    }
+}
+
+export async function getInboxMessageById(id: string) {
+    try {
+        if (id) {
+            const message = await prismaClient.inbox.findUnique({
+                where: {
+                    id,
+                },
+            });
+            return message
+        }else {
+            return null
+        }
+
+    } catch (error) {
+        console.error("Error fetching appointment:", error);
     }
 }
 

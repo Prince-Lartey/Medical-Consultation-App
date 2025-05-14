@@ -85,8 +85,8 @@ export default withUt({
 		}
 	},
 	plugins: [
-    require('@tailwindcss/forms'),
-    require("tailwindcss-animate"),
-	require('flowbite/plugin')
-],
+		require('@tailwindcss/forms'),
+		require("tailwindcss-animate"),
+		require('flowbite/plugin'),
+	],
 });
