@@ -27,8 +27,7 @@ export default async function page() {
 
     return (
         <div>
-            <p>Role: {user?.role}</p>
-            <Dashboard />
+            <Dashboard session={session}/>
         </div>
     )
 }   

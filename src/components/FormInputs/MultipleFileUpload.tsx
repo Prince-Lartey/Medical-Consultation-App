@@ -63,7 +63,7 @@ export default function MultipleFileUpload ({
                                         <div className="py-3 rounded-md flex items-center px-6 bg-white dark:bg-slate-800 border border-slate-200 text-slate-800 dark:text-slate-200">
                                             <FileIcon className="w-8 h-8 mr-2 flex-shrink-0" />
                                             <div className="flex flex-col">
-                                                <span className="line-clamp-1">{file.title}</span>
+                                                <span className="line-clamp-1 text-xs">{file.title}</span>
                                                 <span className="text-xs">{(file.size/1000).toFixed(2)} kb</span>
                                             </div>
                                         </div>

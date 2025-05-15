@@ -1,8 +1,11 @@
 import Register from '@/components/Auth/Register'
 import React from 'react'
 
-export default async function page({params}: {params: Promise<{ role: string, plan: string }>;}) {
-    const { role, plan } = await params;
+export default async function page({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }>;}) {
+    const resolvedSearchParams = await searchParams;
+    const role = resolvedSearchParams.role || "USER" as string;
+    const plan = resolvedSearchParams.plan || "" as string;
+
     console.log(role, plan)
 
     return (

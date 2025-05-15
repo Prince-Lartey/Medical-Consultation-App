@@ -11,7 +11,7 @@ import { updateDoctorProfile } from '../../../actions/onboarding'
 import toast from 'react-hot-toast'
 import { useOnboardingContext } from '@/context/context'
 
-export default function ContactInfo({ page, title, description, formId, nextPage, userId }: StepFormProps) {
+export default function ContactInfo({ page, title, description, formId, nextPage, userId, }: StepFormProps) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     const { contactData, setContactData, savedDBData } = useOnboardingContext()
