@@ -27,7 +27,7 @@ export default function DoctorPanel({ doctors }: { doctors: DoctorProps[] }) {
                     })
                 ) : ( 
                     <div className="text-center py-4 text-gray-500">
-                        No patients found.
+                        No Doctor found.
                     </div> 
                 )} 
             </div>
