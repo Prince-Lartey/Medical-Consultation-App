@@ -153,6 +153,7 @@ export async function getDoctors(){
                         region: true,
                         city: true,
                         hospitalAddress: true,
+                        status: true,
                         availability: {
                             select: {
                                 monday: true,

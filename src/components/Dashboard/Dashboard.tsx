@@ -54,24 +54,29 @@ export default async function Dashboard({session}: {session: Session | null}) {
             </div>
             <div className="grid gap-4 md:gap-8 lg:grid-cols-2 grid-cols-1">
                 <Card x-chunk="dashboard-01-chunk-5">
-                    <CardHeader>
-                        <CardTitle>Recent Doctors</CardTitle>
-                    </CardHeader>
+                    <div className="flex justify-between items-center px-2">
+                        <CardHeader >
+                            <CardTitle>Recent Doctors</CardTitle>
+                        </CardHeader>
+                        <Button asChild variant={"outline"} className="ml-auto">
+                            <Link href={`/dashboard/doctors`} className="text-xs">View All</Link>
+                        </Button>
+                    </div>
                     <CardContent className="grid gap-8">
                         {doctors?.slice(0, 5).map((doctor: Doctor) => {
                             return (
                                 <div key={doctor.id} className="flex items-center gap-4">
                                     <Avatar className="hidden h-9 w-9 sm:flex">
-                                    <AvatarImage src={doctor.doctorProfile?.profilePicture ?? ""} alt="Avatar" />
-                                    <AvatarFallback>{generateInitials(doctor.name)}</AvatarFallback>
+                                        <AvatarImage src={doctor.doctorProfile?.profilePicture ?? ""} alt="Avatar" />
+                                        <AvatarFallback>{generateInitials(doctor.name)}</AvatarFallback>
                                     </Avatar>
                                     <div className="grid gap-1">
-                                    <p className="text-sm font-medium leading-none">
-                                        {doctor.name}
-                                    </p>
-                                    <p className="text-sm text-muted-foreground">
-                                        {doctor.email}
-                                    </p>
+                                        <p className="text-sm font-medium leading-none">
+                                            {doctor.name}
+                                        </p>
+                                        <p className="text-sm text-muted-foreground">
+                                            {doctor.email}
+                                        </p>
                                     </div>
                                     <div className="ml-auto font-medium">
                                         <Button>Approve</Button>

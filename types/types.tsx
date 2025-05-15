@@ -1,4 +1,5 @@
 import { File } from "@/components/FormInputs/MultipleFileUpload";
+import { DoctorStatus } from "@prisma/client";
 
 export type ServiceProps = {
     title: string;
@@ -96,6 +97,7 @@ export interface DoctorProfile {
     operationMode: string | null;
     availability: DoctorProfileAvailabilty | null;
     hourlyWage: number
+    status: DoctorStatus
 }
 
 interface DoctorProfileDetail extends DoctorProfile {
