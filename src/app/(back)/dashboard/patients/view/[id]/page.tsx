@@ -1,10 +1,10 @@
 import React from 'react'
-import { getPatientAppointments } from '../../../../../../../../actions/appointments'
 import { BadgeCheck, CalendarCheck, CircleEllipsis, CircleX, History } from 'lucide-react'
 import Link from 'next/link'
 import { timeAgo } from '@/utils/timeAgo'
 import { cn } from '@/lib/utils'
 import { Appointment } from '@prisma/client'
+import { getPatientAppointments } from '../../../../../../../actions/appointments'
 
 export default async function page({params}: {params: Promise<{ id: string }>;}) {
     const { id } = await params

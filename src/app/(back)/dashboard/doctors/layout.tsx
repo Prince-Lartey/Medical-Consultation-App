@@ -7,22 +7,6 @@ import NotAuthorized from '@/components/NotAuthorized'
 import { getDoctors } from '../../../../../actions/users'
 import AdminDoctorPanel from '@/components/Dashboard/Doctor/AdminDoctorPanel'
 
-export interface PatientProps {
-    patientId: string
-    name: string
-    email: string
-    phone: string
-    location: string
-    gender: string
-    occupation: string
-    dob: string
-}
-
-export interface DoctorProps {
-    doctorId: string
-    doctorName: string
-}
-
 export default async function layout({children}: {children: React.ReactNode}) {
     const session = await getServerSession(authOptions)
     const user = session?.user

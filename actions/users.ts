@@ -283,7 +283,8 @@ export async function getDoctorById(id: string) {
                             insuranceAccepted: true,
                             educationHistory: true,
                             research: true,
-                            accomplishments: true,          
+                            accomplishments: true, 
+                            status: true,         
                             availability: {
                                 select: {
                                     monday: true,
