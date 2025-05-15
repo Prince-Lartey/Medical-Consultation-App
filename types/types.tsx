@@ -91,6 +91,7 @@ export interface DoctorProfile {
     id: string
     firstName: string;
     lastName: string;
+    middleName: string
     gender: string;
     bio: string | null;
     profilePicture: string | null;
@@ -98,6 +99,7 @@ export interface DoctorProfile {
     availability: DoctorProfileAvailabilty | null;
     hourlyWage: number
     status: DoctorStatus
+    dob: any
 }
 
 interface DoctorProfileDetail extends DoctorProfile {
@@ -117,6 +119,8 @@ interface DoctorProfileDetail extends DoctorProfile {
     educationHistory: string | null;
     research: string | null;
     accomplishments: string | null;
+    medicalLicense:  string | null
+    medicalLicenseExpiry: any
 }
 
 export type Doctor = {
