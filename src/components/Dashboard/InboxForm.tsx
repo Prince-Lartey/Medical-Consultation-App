@@ -92,7 +92,6 @@ export default function InboxForm({title, users, session}: {title: string, users
                     />
                     <QuillEditor
                         label="Write the Content of your Message"
-                        className="w-full"
                         value={content}
                         onChange={setContent}
                     />

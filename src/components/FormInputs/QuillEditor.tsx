@@ -6,12 +6,10 @@ import { Label } from "../ui/label";
 
 export default function QuillEditor({
     label,
-    className = "w-full",
     value,
     onChange,
 }: {
     label: string;
-    className: string;
     value: any;
     onChange: any;
 }) {
