@@ -1,6 +1,7 @@
 import { UploadDropzone } from "@/utils/uploadthing"
 import { FileIcon, PencilIcon, XCircle } from "lucide-react"
 import toast from "react-hot-toast"
+import { FaFilePdf, FaImage } from "react-icons/fa"
 
 type MultipleImageInputProps = {
     label: string,
@@ -51,6 +52,7 @@ export default function MultipleFileUpload ({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {
                             files.map((file, index) => {
+                                const extension = file.title.split('.')[1]
                                 return (
                                     <div key={index} className="relative mb-6">
                                         <button 
@@ -61,8 +63,7 @@ export default function MultipleFileUpload ({
                                             <XCircle className=""/>
                                         </button>
                                         <div className="py-3 rounded-md flex items-center px-6 bg-white dark:bg-slate-800 border border-slate-200 text-slate-800 dark:text-slate-200">
-                                            <FileIcon className="w-8 h-8 mr-2 flex-shrink-0" />
-                                            <div className="flex flex-col">
+                                            {extension === "pdf" ? <FaFilePdf className="w-8 h-8 mr-2 flex-shrink-0 text-red-500" /> : <FaImage className="w-8 h-8 mr-2 flex-shrink-0 text-gray-600" />}                                            <div className="flex flex-col">
                                                 <span className="line-clamp-1 text-xs">{file.title}</span>
                                                 <span className="text-xs">{(file.size/1000).toFixed(2)} kb</span>
                                             </div>

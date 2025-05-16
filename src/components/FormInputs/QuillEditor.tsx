@@ -8,10 +8,12 @@ export default function QuillEditor({
     label,
     value,
     onChange,
+    error=""
 }: {
     label: string;
     value: any;
     onChange: any;
+    error?: string
 }) {
     const modules = {
         toolbar: [
@@ -53,6 +55,8 @@ export default function QuillEditor({
                 modules={modules}
                 formats={formats}
             />
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+
         </div>
     );
 }

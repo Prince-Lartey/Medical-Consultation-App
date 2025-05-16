@@ -38,6 +38,13 @@ export const ourFileRouter = {
             return { uploadedBy: "PriMed" };
         }
     ),
+    mailAttachments: f({ pdf: { maxFileSize: "4MB", maxFileCount: 2 }, image: { maxFileSize: "4MB", maxFileCount: 2 }  }).onUploadComplete(
+        async ({ file }) => {
+            console.log("file url", file.url);
+
+            return { uploadedBy: "PriMed" };
+        }
+    ),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
