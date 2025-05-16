@@ -1,6 +1,5 @@
 import React from 'react'
 import NewButton from '@/components/Dashboard/Doctor/NewButton'
-import { getDoctorAppointments } from '../../../../../../actions/appointments'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import NotAuthorized from '@/components/NotAuthorized'
@@ -8,6 +7,7 @@ import { Appointment } from '@prisma/client'
 import { PatientProps } from './layout'
 import { Users } from 'lucide-react'
 import generateSlug from '@/utils/generateSlug'
+import { getDoctorAppointments } from '../../../../../actions/appointments'
 
 export default async function page() {
     const session = await getServerSession(authOptions)

@@ -7,7 +7,7 @@ import SubmitButton from '../FormInputs/SubmitButton'
 import toast from 'react-hot-toast'
 import { Button } from '../ui/button'
 import Link from 'next/link'
-import { FileIcon, Paperclip, X, XCircle } from 'lucide-react'
+import { Paperclip, X, XCircle } from 'lucide-react'
 import { FaFilePdf, FaImage } from "react-icons/fa"
 import dynamic from "next/dynamic";
 import { sendEmail } from '../../../actions/mail'
