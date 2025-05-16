@@ -51,14 +51,14 @@ export default async function Dashboard({session}: {session: Session | null}) {
     return (
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
             <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight mb-3">Welcome, {user?.name}</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {
-                        analytics.map((analytic: DoctorAnalyticsProps, i) => {
-                            return (
-                                <AnalyticsCard key={i} data={analytic} />
-                            )
-                        })
-                    }
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {
+                    analytics.map((analytic: DoctorAnalyticsProps, i) => {
+                        return (
+                            <AnalyticsCard key={i} data={analytic} />
+                        )
+                    })
+                }
             </div>
             <div className="grid gap-4 md:gap-8 lg:grid-cols-2 grid-cols-1">
                 <Card x-chunk="dashboard-01-chunk-5">

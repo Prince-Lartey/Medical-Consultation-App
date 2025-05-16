@@ -2,14 +2,55 @@ import React from 'react'
 import AnalyticsCard from '../AnalyticsCard'
 import {Session} from "next-auth"
 import { DoctorAnalyticsProps, getDoctorAnalytics } from '../../../actions/stats'
+import { getDoctorAppointments } from '../../../actions/appointments'
+import { Appointment } from '@prisma/client'
+import { PatientProps } from '@/app/(back)/dashboard/patients/layout'
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
+import { Button } from '../ui/button'
+import Link from 'next/link'
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import { generateInitials } from '@/utils/generateInitials'
+import { cn } from '@/lib/utils'
+import { BadgeCheck, CalendarCheck, CircleEllipsis, CircleX, History } from 'lucide-react'
+import { timeAgo } from '@/utils/timeAgo'
+import { getDoctorProfileById } from '../../../actions/onboarding'
 
 export default async function DoctorDashboard({session}: {session: Session | null}) {
     const user = session?.user
     const analytics = (await getDoctorAnalytics()) || []
+    const appointments = (await getDoctorAppointments(user!.id))
+
+    const doctor = (await getDoctorProfileById(user?.id))
+    
+    const uniquePatientsMap = new Map()
+
+    appointments.forEach((appointment: Appointment) => {
+        if(!uniquePatientsMap.has(appointment.patientId)) {
+            uniquePatientsMap.set(appointment.patientId, {
+                patientId: appointment.patientId,
+                name: `${appointment.firstName} ${appointment.lastName}`,
+                email: appointment.email,
+                phone: appointment.phone,
+                location: appointment.location,
+                gender: appointment.gender,
+                occupation: appointment.occupation,
+                dob: appointment.dob,
+            })
+        }
+    })
+    const patients = Array.from(uniquePatientsMap.values()) as PatientProps[]
 
     return (
-        <div className="px-8 py-4">
-            <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight mb-3">Welcome, Dr. {user?.name}</h1>
+        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+            <div className="flex items-center justify-between">
+                <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight mb-3">Welcome, Dr. {user?.name}</h1> 
+                {doctor?.data.status === "approved" && (
+                    <button className={cn("py-1.5 px-3 rounded-md text-sm uppercase font-medium text-white bg-green-500 flex" )}>
+                        <BadgeCheck className="w-4 h-4 mr-2"/>
+                        VERIFIED
+                    </button>
+                )}
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {
                     analytics.map((analytic: DoctorAnalyticsProps, i) => {
@@ -19,6 +60,89 @@ export default async function DoctorDashboard({session}: {session: Session | nul
                     })
                 }
             </div>
-        </div>
+            <div className="grid gap-4 md:gap-8 lg:grid-cols-2 grid-cols-1">
+                <Card x-chunk="dashboard-01-chunk-5">
+                    <div className="flex justify-between items-center ">
+                        <CardHeader >
+                            <CardTitle>Recent Appointments</CardTitle>
+                        </CardHeader>
+                        <Button asChild className="mr-6">
+                            <Link href={`/dashboard/doctor/appointments`} className="text-xs">View All</Link>
+                        </Button>
+                    </div>
+                    <CardContent className="grid gap-4">
+                        {appointments.length > 0 && ( 
+                            appointments.map((appointment: Appointment) => (
+                                <Link key={appointment.id}  href={`/dashboard/doctor/appointments/view/${appointment.id}`} className={cn("border mb-2 border-gray-300 shadow-sm text-xs py-3 px-2 inline-block w-full bg-white dark:text-slate-900 rounded-md")}>
+                                    <div className="flex justify-between items-center pb-2">
+                                        <h2>{appointment.firstName} {appointment.lastName}</h2>
+                                        <div className="flex items-center">
+                                            <History className="w-4 h-4 mr-2"/>
+                                            <span>{timeAgo(appointment.createdAt)}</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-4 pb-2">
+                                        <div className="flex items-center font-semibold">
+                                            <CalendarCheck className="w-4 h-4 mr-2"/>
+                                            <span>{appointment.appointmentFormattedDate}</span>
+                                        </div>
+                                        <span className="font-semibold">{appointment.appointmentTime}</span>
+                                        <div className={cn("flex items-center", appointment.status === "approved" ? "text-green-500" : appointment.status === "rejected" ? "text-red-500" : "text-yellow-500")}>
+                                            {
+                                                appointment.status === "pending" ? (
+                                                    <CircleEllipsis className="w-4 h-4 mr-2"/>
+                                                ) : appointment.status === "approved" ? (
+                                                    <BadgeCheck className="w-4 h-4 mr-2"/>
+                                                ) : (
+                                                    <CircleX className="w-4 h-4 mr-2"/>
+                                                )
+                                            }
+                                            <span className="font-semibold capitalize">{appointment.status}</span>
+                                        </div>
+                                    </div>
+                                    
+                                </Link>
+                            ))
+                        )} 
+                    </CardContent>
+                </Card>
+                <Card x-chunk="dashboard-01-chunk-5">
+                    <div className="flex justify-between items-center ">
+                        <CardHeader >
+                            <CardTitle>Recent Patients</CardTitle>
+                        </CardHeader>
+                        <Button asChild className="mr-6">
+                            <Link href={`/dashboard/doctor/patients`} className="text-xs">View All</Link>
+                        </Button>
+                    </div>
+                    <CardContent className="grid gap-8">
+                        {patients?.slice(0, 5).map((patient) => {
+                            return (
+                                <div key={patient.patientId} className="flex items-center gap-4 justify-between">
+                                    <div className="flex gap-2">
+                                        <Avatar className="hidden h-9 w-9 sm:flex">
+                                            <AvatarImage src={""} alt="Avatar" />
+                                            <AvatarFallback>{generateInitials(patient.name)}</AvatarFallback>
+                                        </Avatar>
+                                        <div className="grid gap-1">
+                                            <p className="text-sm font-medium leading-none">
+                                                {patient.name}
+                                            </p>
+                                            <p className="text-sm text-muted-foreground">
+                                                {patient.email}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <Button asChild className="" variant={"outline"}>
+                                        <Link href={`/dashboard/doctor/patient/view/${patient.patientId}`} className="text-xs">View</Link>
+                                    </Button>
+                                </div>
+                            )
+                        })}
+                    </CardContent>
+                </Card>
+            </div>
+        </main>
     )
 }
