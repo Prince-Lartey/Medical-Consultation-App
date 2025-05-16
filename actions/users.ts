@@ -291,7 +291,8 @@ export async function getDoctorById(id: string) {
                             status: true,   
                             graduationYear: true,
                             medicalSchool: true, 
-                            boardCertificates: true,     
+                            boardCertificates: true,    
+                            additionalDocs: true, 
                             availability: {
                                 select: {
                                     monday: true,

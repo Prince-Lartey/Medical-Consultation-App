@@ -1,4 +1,3 @@
-import { File } from "@/components/FormInputs/MultipleFileUpload";
 import { DoctorStatus } from "@prisma/client";
 
 export type ServiceProps = {
@@ -124,6 +123,7 @@ interface DoctorProfileDetail extends DoctorProfile {
     graduationYear: string
     medicalSchool: string
     boardCertificates: string[] | null
+    additionalDocs: string[] | null
 }
 
 export type Doctor = {

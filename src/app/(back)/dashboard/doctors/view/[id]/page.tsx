@@ -10,7 +10,6 @@ import { Doctor } from '../../../../../../../types/types'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { formatDateOfBirth } from '@/utils/formatDateOfBirth'
 import ApproveBtn from '@/components/ApproveBtn'
-import { File } from '@/components/FormInputs/MultipleFileUpload'
 
 export default async function page({params}: {params: Promise<{ id: string }>;}) {
     const { id } = await params
@@ -19,6 +18,8 @@ export default async function page({params}: {params: Promise<{ id: string }>;})
 
     const otherSpecialties = doctor.doctorProfile?.otherSpecialties ?? []
     const academcDocuments = doctor.doctorProfile?.boardCertificates ?? []
+    const hospitalServices = doctor.doctorProfile?.servicesOffered ?? []
+    const additionalDocuments = doctor.doctorProfile?.additionalDocs ?? []
 
     return (
         <div className="p-4">
@@ -153,105 +154,88 @@ export default async function page({params}: {params: Promise<{ id: string }>;})
                 </TabsContent>
                 <TabsContent value="practice">
                     <div className="p-4">
-                        <h2 className="text-sm uppercase tracking-widest border-b pb-1 mb-2 font-semibold">Bio Data</h2>
+                        <h2 className="text-sm uppercase tracking-widest border-b pb-1 mb-2 font-semibold">Practice Information</h2>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="flex items-center">
-                                <span className="mr-3">First Name :</span>
-                                <span>{doctor.doctorProfile?.firstName}</span>
+                                <span className="mr-3">Hospital Name :</span>
+                                <span>{doctor.doctorProfile?.hospitalName}</span>
                             </div>
                             <div className="flex items-center">
-                                <span className="mr-3">Last Name :</span>
-                                <span>{doctor.doctorProfile?.lastName}</span>
+                                <span className="mr-3">Hourly Charge :</span>
+                                <span>{doctor.doctorProfile?.hourlyWage}</span>
                             </div>
                             <div className="flex items-center">
-                                <span className="mr-3">Date of Birth :</span>
-                                <span>{formatDateOfBirth(doctor.doctorProfile?.dob)}</span>
+                                <span className="mr-3">Hospital Address :</span>
+                                <span>{doctor.doctorProfile?.hospitalAddress}</span>
                             </div>
                             <div className="flex items-center">
-                                <span className="mr-3">Gender :</span>
-                                <span className="capitalize">{doctor.doctorProfile?.gender}</span>
+                                <span className="mr-3">Hospital Contact :</span>
+                                <span className="capitalize">{doctor.doctorProfile?.hospitalContactNumber}</span>
                             </div>
                             <div className="flex items-center">
-                                <span className="mr-3">Region :</span>
-                                <span className="capitalize">{doctor.doctorProfile?.region}</span>
+                                <span className="mr-3">Hospital Hours of Operation :</span>
+                                <span className="capitalize">{doctor.doctorProfile?.hospitalHoursOfOperation}</span>
                             </div>
                             <div className="flex items-center">
-                                <span className="mr-3">City :</span>
-                                <span className="capitalize">{doctor.doctorProfile?.city}</span>
+                                <span className="mr-3">Do you Accept Insurance :</span>
+                                <span className="capitalize">{doctor.doctorProfile?.insuranceAccepted}</span>
                             </div>
                         </div>
-                    </div>
-                    <div className="p-4">
-                        <h2 className="text-sm uppercase tracking-widest border-b pb-1 mb-2 font-semibold">Profile Information</h2>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="flex items-center">
-                                <span className="mr-3">Medical License :</span>
-                                <span>{doctor.doctorProfile?.medicalLicense}</span>
-                            </div>
-                            <div className="flex items-center">
-                                <span className="mr-3">Years of Experience :</span>
-                                <span>{doctor.doctorProfile?.yearsOfExperience}</span>
-                            </div>
-                            <div className="flex items-center">
-                                <span className="mr-3">Medical License Expiry :</span>
-                                <span>{formatDateOfBirth(doctor.doctorProfile?.medicalLicenseExpiry)}</span>
-                            </div>
-                            
+                        <div className="flex items-center pt-4">
+                            <span className="mr-3">Hospital Email :</span>
+                            <span className="capitalize">{doctor.doctorProfile?.hospitalEmailAddress}</span>
                         </div>
-                        <div className="flex items-center py-4">
-                            <span className="">{doctor.doctorProfile?.bio}</span>
+                        <div className="flex items-center pt-4">
+                            <span className="mr-3">Hospital Website :</span>
+                            <span className="">{doctor.doctorProfile?.hospitalWebsite}</span>
+                        </div>
+                        <div className="pt-4">
+                            <span className="mr-3">Hospital Services :</span>
+                            <div className="flex flex-wrap gap-4 mt-3">
+                                {
+                                    hospitalServices.map((item, index) => {
+                                        return (
+                                            <div key={index} className="border-slate-300 border-2 flex space-x-2 items-center dark:border-slate-200 px-4 py-2 rounded-lg">
+                                                <span className="text-sm">{item}</span>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
                 </TabsContent>
                 <TabsContent value="additional">
                     <div className="p-4">
-                        <h2 className="text-sm uppercase tracking-widest border-b pb-1 mb-2 font-semibold">Bio Data</h2>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="flex items-center">
-                                <span className="mr-3">First Name :</span>
-                                <span>{doctor.doctorProfile?.firstName}</span>
-                            </div>
-                            <div className="flex items-center">
-                                <span className="mr-3">Last Name :</span>
-                                <span>{doctor.doctorProfile?.lastName}</span>
-                            </div>
-                            <div className="flex items-center">
-                                <span className="mr-3">Date of Birth :</span>
-                                <span>{formatDateOfBirth(doctor.doctorProfile?.dob)}</span>
-                            </div>
-                            <div className="flex items-center">
-                                <span className="mr-3">Gender :</span>
-                                <span className="capitalize">{doctor.doctorProfile?.gender}</span>
-                            </div>
-                            <div className="flex items-center">
-                                <span className="mr-3">Region :</span>
-                                <span className="capitalize">{doctor.doctorProfile?.region}</span>
-                            </div>
-                            <div className="flex items-center">
-                                <span className="mr-3">City :</span>
-                                <span className="capitalize">{doctor.doctorProfile?.city}</span>
-                            </div>
+                        <h2 className="text-sm uppercase tracking-widest border-b pb-1 mb-2 font-semibold">Additional Information</h2>
+                        <div className="flex">
+                            <span className="mr-3">Education History :</span>
+                            <span>{doctor.doctorProfile?.educationHistory}</span>
                         </div>
-                    </div>
-                    <div className="p-4">
-                        <h2 className="text-sm uppercase tracking-widest border-b pb-1 mb-2 font-semibold">Profile Information</h2>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="flex items-center">
-                                <span className="mr-3">Medical License :</span>
-                                <span>{doctor.doctorProfile?.medicalLicense}</span>
-                            </div>
-                            <div className="flex items-center">
-                                <span className="mr-3">Years of Experience :</span>
-                                <span>{doctor.doctorProfile?.yearsOfExperience}</span>
-                            </div>
-                            <div className="flex items-center">
-                                <span className="mr-3">Medical License Expiry :</span>
-                                <span>{formatDateOfBirth(doctor.doctorProfile?.medicalLicenseExpiry)}</span>
-                            </div>
-                            
+                        <div className="flex mt-6">
+                            <span className="mr-3">Published Works or Research :</span>
+                            <span>{doctor.doctorProfile?.research}</span>
                         </div>
-                        <div className="flex items-center py-4">
-                            <span className="">{doctor.doctorProfile?.bio}</span>
+                        <div className="flex mt-6">
+                            <span className="mr-3">Accomplishments and Awards :</span>
+                            <span className="">{doctor.doctorProfile?.accomplishments}</span>
+                        </div>
+                        <div className="mt-6">
+                            <span className="mr-3">Academic Documents :</span>
+                            <div className="flex flex-wrap gap-4 mt-3">
+                                {
+                                    additionalDocuments.map((item: any, index: number) => {
+                                        return (
+                                            <div key={index} className="py-2 rounded-md flex items-center px-4 bg-white dark:bg-slate-800 border border-slate-200 text-slate-800 dark:text-slate-200">
+                                                <FileIcon className="w-8 h-8 mr-2 flex-shrink-0" />
+                                                <div className="flex flex-col">
+                                                    <span className="line-clamp-1">{item}</span>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
                 </TabsContent>
@@ -292,7 +276,6 @@ export default async function page({params}: {params: Promise<{ id: string }>;})
                     </div>
                 </TabsContent>
             </Tabs>
-            
         </div>
     )
 }
