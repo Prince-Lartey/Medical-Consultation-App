@@ -288,7 +288,10 @@ export async function getDoctorById(id: string) {
                             educationHistory: true,
                             research: true,
                             accomplishments: true, 
-                            status: true,         
+                            status: true,   
+                            graduationYear: true,
+                            medicalSchool: true, 
+                            boardCertificates: true,     
                             availability: {
                                 select: {
                                     monday: true,

@@ -121,6 +121,9 @@ interface DoctorProfileDetail extends DoctorProfile {
     accomplishments: string | null;
     medicalLicense:  string | null
     medicalLicenseExpiry: any
+    graduationYear: string
+    medicalSchool: string
+    boardCertificates: string[] | null
 }
 
 export type Doctor = {

@@ -1,12 +1,12 @@
 import PanelHeader from '@/components/Dashboard/Doctor/PanelHeader'
 import React from 'react'
 import { Users } from 'lucide-react'
-import { getDoctorAppointments } from '../../../../../../actions/appointments'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import NotAuthorized from '@/components/NotAuthorized'
 import { Appointment } from '@prisma/client'
 import PatientPanel from '@/components/Dashboard/Doctor/PatientPanel'
+import { getDoctorAppointments } from '../../../../../actions/appointments'
 
 export interface PatientProps {
     patientId: string
