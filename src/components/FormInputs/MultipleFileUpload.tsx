@@ -1,5 +1,5 @@
 import { UploadDropzone } from "@/utils/uploadthing"
-import { FileIcon, PencilIcon, XCircle } from "lucide-react"
+import { PencilIcon, XCircle } from "lucide-react"
 import toast from "react-hot-toast"
 import { FaFilePdf, FaImage } from "react-icons/fa"
 
