@@ -53,3 +53,44 @@ export async function generateSecureToken(data: TokenData) {
     }
 }
 
+export async function createRoom(roomName: string) {
+    const secret = process.env.HMS_SECRET
+
+    try {
+        const response = await fetch("https://api.100ms.live/v2/rooms", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${secret}`,
+            },
+            body: JSON.stringify({
+                name: roomName,
+                description: "Doctor-Patient Appointment Room",
+                template: "default_template"
+            }),
+        })
+
+        const roomData = await response.json() 
+        if (response.ok) {
+            return {
+                error: null,
+                status: 200,
+                roomId: roomData.id
+            }
+        } else {
+            return {
+                error: roomData.error,
+                status: response.status,
+                roomId: null
+            }
+        }
+    } catch (error) {
+        console.error("Error creating room:", error)
+        return {
+            error: "Failed to create room",
+            status: 500,
+            roomId: null
+        }
+        
+    }
+}

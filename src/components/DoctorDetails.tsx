@@ -18,6 +18,7 @@ import { useSession } from 'next-auth/react'
 import { createAppointment } from '../../actions/appointments'
 import toast from 'react-hot-toast'
 import { Appointment } from '@prisma/client'
+import { createRoom } from '../../actions/hms'
 
 export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDetail, appointment: Appointment}) {
     const {data: session} = useSession()
@@ -75,6 +76,19 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
         console.log(data)
 
         try {
+            const doctorFirstName = doctor.name.split(" ")[0]
+            const patientFirstName = patient?.name?.split(" ")[0]
+            const roomName = `Dr. ${doctorFirstName} meeting with ${patientFirstName}` 
+
+            const roomData = await createRoom(roomName)
+            if(roomData.error){
+                toast.error("Error creating room")
+                setIsLoading(false)
+                return
+            }
+            const meetingLink = `/meeting/${roomData.roomId}`
+            data.meetingLink = meetingLink
+
             await createAppointment(data)
             setIsLoading(false)
             toast.success("Appointment Created Successfully")
