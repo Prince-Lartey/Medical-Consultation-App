@@ -1,16 +1,10 @@
 "use client"
 
 import { usePathname } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 export default function NotFound() {
     const pathname = usePathname()
-
-    useEffect(() => {
-        if (typeof document !== "undefined") {
-            document.title = "Not Found"
-        }
-    }, [])
 
     const navigations = [
         {
