@@ -1,35 +1,25 @@
 import { selectIsConnectedToRoom, useHMSActions, useHMSStore } from '@100mslive/react-sdk'
 import { Session } from 'next-auth'
 import React, { useEffect, useState } from 'react'
+import { generateSecureToken, TokenData } from '../../../actions/hms'
 
 export default function MeetingPage({roomId, session}: {roomId: string, session: Session}) {
     const user = session.user
     const role = user.role
+    const username = role === "DOCTOR" ? `Dr. ${user.name?.split(" ")[0]}` : user.name?.split(" ")[0]
     const hmsActions = useHMSActions()
     const isConnected = useHMSStore(selectIsConnectedToRoom)
     const [token, setToken] = useState<string | null>(null)
 
     useEffect(() => {
         const fetchToken = async () => {
-            const tokenData = {
+            const tokenData: TokenData = {
                 roomId,
-                role: role,
-                userName: "Patient"
+                role: role === "DOCTOR" ? "host" : "guest",
+                userName: username || ""
             }
-            const response = await fetch('/api/hms/token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ 
-                    roomId,
-                    role: 'guest',
-                    userName: "Patient"
+            const data = await generateSecureToken(tokenData)
 
-                })
-            })
-
-            const data = await response.json()
             if (data.token) {
                 setToken(data.token)
             }
@@ -40,7 +30,7 @@ export default function MeetingPage({roomId, session}: {roomId: string, session:
     useEffect(() => {
         if (token && !isConnected) {
             hmsActions.join({
-                userName: 'Doctor',
+                userName: username || "",
                 authToken: token,
             })
         }

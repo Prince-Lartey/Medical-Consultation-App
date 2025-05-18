@@ -73,7 +73,6 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
         data.doctorProfileId = doctor.doctorProfile?.id ?? ""
         data.medicalDocuments = medicalDocs.map((file) => file.url)
         data.patientId = patient?.id
-        console.log(data)
 
         try {
             const doctorFirstName = doctor.name.split(" ")[0]

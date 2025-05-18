@@ -1,18 +1,19 @@
-"user server"
+"use server"
 
 import jwt from "jsonwebtoken"
+import { v4 as uuidv4 } from "uuid"
 
-interface TokenData {
+export interface TokenData {
     roomId: string
     userName: string
     role: string
 }
 
+const secret = process.env.HMS_SECRET
+const apiKey = process.env.NEXT_PUBLIC_HSM_API_KEY
+
 export async function generateSecureToken(data: TokenData) {
     const { roomId, userName, role } = data
-
-    const secret = process.env.HMS_SECRET
-    const apiKey = process.env.NEXT_PUBLIC_HSM_API_KEY
 
     if (!secret || !apiKey) {
         return {
@@ -54,19 +55,38 @@ export async function generateSecureToken(data: TokenData) {
 }
 
 export async function createRoom(roomName: string) {
-    const secret = process.env.HMS_SECRET
+    // const secret = process.env.HMS_SECRET
+    if (!secret || !apiKey) {
+        return {
+            error: "Missing secret or API key",
+            status: 500,
+            roomId: null
+        }
+    }
 
     try {
+        const token = jwt.sign(
+            {
+                access_key: apiKey,
+                type: "management",
+                jti: uuidv4(),
+            },
+            secret,
+            {
+                algorithm: "HS256",
+                expiresIn: "1h",
+            }
+        )
         const response = await fetch("https://api.100ms.live/v2/rooms", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${secret}`,
+                Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
                 name: roomName,
                 description: "Doctor-Patient Appointment Room",
-                template: "default_template"
+                template_id: "6829e180d76db43de24eeae7"
             }),
         })
 
