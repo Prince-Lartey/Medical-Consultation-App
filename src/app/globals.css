@@ -148,6 +148,265 @@
   @apply bg-gray-100 font-bold;
 }
  
-/* .novel-list-disc {
-  list-style: circle;
-} */
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.bg-gray-900 {
+  background-color: #121212;
+}
+
+.text-white {
+  color: white;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.p-8 {
+  padding: 2rem;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+/* Video container */
+.video-container {
+  display: flex;
+  gap: 16px;
+  height: calc(100vh - 160px);
+  margin-bottom: 16px;
+}
+
+/* Peer styling */
+.peer-container {
+  position: relative;
+  flex: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid rgba(59, 130, 246, 0.8);
+  transition: all 0.3s ease;
+  max-width: calc(50% - 8px);
+  height: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.peer-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #2e2e2e;
+}
+
+.peer-info {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.peer-name {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.audio-active {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+/* Controls */
+.controls-container {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+.control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #2e2e2e;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+}
+
+.control-button:hover {
+  background-color: #3e3e3e;
+}
+
+.control-off {
+  background-color: #6b7280;
+}
+
+.end-call {
+  background-color: #ef4444;
+}
+
+.end-call:hover {
+  background-color: #dc2626;
+}
+
+/* Prescription Panel */
+.prescription-panel {
+  width: 280px;
+  background-color: #1a1a1a;
+  border-left: 1px solid #2e2e2e;
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+
+.prescription-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #2e2e2e;
+}
+
+.prescription-header h2 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 0.05em;
+}
+
+.info-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid #4b5563;
+  color: #9ca3af;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.medications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.medication-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.medication-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+}
+
+.medication-details {
+  flex: 1;
+}
+
+.medication-name {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.medication-dosage {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.add-medication-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #2e2e2e;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-medication-button:hover {
+  background-color: #3e3e3e;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #3b82f6;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

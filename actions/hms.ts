@@ -30,11 +30,14 @@ export async function generateSecureToken(data: TokenData) {
                 room_id: roomId,
                 user_id: userName,
                 role: role,
+                type: "app",
+                jti: uuidv4(),
+                iat: Math.floor(Date.now() / 1000),
             },
             secret,
             {
                 algorithm: "HS256",
-                expiresIn: "24h",
+                expiresIn: "1h",
             }
         )
 
