@@ -4,7 +4,6 @@ import { Clock } from 'lucide-react'
 import { formatDateOfBirth } from '@/utils/formatDateOfBirth'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import UpdateAppointmentForm from '@/components/Dashboard/Doctor/UpdateAppointmentForm'
 
 export default async function Page({params}: {params: Promise<{ id: string }>;}) {
     const { id } = await params
@@ -61,7 +60,14 @@ export default async function Page({params}: {params: Promise<{ id: string }>;})
                 </div>
             </div>
             <div className="">
-                <UpdateAppointmentForm appointment={appointment}/>
+                {appointment?.id && (
+                    <div className="border-b pb-2 flex justify-between items-center px-6">
+                        <label htmlFor="username" className="scroll-m-20 text-xl font-semibold tracking-tight py-2 mb-3">Appointment</label>
+                        <Button>
+                            <Link href={appointment.meetingLink}>Join Meeting</Link>
+                        </Button>
+                    </div>
+                )}
             </div>
         </div>
     )

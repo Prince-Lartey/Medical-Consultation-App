@@ -14,12 +14,14 @@ interface PrescriptionPanelProps {
     isDoctor: boolean;
 }
 
-export default function PrescriptionPanel({ roomId, isDoctor }: PrescriptionPanelProps) {
+export default function PrescriptionPanel({ isDoctor }: PrescriptionPanelProps) {
     const [medications, setMedications] = useState<Medication[]>([
         { name: "Nivalidol", dosage: "500 MG • TABLET", instructions: "" },
         { name: "Locarip", dosage: "5 ML • DROPS", instructions: "" },
         { name: "Amoricillin", dosage: "400 MG • CAPSULE", instructions: "" }
     ]);
+
+    setMedications([])
 
     // For a real implementation, you'd have functions to:
     // 1. Fetch prescriptions from your database
