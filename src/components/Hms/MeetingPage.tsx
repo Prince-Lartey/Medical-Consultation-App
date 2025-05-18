@@ -1,22 +1,32 @@
 import { selectIsConnectedToRoom, useHMSActions, useHMSStore } from '@100mslive/react-sdk'
-import { useRouter } from 'next/navigation'
+import { Session } from 'next-auth'
 import React, { useEffect, useState } from 'react'
 
-export default function MeetingPage({roomId}: {roomId: string}) {
-    const router = useRouter()
-    const {roomId} = router.query
+export default function MeetingPage({roomId, session}: {roomId: string, session: Session}) {
+    const user = session.user
+    const role = user.role
     const hmsActions = useHMSActions()
     const isConnected = useHMSStore(selectIsConnectedToRoom)
     const [token, setToken] = useState<string | null>(null)
 
     useEffect(() => {
         const fetchToken = async () => {
+            const tokenData = {
+                roomId,
+                role: role,
+                userName: "Patient"
+            }
             const response = await fetch('/api/hms/token', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ roomId })
+                body: JSON.stringify({ 
+                    roomId,
+                    role: 'guest',
+                    userName: "Patient"
+
+                })
             })
 
             const data = await response.json()
