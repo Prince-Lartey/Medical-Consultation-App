@@ -1,47 +1,56 @@
-"use client"
+"use client";
 
-import React from 'react';
-import { usePaystackPayment } from 'react-paystack';
+import React, { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
+import type { usePaystackPayment as PaystackHookType } from 'react-paystack';
 
-const config = {
-    reference: (new Date()).getTime().toString(),
-    email: "user@example.com",
-    amount: 20000, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-    publicKey: 'pk_test_dsdfghuytfd2345678gvxxxxxxxxxx',
-};
-
-  // you can call this function anything
-const onSuccess = (reference: any) => {
-// Implementation for whatever you want to do with reference and after success call.
-    console.log(reference);
-};
-
-  // you can call this function anything
-const onClose = () => {
-// implementation for  whatever you want to do when the Paystack dialog closed.
-    console.log('closed')
+export interface ConfigProps {
+    reference: string;
+    email: string;
+    amount: number;
+    publicKey: string;
+    currency: string;
 }
 
-const PaystackHookExample = () => {
-    const initializePayment = usePaystackPayment(config);
-    return (
-        <div>
-            <Button onClick={() => {
-                initializePayment({onSuccess, onClose})
-            }}>
-                Pay
-            </Button>
-        </div>
-    );
-};
+const HandlePayments = ({transactionConfig}: {transactionConfig: ConfigProps}) => {
+    const [isClient, setIsClient] = useState(false);
+    const [PaystackButton, setPaystackButton] = useState<typeof PaystackHookType | null>(null);
+    
+    useEffect(() => {
+        setIsClient(true);
+        // Import the Paystack hook dynamically only on the client side
+        const importPaystack = async () => {
+        const { usePaystackPayment } = await import('react-paystack');
+        setPaystackButton(() => usePaystackPayment);
+        };
+        
+        importPaystack();
+    }, []);
 
-function HandlePayments() {
+    const handlePayment = () => {
+        if (!PaystackButton) return;
+
+        const onSuccess = (reference: any) => {
+            console.log(reference);
+        };
+
+        const onClose = () => {
+            console.log('closed');
+        };
+
+        const initializePayment = PaystackButton(transactionConfig);
+        initializePayment({ onSuccess, onClose });
+    };
+
     return (
         <div className="max-w-4xl mx-auto p-8">
-            <PaystackHookExample />
+            {isClient && (
+                <Button onClick={handlePayment} disabled={!PaystackButton}>
+                    Pay
+                </Button>
+            )}
         </div>
     );
-}
+};
 
 export default HandlePayments;

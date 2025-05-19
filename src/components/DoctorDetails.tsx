@@ -167,114 +167,121 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
                     <div className="p-8 shadow-2xl">
                         <form className="py-4 px-4 mx-auto" onSubmit={handleSubmit(onSubmit)}>
                             <h2 className="scroll-m-20 border-b pb-3 mb-6 text-3xl font-semibold tracking-tight first:mt-0">Tell Us About Yourself to Help the Doctor Diagnose You</h2>
-                            {
-                                step === 2 ? (
-                                    <div className="space-y-6">
-                                        <div className="grid grid-cols-2 gap-6">
-                                            <TextInput 
-                                                label="First Name"
-                                                register={register}
-                                                name="firstName"
-                                                errors={errors}
-                                                placeholder="Enter First Name"
-                                                className="col-span-1"
-                                            />
-                                            <TextInput 
-                                                label="Last Name"
-                                                register={register}
-                                                name="lastName"
-                                                errors={errors}
-                                                placeholder="Enter Last Name"
-                                                className="col-span-1"
-                                            />
-                                        </div>
-                                        <div className="grid grid-cols-2 gap-6">
-                                            <TextInput 
-                                                label="Phone Number"
-                                                register={register}
-                                                name="phone"
-                                                errors={errors}
-                                                placeholder="Enter Phone Number"
-                                                className="col-span-1"
-                                            />
-                                            <TextInput 
-                                                label="Email Address"
-                                                register={register}
-                                                name="email"
-                                                errors={errors}
-                                                placeholder="Enter Email Address"
-                                                className="col-span-1"
-                                            />
-                                        </div>
-                                        <div className="grid grid-cols-2 gap-6">
-                                            <RadioInput 
-                                                label="Gender"
-                                                register={register}
-                                                name="gender"
-                                                errors={errors}
-                                                className="col-span-1"
-                                                radioOptions={genderOptions}
-                                            />
-                                            <DatePickerInput 
-                                                date={dob}
-                                                setDate={setDob}
-                                                title="Date of Birth"
-                                                className="col-span-1"
-                                            />
-                                        </div> 
-                                        <div className="flex justify-between items-center mt-8">
-                                            <Button variant={"outline"} type="button" onClick={() => setStep((currStep) => currStep - 1)}>Previous</Button>
-                                            <Button type="button" onClick={() => setStep((currStep) => currStep + 1)}>Next</Button>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className="space-y-6">
-                                        <div className="grid grid-cols-2 gap-6">
-                                            <TextInput 
-                                                label="Your Location"
-                                                register={register}
-                                                name="location"
-                                                errors={errors}
-                                                placeholder="Enter your Location"
-                                                className="col-span-1"
-                                            />
-                                            <TextInput 
-                                                label="Occupation"
-                                                register={register}
-                                                name="occupation"
-                                                errors={errors}
-                                                placeholder="Enter your Occupation"
-                                                className="col-span-1"
-                                            />
-                                        </div>
-                                        <TextAreaInput 
-                                            label="Reason for Appointment"
+                            {step === 2 && (
+                                <div className="space-y-6">
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <TextInput 
+                                            label="First Name"
                                             register={register}
-                                            name="appointmentReason"
+                                            name="firstName"
                                             errors={errors}
-                                            placeholder="Enter your Reason for Appointment"
+                                            placeholder="Enter First Name"
+                                            className="col-span-1"
                                         />
-                                        <MultipleFileUpload 
-                                            label="Upload your Medical Documents (max of 4 docs)"
-                                            files = {medicalDocs}
-                                            setFiles = {setMedicalDocs}
-                                            endpoint = "patientMedicalFiles"
+                                        <TextInput 
+                                            label="Last Name"
+                                            register={register}
+                                            name="lastName"
+                                            errors={errors}
+                                            placeholder="Enter Last Name"
+                                            className="col-span-1"
                                         />
-                                        <div className="flex justify-between items-center mt-8">
-                                            <Button variant={"outline"} type="button" onClick={() => setStep((currStep) => currStep - 1)}>Previous</Button>
-                                            {
-                                                isLoading ? (
-                                                    <Button type="button" disabled className="flex items-center gap-2">
-                                                        <Loader className="w-4 h-4 animate-spin" /> Submitting...
-                                                    </Button>
-                                                ) : (
-                                                    <Button type="submit">Complete Appointment</Button>
-                                                )
-                                            }
-                                        </div>
                                     </div>
-                                )
-                            }
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <TextInput 
+                                            label="Phone Number"
+                                            register={register}
+                                            name="phone"
+                                            errors={errors}
+                                            placeholder="Enter Phone Number"
+                                            className="col-span-1"
+                                        />
+                                        <TextInput 
+                                            label="Email Address"
+                                            register={register}
+                                            name="email"
+                                            errors={errors}
+                                            placeholder="Enter Email Address"
+                                            className="col-span-1"
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <RadioInput 
+                                            label="Gender"
+                                            register={register}
+                                            name="gender"
+                                            errors={errors}
+                                            className="col-span-1"
+                                            radioOptions={genderOptions}
+                                        />
+                                        <DatePickerInput 
+                                            date={dob}
+                                            setDate={setDob}
+                                            title="Date of Birth"
+                                            className="col-span-1"
+                                        />
+                                    </div> 
+                                    <div className="flex justify-between items-center mt-8">
+                                        <Button variant={"outline"} type="button" onClick={() => setStep((currStep) => currStep - 1)}>Previous</Button>
+                                        <Button type="button" onClick={() => setStep((currStep) => currStep + 1)}>Next</Button>
+                                    </div>
+                                </div>
+                            )}
+                            {step === 3 ? (
+                                <div className="space-y-6">
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <TextInput 
+                                            label="Your Location"
+                                            register={register}
+                                            name="location"
+                                            errors={errors}
+                                            placeholder="Enter your Location"
+                                            className="col-span-1"
+                                        />
+                                        <TextInput 
+                                            label="Occupation"
+                                            register={register}
+                                            name="occupation"
+                                            errors={errors}
+                                            placeholder="Enter your Occupation"
+                                            className="col-span-1"
+                                        />
+                                    </div>
+                                    <TextAreaInput 
+                                        label="Reason for Appointment"
+                                        register={register}
+                                        name="appointmentReason"
+                                        errors={errors}
+                                        placeholder="Enter your Reason for Appointment"
+                                    />
+                                    <MultipleFileUpload 
+                                        label="Upload your Medical Documents (max of 4 docs)"
+                                        files = {medicalDocs}
+                                        setFiles = {setMedicalDocs}
+                                        endpoint = "patientMedicalFiles"
+                                    />
+                                    <div className="flex justify-between items-center mt-8">
+                                        <Button variant={"outline"} type="button" onClick={() => setStep((currStep) => currStep - 1)}>Previous</Button>
+                                        <Button type="button" onClick={() => setStep((currStep) => currStep + 1)}>Next</Button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div>
+                                    <h2>Pay</h2>
+                                    <div className="flex justify-between items-center mt-8">
+                                        <Button variant={"outline"} type="button" onClick={() => setStep((currStep) => currStep - 1)}>Previous</Button>
+                                        {
+                                            isLoading ? (
+                                                <Button type="button" disabled className="flex items-center gap-2">
+                                                    <Loader className="w-4 h-4 animate-spin" /> Submitting...
+                                                </Button>
+                                            ) : (
+                                                <Button type="submit">Complete Appointment</Button>
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                            )}
                         </form>
                         
                     </div>
