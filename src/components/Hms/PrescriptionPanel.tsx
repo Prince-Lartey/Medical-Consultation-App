@@ -23,12 +23,6 @@ export default function PrescriptionPanel({ isDoctor }: PrescriptionPanelProps) 
 
     setMedications([])
 
-    // For a real implementation, you'd have functions to:
-    // 1. Fetch prescriptions from your database
-    // 2. Add new medications (doctor only)
-    // 3. Save prescription changes (doctor only) 
-    // 4. Share prescription with patient
-
     return (
         <div className="prescription-panel">
             <div className="prescription-header">
