@@ -6,7 +6,7 @@ import { Button } from './ui/button'
 import { Calendar } from './ui/calendar'
 import getFormattedLongDate from '@/utils/getFormattedLongDate'
 import { getDayFromDate } from '@/utils/getDayFromDate'
-import { Loader, MoveRight } from 'lucide-react'
+import { Check, Loader, MoveRight } from 'lucide-react'
 import TextInput from './FormInputs/TextInput'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
@@ -21,6 +21,15 @@ import { Appointment, paymentStatus } from '@prisma/client'
 import { createRoom } from '../../actions/hms'
 import type { usePaystackPayment as PaystackHookType } from 'react-paystack';
 import { CreateSale } from '../../actions/sales'
+import Image from 'next/image'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
 
 export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDetail, appointment: Appointment}) {
     const {data: session} = useSession()
@@ -55,11 +64,12 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
         reference: ""
     }
     const [paymentDetails, setPaymentDetails] = useState(initialPayment)
+    const [paymentSuccess, setPaymentSuccess] = useState(false)
 
     const config = {
         reference: (new Date()).getTime().toString(),
         email: "user@example.com",
-        amount: 200,
+        amount: doctor.doctorProfile?.hourlyWage,
         publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY as string,
         currency: "GHS",
     };
@@ -86,7 +96,7 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
                 paymentAmount: doctor.doctorProfile?.hourlyWage ?? 0,
                 reference: ref.reference
             })
-            console.log("Payment Details:", paymentDetails);
+            setPaymentSuccess(true)
         };
         
 
@@ -242,7 +252,7 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
                 ) : (
                     <div className="p-8 shadow-2xl">
                         <form className="py-4 px-4 mx-auto" onSubmit={handleSubmit(onSubmit)}>
-                            <h2 className="scroll-m-20 border-b pb-3 mb-6 text-3xl font-semibold tracking-tight first:mt-0">Tell Us About Yourself to Help the Doctor Diagnose You</h2>
+                            {step <=3 && <h2 className="scroll-m-20 border-b pb-3 mb-6 text-3xl font-semibold tracking-tight first:mt-0">Tell Us About Yourself to Help the Doctor Diagnose You</h2>}
                             {step === 2 && (
                                 <div className="space-y-6">
                                     <div className="grid grid-cols-2 gap-6">
@@ -344,23 +354,54 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
                             )}
                             {step === 4 && (
                                 <div>
-                                    <h2 className='py-4'>Total Amount: GHS {doctor.doctorProfile?.hourlyWage.toLocaleString()}{" "}</h2>
-                                    {isClient && (
-                                        <Button type='button' onClick={handlePayment} disabled={!PaystackButton}>
-                                            Pay with Paystack
-                                        </Button>
+                                    {paymentSuccess ? (
+                                        <Card className='w-full max-w-md mx-auto flex flex-col items-center justify-center py-2'>
+                                            <div className='w-24 h-24 rounded-full flex items-center justify-center bg-lime-200'>
+                                                <Check className="lime-text-600 w-14 h-14"/>
+                                            </div>
+                                            <CardHeader>
+                                                <CardTitle className='text-lime-700 text-xl'>Payment Successful</CardTitle>
+                                            </CardHeader>
+                                            <CardFooter className='flex items-center justify-center'>
+                                                {
+                                                    isLoading ? (
+                                                        <Button type="button" disabled className="flex items-center gap-2">
+                                                            <Loader className="w-4 h-4 animate-spin" /> Submitting...
+                                                        </Button>
+                                                    ) : (
+                                                        <Button type="submit">Complete Appointment</Button>
+                                                    )
+                                                }
+                                            </CardFooter>
+                                        </Card>
+                                    ) : (
+                                        <div>
+                                            {isClient && (
+                                                <Card className='w-full max-w-md mx-auto flex flex-col items-center justify-center'>
+                                                    <CardHeader>
+                                                        <CardTitle>Make Payment</CardTitle>
+                                                    </CardHeader>
+                                                    <CardContent className='space-y-6'>
+                                                        <div className='text-center'>
+                                                            <p className='text-sm text-muted-foreground'>Total Amount</p>
+                                                            <p className='text-4xl font-bold'>GHS {doctor.doctorProfile?.hourlyWage.toLocaleString()}{" "}</p>
+                                                        </div>
+                                                    </CardContent>
+                                                    <CardFooter>
+                                                        <button className='w-full bg-[#00C3F7] hover:bg-[#00A1D1] text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center space-x-2' type='button' onClick={handlePayment} disabled={!PaystackButton}>
+                                                            <Image src="/paystack.png" alt='paystack' width={512} height={504} className='w-6 h-6 mr-2' />
+                                                            <span>Pay with Paystack</span>
+                                                        </button>
+                                                    </CardFooter>
+                                                </Card>
+                                            )}
+                                        </div>
                                     )}
-                                    <div className="flex justify-between items-center mt-8">
+                                    
+
+                                    
+                                    <div className="flex justify-between items-start mt-8">
                                         <Button variant={"outline"} type="button" onClick={() => setStep((currStep) => currStep - 1)}>Previous</Button>
-                                        {
-                                            isLoading ? (
-                                                <Button type="button" disabled className="flex items-center gap-2">
-                                                    <Loader className="w-4 h-4 animate-spin" /> Submitting...
-                                                </Button>
-                                            ) : (
-                                                <Button type="submit">Complete Appointment</Button>
-                                            )
-                                        }
                                     </div>
                                 </div>
                             )}

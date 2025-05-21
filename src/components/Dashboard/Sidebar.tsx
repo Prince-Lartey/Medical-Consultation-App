@@ -1,6 +1,6 @@
 "use client"
 
-import { AlarmClock, Angry, Bell, HeartPulse, Home, LayoutGrid, Mail, Pencil, Power, ScanHeart, Settings, UserPen, Users } from "lucide-react";
+import { AlarmClock, Angry, Bell, DollarSign, HeartPulse, Home, LayoutGrid, Mail, Pencil, Power, ScanHeart, Settings, UserPen, Users } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
@@ -72,6 +72,9 @@ export default function Sidebar({session}: {session: Session}) {
             },
             {
                 title: "Appointments", path: "/dashboard/doctor/appointments", icon: AlarmClock
+            },
+            {
+                title: "Sales", path: "/dashboard/doctor/sales", icon: DollarSign
             },
             {
                 title: "Patients", path: "/dashboard/doctor/patients", icon: Users
