@@ -1,4 +1,4 @@
-import { DoctorStatus } from "@prisma/client";
+import { DoctorStatus, paymentStatus } from "@prisma/client";
 
 export type ServiceProps = {
     title: string;
@@ -168,6 +168,11 @@ export interface AppointmentProps {
     status: string;
     meetingLink: string;
     meetingProvider: string;
+    transactionId: string
+    paymentStatus: paymentStatus
+    paymentMethod: string
+    paymentAmount: number
+    reference: string
 }
 
 export type InboxProps = {

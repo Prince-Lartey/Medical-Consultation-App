@@ -17,9 +17,10 @@ import MultipleFileUpload, { File } from './FormInputs/MultipleFileUpload'
 import { useSession } from 'next-auth/react'
 import { createAppointment } from '../../actions/appointments'
 import toast from 'react-hot-toast'
-import { Appointment } from '@prisma/client'
+import { Appointment, paymentStatus } from '@prisma/client'
 import { createRoom } from '../../actions/hms'
 import type { usePaystackPayment as PaystackHookType } from 'react-paystack';
+import { CreateSale } from '../../actions/sales'
 
 export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDetail, appointment: Appointment}) {
     const {data: session} = useSession()
@@ -40,6 +41,20 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
 
     const [isClient, setIsClient] = useState(false);
     const [PaystackButton, setPaystackButton] = useState<typeof PaystackHookType | null>(null);
+    const initialPayment: {
+        transactionId: string
+        paymentStatus: paymentStatus
+        paymentMethod: string
+        paymentAmount: number
+        reference: string 
+    } = {
+        transactionId: "",
+        paymentStatus: "pending",
+        paymentMethod: "paystack",
+        paymentAmount: 0,
+        reference: ""
+    }
+    const [paymentDetails, setPaymentDetails] = useState(initialPayment)
 
     const config = {
         reference: (new Date()).getTime().toString(),
@@ -63,9 +78,17 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
     const handlePayment = () => {
         if (!PaystackButton) return;
 
-        const onSuccess = (reference: any) => {
-            console.log(reference);
+        const onSuccess = (ref: any) => {
+            setPaymentDetails({
+                transactionId: ref.transaction,
+                paymentStatus: "completed",
+                paymentMethod: "paystack",
+                paymentAmount: doctor.doctorProfile?.hourlyWage ?? 0,
+                reference: ref.reference
+            })
+            console.log("Payment Details:", paymentDetails);
         };
+        
 
         const onClose = () => {
             console.log('closed');
@@ -112,6 +135,12 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
         data.medicalDocuments = medicalDocs.map((file) => file.url)
         data.patientId = patient?.id
 
+        data.transactionId = paymentDetails.transactionId
+        data.paymentAmount = paymentDetails.paymentAmount
+        data.paymentMethod = paymentDetails.paymentMethod
+        data.paymentStatus = paymentDetails.paymentStatus
+        data.reference = paymentDetails.reference
+
         try {
             const doctorFirstName = doctor.name.split(" ")[0]
             const patientFirstName = patient?.name?.split(" ")[0]
@@ -124,9 +153,18 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
                 return
             }
             const meetingLink = `/meeting/${roomData.roomId}`
-            data.meetingLink = meetingLink
+            data.meetingLink = meetingLink 
 
-            await createAppointment(data)
+            const res = await createAppointment(data)
+
+            const sale = await CreateSale({
+                appointmentId: res.data.id,
+                doctorId: doctor.id,
+                doctorName: doctor.name,
+                patientId: patient?.id ?? "",
+                patientName: patient?.name ?? "",
+                totalAmount: res.data.charge ?? 0
+            })
             setIsLoading(false)
             toast.success("Appointment Created Successfully")
             router.push("/dashboard/user/appointments")
@@ -306,9 +344,10 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
                             )}
                             {step === 4 && (
                                 <div>
+                                    <h2 className='py-4'>Total Amount: GHS {doctor.doctorProfile?.hourlyWage.toLocaleString()}{" "}</h2>
                                     {isClient && (
                                         <Button type='button' onClick={handlePayment} disabled={!PaystackButton}>
-                                            Pay
+                                            Pay with Paystack
                                         </Button>
                                     )}
                                     <div className="flex justify-between items-center mt-8">

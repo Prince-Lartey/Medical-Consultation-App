@@ -223,6 +223,7 @@ model Appointment {
   meetingProvider String @default("zoom")
 
   transactionId String?
+  reference    String?
   paymentStatus paymentStatus? @default(pending)
   paymentMethod String?
   paymentAmount Int?
