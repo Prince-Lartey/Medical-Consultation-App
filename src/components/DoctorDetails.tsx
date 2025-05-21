@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppointmentProps, DoctorDetail } from '../../types/types'
 import { Button } from './ui/button'
 import { Calendar } from './ui/calendar'
@@ -19,6 +19,7 @@ import { createAppointment } from '../../actions/appointments'
 import toast from 'react-hot-toast'
 import { Appointment } from '@prisma/client'
 import { createRoom } from '../../actions/hms'
+import type { usePaystackPayment as PaystackHookType } from 'react-paystack';
 
 export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDetail, appointment: Appointment}) {
     const {data: session} = useSession()
@@ -36,6 +37,43 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
     const [dob, setDob] = useState<Date | undefined>(undefined)
     const [medicalDocs, setMedicalDocs] = useState<File[]>([])
     const router = useRouter()
+
+    const [isClient, setIsClient] = useState(false);
+    const [PaystackButton, setPaystackButton] = useState<typeof PaystackHookType | null>(null);
+
+    const config = {
+        reference: (new Date()).getTime().toString(),
+        email: "user@example.com",
+        amount: 200,
+        publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY as string,
+        currency: "GHS",
+    };
+    
+    useEffect(() => {
+        setIsClient(true);
+        // Import the Paystack hook dynamically only on the client side
+        const importPaystack = async () => {
+        const { usePaystackPayment } = await import('react-paystack');
+        setPaystackButton(() => usePaystackPayment);
+        };
+        
+        importPaystack();
+    }, []);
+
+    const handlePayment = () => {
+        if (!PaystackButton) return;
+
+        const onSuccess = (reference: any) => {
+            console.log(reference);
+        };
+
+        const onClose = () => {
+            console.log('closed');
+        };
+
+        const initializePayment = PaystackButton(config);
+        initializePayment({ onSuccess, onClose });
+    };
 
     const genderOptions = [
         {
@@ -227,7 +265,7 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
                                     </div>
                                 </div>
                             )}
-                            {step === 3 ? (
+                            {step === 3 && (
                                 <div className="space-y-6">
                                     <div className="grid grid-cols-2 gap-6">
                                         <TextInput 
@@ -265,9 +303,14 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
                                         <Button type="button" onClick={() => setStep((currStep) => currStep + 1)}>Next</Button>
                                     </div>
                                 </div>
-                            ) : (
+                            )}
+                            {step === 4 && (
                                 <div>
-                                    <h2>Pay</h2>
+                                    {isClient && (
+                                        <Button type='button' onClick={handlePayment} disabled={!PaystackButton}>
+                                            Pay
+                                        </Button>
+                                    )}
                                     <div className="flex justify-between items-center mt-8">
                                         <Button variant={"outline"} type="button" onClick={() => setStep((currStep) => currStep - 1)}>Previous</Button>
                                         {

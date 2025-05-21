@@ -191,6 +191,12 @@ enum AppointmentStatus {
   approved
 }
 
+enum paymentStatus {
+  pending
+  completed
+  failed
+}
+
 model Appointment {
   id            String         @id @default(auto()) @map("_id") @db.ObjectId
   appointmentDate DateTime
@@ -215,6 +221,12 @@ model Appointment {
   status AppointmentStatus @default(pending)
   meetingLink String @default("")
   meetingProvider String @default("zoom")
+
+  transactionId String?
+  paymentStatus paymentStatus? @default(pending)
+  paymentMethod String?
+  paymentAmount Int?
+  sales       Sale[]
   
   createdAt     DateTime       @default(now())
   updatedAt     DateTime?      @updatedAt
@@ -228,6 +240,20 @@ model Inbox {
   senderEmail String
   subject     String
   body      String 
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model Sale {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  appointmentId String @db.ObjectId
+  appointment     Appointment @relation(fields: [appointmentId], references: [id])
+  doctorId   String
+  doctorName   String
+  patientId  String
+  patientName String
+  totalAmount     Int
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
