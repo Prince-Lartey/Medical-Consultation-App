@@ -23,3 +23,36 @@ export async function CreateSale(data: SaleProps) {
         console.log(error)
     }
 }
+
+export async function getSales() {
+    try {
+        const sales = await prismaClient.sale.findMany({
+            orderBy: {
+                createdAt: "desc"
+            }
+        })
+        return sales
+    } catch (error) {
+        console.log(error)
+        return []
+    }
+}
+
+export async function getDoctorSales(doctorId: string) {
+    if (doctorId) {
+        try {
+            const sales = await prismaClient.sale.findMany({
+                orderBy: {
+                    createdAt: "desc"
+                },
+                where: {
+                    doctorId,
+                }
+            })
+            return sales
+        } catch (error) {
+            console.log(error)
+            return []
+        }
+    }
+}

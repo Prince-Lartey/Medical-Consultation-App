@@ -218,7 +218,7 @@ model Appointment {
   occupation String
   patientId String
 
-  status AppointmentStatus @default(pending)
+  status AppointmentStatus @default(approved)
   meetingLink String @default("")
   meetingProvider String @default("zoom")
 
