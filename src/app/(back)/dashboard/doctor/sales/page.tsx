@@ -14,7 +14,7 @@ export default async function page() {
     return (
         <div className='p-8 max-w-4xl mx-auto w-full'>
             {doctorSales.length > 0 ? (
-                <Sales data={doctorSales} title="Appointment Sales" role="DOCTOR" />
+                <Sales data={doctorSales} title="Appointment Sales" role={role}/>
             ) : (
                 <div className="">
                     <p>No Sales Yet</p>
