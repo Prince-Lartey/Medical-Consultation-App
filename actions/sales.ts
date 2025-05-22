@@ -38,7 +38,7 @@ export async function getSales() {
     }
 }
 
-export async function getDoctorSales(doctorId: string) {
+export async function getDoctorSales(doctorId: string | undefined) {
     if (doctorId) {
         try {
             const sales = await prismaClient.sale.findMany({

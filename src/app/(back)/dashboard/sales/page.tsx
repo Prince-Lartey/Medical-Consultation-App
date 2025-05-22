@@ -1,20 +1,16 @@
 import Sales from '@/components/Dashboard/Doctor/Sales'
 import React from 'react'
-import { getDoctorSales } from '../../../../../../actions/sales'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+import { getSales } from '../../../../../actions/sales'
 
 export default async function page() {
-    const session = await getServerSession(authOptions)
-    const id = session?.user.id
-    const role = session?.user.role
-
-    const doctorSales = await getDoctorSales(id)
+    const Sales = await getSales()
 
     return (
         <div className='p-8 max-w-4xl mx-auto w-full'>
-            {doctorSales.length > 0 ? (
-                <Sales data={doctorSales} title="Appointment Sales" role={role}/>
+            {Sales.length > 0 ? (
+                <Sales data={Sales} title="All Appointment Sales" />
             ) : (
                 <div className="">
                     <p>No Sales Yet</p>

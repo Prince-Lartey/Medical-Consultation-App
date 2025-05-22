@@ -1,5 +1,5 @@
 import { prismaClient } from "@/lib/db";
-import { AlarmClock, LayoutGrid, LucideIcon, Mail, UserPen, Users } from "lucide-react";
+import { AlarmClock, DollarSign, LayoutGrid, LucideIcon, Mail, UserPen, Users } from "lucide-react";
 import { getAppointments, getDoctorAppointments, getPatientAppointments } from "./appointments";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -7,6 +7,7 @@ import { Appointment } from "@prisma/client";
 import { getInboxMessage } from "./inbox";
 import { getDoctors } from "./users";
 import { getServices } from "./services";
+import { getDoctorSales } from "./sales";
 
 export type DoctorAnalyticsProps = {
     title: string;
@@ -65,6 +66,7 @@ export async function getDoctorAnalytics() {
         })
         const patients = Array.from(uniquePatientsMap.values())
         const messages = (await getInboxMessage(user!.id)).data
+        const sales = (await getDoctorSales(user!.id)).data
         
         const analytics = [
             {
@@ -87,6 +89,13 @@ export async function getDoctorAnalytics() {
                 icon: Mail,
                 unit: "",
                 detailLink: "/dashboard/doctor/inbox"
+            },
+            {
+                title: "Sales",
+                count: messages.length ?? 0,
+                icon: DollarSign,
+                unit: "",
+                detailLink: "/dashboard/doctor/sales"
             },
         ]
 

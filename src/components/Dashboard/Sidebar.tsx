@@ -62,6 +62,9 @@ export default function Sidebar({session}: {session: Session}) {
                 title: "Appointments", path: "/dashboard/appointments", icon: AlarmClock
             },
             {
+                title: "Sales", path: "/dashboard/doctor/sales", icon: DollarSign
+            },
+            {
                 title: "Settings", path: "/dashboard/settings", icon: Settings
             },
         ],
