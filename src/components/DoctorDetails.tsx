@@ -167,7 +167,7 @@ export default function DoctorDetails({doctor, appointment}: {doctor: DoctorDeta
 
             const res = await createAppointment(data)
 
-            const sale = await CreateSale({
+            await CreateSale({
                 appointmentId: res.data.id,
                 doctorId: doctor.id,
                 doctorName: doctor.name,
